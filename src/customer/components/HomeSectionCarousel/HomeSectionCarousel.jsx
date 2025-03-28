@@ -41,14 +41,14 @@ const HomeSectionCarousel = ({ products }) => {
     const slidePrev = () => {
         if (carouselRef.current && currentIndex > 0) {
             carouselRef.current.slidePrev();
-            setCurrentIndex(prev => Math.max(prev - 1, 0));
+            setCurrentIndex((prev) => Math.max(prev - 1, 0));
         }
     };
 
     const slideNext = () => {
         if (carouselRef.current && currentIndex < maxIndex) {
             carouselRef.current.slideNext();
-            setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
+            setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
         }
     };
 
@@ -71,46 +71,73 @@ const HomeSectionCarousel = ({ products }) => {
                 activeIndex={currentIndex}
             />
 
-            {currentIndex > 0 && (
-                <Button
-                    variant="contained"
-                    className="z-50 bg-white shadow-lg"
-                    onClick={slidePrev}
-                    sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '1rem',
-                        transform: 'translateY(-50%)',
-                        backgroundColor: 'white',
-                        borderRadius: '50%',
-                        minWidth: '3rem',
-                        height: '3rem',
-                    }}
-                    aria-label="previous"
-                >
-                    <KeyboardArrowLeftIcon sx={{ color: 'black' }} />
-                </Button>
-            )}
+            {/* Render both buttons only when needed */}
+            {products.length > visibleItems && (
+                <>
+                    {currentIndex > 0 && (
+                        <Button
+                            variant="contained"
+                            className="z-50 shadow-lg"
+                            onClick={slidePrev}
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '1rem',
+                                transform: 'translateY(-50%)',
+                                backgroundColor: '#ff6f61',
+                                width: '3.5rem',
+                                height: '3.5rem',
+                                minWidth: '3.5rem',
+                                borderRadius: '50%',
+                                padding: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+                                transition: 'all 0.3s ease-in-out',
+                                '&:hover': {
+                                    backgroundColor: '#ff3b2f',
+                                    transform: 'translateY(-50%) scale(1.1)',
+                                },
+                            }}
+                            aria-label="previous"
+                        >
+                            <KeyboardArrowLeftIcon sx={{ fontSize: '2rem', color: 'white' }} />
+                        </Button>
+                    )}
 
-            {currentIndex < maxIndex && (
-                <Button
-                    variant="contained"
-                    className="z-50 bg-white shadow-lg"
-                    onClick={slideNext}
-                    sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        right: '1rem',
-                        transform: 'translateY(-50%)',
-                        backgroundColor: 'white',
-                        borderRadius: '50%',
-                        minWidth: '3rem',
-                        height: '3rem',
-                    }}
-                    aria-label="next"
-                >
-                    <KeyboardArrowRightIcon sx={{ color: 'black' }} />
-                </Button>
+                    {currentIndex < maxIndex && (
+                        <Button
+                            variant="contained"
+                            className="z-50 shadow-lg"
+                            onClick={slideNext}
+                            sx={{
+                                position: 'absolute',
+                                top: '50%',
+                                right: '1rem',
+                                transform: 'translateY(-50%)',
+                                backgroundColor: '#ff6f61',
+                                width: '3.5rem',
+                                height: '3.5rem',
+                                minWidth: '3.5rem',
+                                borderRadius: '50%',
+                                padding: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+                                transition: 'all 0.3s ease-in-out',
+                                '&:hover': {
+                                    backgroundColor: '#ff3b2f',
+                                    transform: 'translateY(-50%) scale(1.1)',
+                                },
+                            }}
+                            aria-label="next"
+                        >
+                            <KeyboardArrowRightIcon sx={{ fontSize: '2rem', color: 'white' }} />
+                        </Button>
+                    )}
+                </>
             )}
         </div>
     );
