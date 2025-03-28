@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import Navigation from './customer/components/Navigation/Navigation';
+import Cart from './customer/components/Cart/Cart';
+import CartItem from './customer/components/Cart/CartItem';
 
 function App() {
   return (
