@@ -14,7 +14,8 @@ function App() {
       <div>
       {/* <HomePage/> */}
       {/* <Product/> */}
-      <ProductDetails/>
+      {/* <ProductDetails/> */}
+      <Cart/>
 
       </div>
       <Footer/>
