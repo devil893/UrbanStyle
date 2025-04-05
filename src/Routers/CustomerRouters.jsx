@@ -31,14 +31,6 @@ const CustomerRoutes = () => {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/account/order" element={<Order />} />
           <Route path="/account/order/:orderId" element={<OrderDetails />} />
-          
-          {/* Additional Routes from Navigation */}
-          <Route path="/brands/:brand" element={<Product brandView={true} />} />
-          <Route path="/about" element={<div>About Page</div>} />
-          <Route path="/stores" element={<div>Stores Page</div>} />
-          <Route path="/login" element={<div>Login Page</div>} />
-          <Route path="/register" element={<div>Register Page</div>} />
-          <Route path="/search" element={<div>Search Page</div>} />
         </Routes>
       </main>
       <Footer />
