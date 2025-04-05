@@ -1,30 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import Navigation from './customer/components/Navigation/Navigation';
-import HomePage from './customer/pages/HomePage/HomePage';
-import Footer from './customer/components/Footer/Footer';
-import Cart from './customer/components/Cart/Cart';
-import Product from './customer/components/Product/Product';  
-import ProductDetails from './customer/components/ProductDetails/ProductDetails';
-import { Check } from '@mui/icons-material';
-import Checkout from './customer/components/Checkout/Checkout';
-import Order from './customer/components/Order/Order';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import CustomerRoutes from './Routers/CustomerRouters';
 
 function App() {
   return (
-    <div className="">
-      <Navigation />
-      <div>
-      {/* <HomePage/> */}
-      {/* <Product/> */}
-      {/* <ProductDetails/> */}
-      {/*<Cart/> */} 
-      { /*<Checkout/> */}
-      <Order/>
-
-      </div>
-      <Footer/>
-    </div>
+    <Router> 
+      <CustomerRoutes />
+    </Router>
   );
 }
 

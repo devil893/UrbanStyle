@@ -1,6 +1,7 @@
 'use client'
 
 import { Fragment, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Dialog,
   DialogBackdrop,
@@ -25,13 +26,13 @@ const navigation = {
       featured: [
         {
           name: 'New Arrivals',
-          href: '#',
+          href: '/products/women/new-arrivals',
           imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/mega-menu-category-01.jpg',
           imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
         },
         {
           name: 'Basic Tees',
-          href: '#',
+          href: '/products/women/basic-tees',
           imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/mega-menu-category-02.jpg',
           imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
         },
@@ -41,38 +42,38 @@ const navigation = {
           id: 'clothing',
           name: 'Clothing',
           items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Dresses', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Denim', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
+            { name: 'Tops', href: '/products/women/tops' },
+            { name: 'Dresses', href: '/products/women/dresses' },
+            { name: 'Pants', href: '/products/women/pants' },
+            { name: 'Denim', href: '/products/women/denim' },
+            { name: 'Sweaters', href: '/products/women/sweaters' },
+            { name: 'T-Shirts', href: '/products/women/t-shirts' },
+            { name: 'Jackets', href: '/products/women/jackets' },
+            { name: 'Activewear', href: '/products/women/activewear' },
+            { name: 'Browse All', href: '/products/women' },
           ],
         },
         {
           id: 'accessories',
           name: 'Accessories',
           items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
+            { name: 'Watches', href: '/products/women/accessories/watches' },
+            { name: 'Wallets', href: '/products/women/accessories/wallets' },
+            { name: 'Bags', href: '/products/women/accessories/bags' },
+            { name: 'Sunglasses', href: '/products/women/accessories/sunglasses' },
+            { name: 'Hats', href: '/products/women/accessories/hats' },
+            { name: 'Belts', href: '/products/women/accessories/belts' },
           ],
         },
         {
           id: 'brands',
           name: 'Brands',
           items: [
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Significant Other', href: '#' },
+            { name: 'Full Nelson', href: '/brands/full-nelson' },
+            { name: 'My Way', href: '/brands/my-way' },
+            { name: 'Re-Arranged', href: '/brands/re-arranged' },
+            { name: 'Counterfeit', href: '/brands/counterfeit' },
+            { name: 'Significant Other', href: '/brands/significant-other' },
           ],
         },
       ],
@@ -83,17 +84,15 @@ const navigation = {
       featured: [
         {
           name: 'New Arrivals',
-          href: '#',
-          imageSrc:
-            'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+          href: '/products/men/new-arrivals',
+          imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
           imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
         },
         {
           name: 'Artwork Tees',
-          href: '#',
+          href: '/products/men/artwork-tees',
           imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-06.jpg',
-          imageAlt:
-            'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+          imageAlt: 'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
         },
       ],
       sections: [
@@ -101,43 +100,43 @@ const navigation = {
           id: 'clothing',
           name: 'Clothing',
           items: [
-            { name: 'Tops', href: '#' },
-            { name: 'Pants', href: '#' },
-            { name: 'Sweaters', href: '#' },
-            { name: 'T-Shirts', href: '#' },
-            { name: 'Jackets', href: '#' },
-            { name: 'Activewear', href: '#' },
-            { name: 'Browse All', href: '#' },
+            { name: 'Tops', href: '/products/men/tops' },
+            { name: 'Pants', href: '/products/men/pants' },
+            { name: 'Sweaters', href: '/products/men/sweaters' },
+            { name: 'T-Shirts', href: '/products/men/t-shirts' },
+            { name: 'Jackets', href: '/products/men/jackets' },
+            { name: 'Activewear', href: '/products/men/activewear' },
+            { name: 'Browse All', href: '/products/men' },
           ],
         },
         {
           id: 'accessories',
           name: 'Accessories',
           items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
+            { name: 'Watches', href: '/products/men/accessories/watches' },
+            { name: 'Wallets', href: '/products/men/accessories/wallets' },
+            { name: 'Bags', href: '/products/men/accessories/bags' },
+            { name: 'Sunglasses', href: '/products/men/accessories/sunglasses' },
+            { name: 'Hats', href: '/products/men/accessories/hats' },
+            { name: 'Belts', href: '/products/men/accessories/belts' },
           ],
         },
         {
           id: 'brands',
           name: 'Brands',
           items: [
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
+            { name: 'Re-Arranged', href: '/brands/re-arranged' },
+            { name: 'Counterfeit', href: '/brands/counterfeit' },
+            { name: 'Full Nelson', href: '/brands/full-nelson' },
+            { name: 'My Way', href: '/brands/my-way' },
           ],
         },
       ],
     },
   ],
   pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
+    { name: 'Company', href: '/about' },
+    { name: 'Stores', href: '/stores' },
   ],
 }
 
@@ -195,10 +194,10 @@ export default function Navigation() {
                             src={item.imageSrc}
                             className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
                           />
-                          <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                          <Link to={item.href} className="mt-6 block font-medium text-gray-900">
                             <span aria-hidden="true" className="absolute inset-0 z-10" />
                             {item.name}
-                          </a>
+                          </Link>
                           <p aria-hidden="true" className="mt-1">
                             Shop now
                           </p>
@@ -217,9 +216,9 @@ export default function Navigation() {
                         >
                           {section.items.map((item) => (
                             <li key={item.name} className="flow-root">
-                              <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                              <Link to={item.href} className="-m-2 block p-2 text-gray-500">
                                 {item.name}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -233,28 +232,28 @@ export default function Navigation() {
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               {navigation.pages.map((page) => (
                 <div key={page.name} className="flow-root">
-                  <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
+                  <Link to={page.href} className="-m-2 block p-2 font-medium text-gray-900">
                     {page.name}
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>
 
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               <div className="flow-root">
-                <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                <Link to="/login" className="-m-2 block p-2 font-medium text-gray-900">
                   Sign in
-                </a>
+                </Link>
               </div>
               <div className="flow-root">
-                <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                <Link to="/register" className="-m-2 block p-2 font-medium text-gray-900">
                   Create account
-                </a>
+                </Link>
               </div>
             </div>
 
             <div className="border-t border-gray-200 px-4 py-6">
-              <a href="#" className="-m-2 flex items-center p-2">
+              <Link to="#" className="-m-2 flex items-center p-2">
                 <img
                   alt=""
                   src="https://tailwindcss.com/plus-assets/img/flags/flag-canada.svg"
@@ -262,7 +261,7 @@ export default function Navigation() {
                 />
                 <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
                 <span className="sr-only">, change currency</span>
-              </a>
+              </Link>
             </div>
           </DialogPanel>
         </div>
@@ -288,14 +287,14 @@ export default function Navigation() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <a href="#">
+                <Link to="/">
                   <span className="sr-only">Your Company</span>
                   <img
                     alt=""
                     src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
                     className="h-8 w-auto"
                   />
-                </a>
+                </Link>
               </div>
 
               {/* Flyout menus */}
@@ -313,7 +312,6 @@ export default function Navigation() {
                         transition
                         className="absolute inset-x-0 top-full text-sm text-gray-500 transition data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
                       >
-                        {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                         <div aria-hidden="true" className="absolute inset-0 top-1/2 bg-white shadow-sm" />
 
                         <div className="relative bg-white">
@@ -327,10 +325,10 @@ export default function Navigation() {
                                       src={item.imageSrc}
                                       className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
                                     />
-                                    <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                    <Link to={item.href} className="mt-6 block font-medium text-gray-900">
                                       <span aria-hidden="true" className="absolute inset-0 z-10" />
                                       {item.name}
-                                    </a>
+                                    </Link>
                                     <p aria-hidden="true" className="mt-1">
                                       Shop now
                                     </p>
@@ -350,9 +348,9 @@ export default function Navigation() {
                                     >
                                       {section.items.map((item) => (
                                         <li key={item.name} className="flex">
-                                          <a href={item.href} className="hover:text-gray-800">
+                                          <Link to={item.href} className="hover:text-gray-800">
                                             {item.name}
-                                          </a>
+                                          </Link>
                                         </li>
                                       ))}
                                     </ul>
@@ -367,30 +365,30 @@ export default function Navigation() {
                   ))}
 
                   {navigation.pages.map((page) => (
-                    <a
+                    <Link
                       key={page.name}
-                      href={page.href}
+                      to={page.href}
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </PopoverGroup>
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link to="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Sign in
-                  </a>
+                  </Link>
                   <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link to="/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Create account
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
-                  <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
+                  <Link to="#" className="flex items-center text-gray-700 hover:text-gray-800">
                     <img
                       alt=""
                       src="https://tailwindcss.com/plus-assets/img/flags/flag-canada.svg"
@@ -398,27 +396,27 @@ export default function Navigation() {
                     />
                     <span className="ml-3 block text-sm font-medium">CAD</span>
                     <span className="sr-only">, change currency</span>
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Search */}
                 <div className="flex lg:ml-6">
-                  <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
+                  <Link to="/search" className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
                     <MagnifyingGlassIcon aria-hidden="true" className="size-6" />
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
+                  <Link to="/cart" className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon
                       aria-hidden="true"
                       className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
                     />
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
                     <span className="sr-only">items in cart, view bag</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

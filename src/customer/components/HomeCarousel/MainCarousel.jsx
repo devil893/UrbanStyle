@@ -2,21 +2,21 @@ import React from "react";
 import { MainCarouselData } from "./MainCarouselData";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+import "./MainCarousel.css"; // Import CSS for further adjustments
 
 const MainCarousel = () => {
   const items = MainCarouselData.map((item, index) => (
     <img
       key={index}
-      className="cursor-pointer"
+      className="carousel-image cursor-pointer"
       role="presentation"
       src={item.image}
       alt=""
-      style={{ width: "100%", height: "500px", objectFit: "cover" }}
     />
   ));
 
   return (
-    <div className="relative -z-10">
+    <div className="main-carousel-container">
       <AliceCarousel
         items={items}
         autoPlay
