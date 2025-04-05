@@ -9,21 +9,38 @@ import ProductDetails from "../customer/components/ProductDetails/ProductDetails
 import Checkout from "../customer/components/Checkout/Checkout";
 import Order from "../customer/components/Order/Order";
 import OrderDetails from "../customer/components/Order/OrderDetails";
+import ProductsCategory from "../customer/components/Product/ProductsCategory";
 
 const CustomerRoutes = () => {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navigation />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/product/:productId" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/account/order" element={<Order />} />
-        <Route path="/account/order/:orderId" element={<OrderDetails />} />
-      </Routes>
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
+          
+          {/* Product Routes */}
+          <Route path="/products" element={<Product />} />
+          <Route path="/products/:category" element={<ProductsCategory />} />
+          <Route path="/products/:category/:subcategory" element={<ProductsCategory />} />
+          <Route path="/product/:productId" element={<ProductDetails />} />
+          
+          {/* Other Routes */}
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/account/order" element={<Order />} />
+          <Route path="/account/order/:orderId" element={<OrderDetails />} />
+          
+          {/* Additional Routes from Navigation */}
+          <Route path="/brands/:brand" element={<Product brandView={true} />} />
+          <Route path="/about" element={<div>About Page</div>} />
+          <Route path="/stores" element={<div>Stores Page</div>} />
+          <Route path="/login" element={<div>Login Page</div>} />
+          <Route path="/register" element={<div>Register Page</div>} />
+          <Route path="/search" element={<div>Search Page</div>} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );

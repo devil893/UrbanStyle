@@ -13,7 +13,7 @@ import {
   MenuButton,
   MenuItem,
   MenuItems,
-  Transition
+  Transition,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -30,7 +30,7 @@ import {
   FormControl,
   Pagination,
   Backdrop,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
 
@@ -48,10 +48,10 @@ export default function Product() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [isLoaderOpen, setIsLoaderOpen] = useState(false);
   const navigate = useNavigate();
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const param = useParams();
-//   const { customersProduct } = useSelector((store) => store);
+  //   const { customersProduct } = useSelector((store) => store);
   const location = useLocation();
 
   const categories = [...new Set(products.map((item) => item.category))];
@@ -141,13 +141,13 @@ export default function Product() {
     stock,
   ]);
 
-//   useEffect(() => {
-//     if (customersProduct.loading) {
-//       setIsLoaderOpen(true);
-//     } else {
-//       setIsLoaderOpen(false);
-//     }
-//   }, [customersProduct.loading]);
+  //   useEffect(() => {
+  //     if (customersProduct.loading) {
+  //       setIsLoaderOpen(true);
+  //     } else {
+  //       setIsLoaderOpen(false);
+  //     }
+  //   }, [customersProduct.loading]);
 
   return (
     <div className="bg-white -z-20">
@@ -476,13 +476,8 @@ export default function Product() {
 
                         {/* Product Grid */}
                         <div className="flex flex-wrap justify-center bg-white py-5">
-                          {filteredProducts.map((item) => (
-                            <ProductCard
-                              key={item.id}
-                              title={item.title}
-                              price={item.price}
-                              image={item.image}
-                            />
+                          {filteredProducts.map((product) => (
+                            <ProductCard key={product.id} product={product} />
                           ))}
                         </div>
                       </div>

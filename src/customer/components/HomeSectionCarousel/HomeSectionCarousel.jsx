@@ -71,7 +71,6 @@ const HomeSectionCarousel = ({ products }) => {
                 activeIndex={currentIndex}
             />
 
-            {/* Render both buttons only when needed */}
             {products.length > visibleItems && (
                 <>
                     {currentIndex > 0 && (

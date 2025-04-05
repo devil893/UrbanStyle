@@ -1,117 +1,97 @@
 "use client";
 import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import ProductReviewCard from "./ProductReviewCard";
 import { Box, Button, Grid, LinearProgress, Rating } from "@mui/material";
 import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
 import HomeSectionCarousel from "../../components/HomeSectionCarousel/HomeSectionCarousel";
 import products from "../../data";
 
-const product = {
-  name: "Basic Tee 6-Pack",
-  price: "PKR 996",
-  href: "#",
-  breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ],
-  images: [
-    {
-        src: "/images/polo1.jpg", // Path to your image in public folder
-        alt: "Front view of basic tee",
-      },
-      {
-        src: "/images/polo2.jpg", 
-        alt: "Side view of basic tee",
-      },
-      {
-        src: "/images/polo3.jpg",
-        alt: "Back view of basic tee",
-      },
-      {
-        src: "/images/polo4.jpg",
-        alt: "Close-up of fabric",
-      },
-  ],
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-  ],
-  sizes: [
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-  ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton",
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-};
-
-const reviews = { href: "#", average: 4, totalCount: 117 };
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function ProductDetails() {
+  const navigate = useNavigate();
   const [selectedSize, setSelectedSize] = useState();
-  const [activeImage, setActiveImage] = useState(null);
+  const [activeImage, setActiveImage] = useState(0);
   const { productId } = useParams();
+  const location = useLocation();
 
-  // Local product data
-  const currentProduct = products.find(p => p.id === Number(productId)) || {
-    imageUrl: product.images[0].src,
-    brand: "Sample Brand",
-    title: "Sample Product",
-    discountedPrice: "999",
-    price: "1299",
-    discountPersent: "23",
-    description: product.description
+  // Get product from location state or find from products array
+  const product = location.state?.product || 
+                 products.find(p => p.id === Number(productId));
+
+  if (!product) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1 className="text-2xl font-bold">Product not found</h1>
+        <Button 
+          variant="contained" 
+          onClick={() => navigate('/')}
+          className="mt-4"
+        >
+          Back to Home
+        </Button>
+      </div>
+    );
+  }
+
+  // Product details data
+  const productDetails = {
+    name: product.title,
+    price: product.price,
+    discountedPrice: product.discountedPrice,
+    discountPersent: product.discountPersent,
+    breadcrumbs: [
+      { id: 1, name: "Home", href: "/" },
+      { id: 2, name: product.category || "Category", href: "#" },
+    ],
+    images: [
+      { src: product.image, alt: product.title },
+      { src: product.image, alt: `${product.title} alternate view 1` },
+      { src: product.image, alt: `${product.title} alternate view 2` },
+    ],
+    colors: [
+      { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
+      { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
+    ],
+    sizes: [
+      { name: "S", inStock: true },
+      { name: "M", inStock: true },
+      { name: "L", inStock: true },
+    ],
+    description: product.description || "No description available",
+    highlights: [
+      "High-quality material",
+      "Comfortable fit",
+      "Durable construction",
+    ],
+    details: "Product details not specified",
   };
 
-  // Local reviews data
-  const productReviews = [
-    {
-      id: 1,
-      user: { firstName: "John", lastName: "Doe" },
-      rating: 4,
-      review: "Great product!",
-      createdAt: "2023-01-01"
-    }
-  ];
-
-  const handleSetActiveImage = (image) => {
-    setActiveImage(image);
-  };
+  const reviews = { href: "#", average: 4, totalCount: 117 };
 
   // Similar products filtering
-  const mensPolos = products?.filter((product) => product.category === "Mens Polos") || [];
-  const tops = products?.filter((product) => product.category === "Tops") || [];
-  const shirts = products?.filter((product) => product.category === "Shirts") || [];
-  const jeans = products?.filter((product) => product.category === "Jeans") || [];
+  const similarProducts = products.filter(p => 
+    p.category === product.category && p.id !== product.id
+  ).slice(0, 4);
+
+  const handleSetActiveImage = (index) => {
+    setActiveImage(index);
+  };
 
   return (
     <div className="bg-white lg:px-20">
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
-          <ol
-            role="list"
-            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
-          >
-            {product.breadcrumbs.map((breadcrumb) => (
+          <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+            {productDetails.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
                 <div className="flex items-center">
                   <a
-                    href={"/"}
+                    href={breadcrumb.href}
                     className="mr-2 text-sm font-medium text-gray-900"
                   >
                     {breadcrumb.name}
@@ -121,7 +101,6 @@ export default function ProductDetails() {
                     height={20}
                     viewBox="0 0 16 20"
                     fill="currentColor"
-                    aria-hidden="true"
                     className="h-5 w-4 text-gray-300"
                   >
                     <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
@@ -130,32 +109,31 @@ export default function ProductDetails() {
               </li>
             ))}
             <li className="text-sm">
-              <a
-                href={product.href}
-                aria-current="page"
-                className="font-medium text-gray-500 hover:text-gray-600"
-              >
-                {product.name}
-              </a>
+              <span className="font-medium text-gray-500">
+                {productDetails.name}
+              </span>
             </li>
           </ol>
         </nav>
 
+        {/* Product Images */}
         <section className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-2 px-4 pt-10">
-          <div className="flex flex-col items-center ">
+          <div className="flex flex-col items-center">
             <div className="overflow-hidden rounded-lg max-w-[30rem] max-h-[35rem]">
               <img
-                src={activeImage?.src || currentProduct.imageUrl}
-                alt={product.images[0].alt}
+                src={productDetails.images[activeImage].src}
+                alt={productDetails.images[activeImage].alt}
                 className="h-full w-full object-cover object-center"
               />
             </div>
-            <div className="flex flex-wrap space-x-5 justify-center">
-              {product.images.map((image) => (
+            <div className="flex flex-wrap space-x-5 justify-center mt-4">
+              {productDetails.images.map((image, index) => (
                 <div
-                  key={image.src}
-                  onClick={() => handleSetActiveImage(image)}
-                  className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg max-w-[5rem] max-h-[5rem] mt-4"
+                  key={index}
+                  onClick={() => handleSetActiveImage(index)}
+                  className={`aspect-h-2 aspect-w-3 overflow-hidden rounded-lg max-w-[5rem] max-h-[5rem] cursor-pointer ${
+                    activeImage === index ? 'ring-2 ring-indigo-500' : ''
+                  }`}
                 >
                   <img
                     src={image.src}
@@ -167,46 +145,31 @@ export default function ProductDetails() {
             </div>
           </div>
 
+          {/* Product Info */}
           <div className="lg:col-span-1 mx-auto max-w-2xl px-4 pb-16 sm:px-6 lg:max-w-7xl lg:px-8 lg:pb-24">
             <div className="lg:col-span-2">
               <h1 className="text-lg lg:text-xl font-semibold tracking-tight text-gray-900">
-                {currentProduct.brand}
+                {product.brand}
               </h1>
               <h1 className="text-lg lg:text-xl tracking-tight text-gray-900 opacity-60 pt-1">
-                {currentProduct.title}
+                {product.title}
               </h1>
             </div>
 
             <div className="mt-4 lg:row-span-3 lg:mt-0">
-              <h2 className="sr-only">Product information</h2>
               <div className="flex space-x-5 items-center text-lg lg:text-xl tracking-tight text-gray-900 mt-6">
                 <p className="font-semibold">
-                  PKR {currentProduct.discountedPrice}
+                  PKR {productDetails.discountedPrice}
                 </p>
                 <p className="opacity-50 line-through">
-                  PKR {currentProduct.price}
+                  PKR {productDetails.price}
                 </p>
                 <p className="text-green-600 font-semibold">
-                  {currentProduct.discountPersent}% Off
+                  {productDetails.discountPersent}% Off
                 </p>
               </div>
 
-              <div className="mt-6">
-                <h3 className="sr-only">Reviews</h3>
-                <div className="flex items-center space-x-3">
-                  <Rating
-                    name="read-only"
-                    value={4.6}
-                    precision={0.5}
-                    readOnly
-                  />
-                  <p className="opacity-60 text-sm">42807 Ratings</p>
-                  <p className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                    {reviews.totalCount} reviews
-                  </p>
-                </div>
-              </div>
-
+              {/* Size Selection */}
               <form className="mt-10">
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
@@ -218,11 +181,8 @@ export default function ProductDetails() {
                     onChange={setSelectedSize}
                     className="mt-4"
                   >
-                    <RadioGroup.Label className="sr-only">
-                      Choose a size
-                    </RadioGroup.Label>
-                    <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-10">
-                      {product.sizes.map((size) => (
+                    <div className="grid grid-cols-4 gap-4">
+                      {productDetails.sizes.map((size) => (
                         <RadioGroup.Option
                           key={size.name}
                           value={size}
@@ -233,7 +193,7 @@ export default function ProductDetails() {
                                 ? "cursor-pointer bg-white text-gray-900 shadow-sm"
                                 : "cursor-not-allowed bg-gray-50 text-gray-200",
                               active ? "ring-1 ring-indigo-500" : "",
-                              "group relative flex items-center justify-center rounded-md border py-1 px-1 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
+                              "group relative flex items-center justify-center rounded-md border py-1 px-1 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none"
                             )
                           }
                         >
@@ -291,12 +251,13 @@ export default function ProductDetails() {
               </form>
             </div>
 
+            {/* Product Description */}
             <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
               <div>
                 <h3 className="sr-only">Description</h3>
                 <div className="space-y-6">
                   <p className="text-base text-gray-900">
-                    {currentProduct.description}
+                    {productDetails.description}
                   </p>
                 </div>
               </div>
@@ -307,85 +268,25 @@ export default function ProductDetails() {
                 </h3>
                 <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                    {product.highlights.map((highlight) => (
-                      <li key={highlight} className="text-gray-400">
+                    {productDetails.highlights.map((highlight, index) => (
+                      <li key={index} className="text-gray-400">
                         <span className="text-gray-600">{highlight}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
-
-              <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
-                <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-600">{product.details}</p>
-                </div>
-              </div>
             </div>
           </div>
         </section>
 
-        <section className="">
-          <h1 className="font-semibold text-lg pb-4">
-            Recent Review & Ratings
-          </h1>
-          <div className="border p-5">
-            <Grid container spacing={7}>
-              <Grid item xs={7}>
-                <div className="space-y-5">
-                  {productReviews.map((item) => (
-                    <ProductReviewCard key={item.id} item={item} />
-                  ))}
-                </div>
-              </Grid>
-              <Grid item xs={5}>
-                <h1 className="text-xl font-semibold pb-1">Product Ratings</h1>
-                <div className="flex items-center space-x-3 pb-10">
-                  <Rating
-                    name="read-only"
-                    value={4.6}
-                    precision={0.5}
-                    readOnly
-                  />
-                  <p className="opacity-60">42807 Ratings</p>
-                </div>
-                <Box>
-                  <Grid
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    gap={2}
-                  >
-                    <Grid item xs={2}>
-                      <p className="p-0">Excellent</p>
-                    </Grid>
-                    <Grid item xs={7}>
-                      <LinearProgress
-                        sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
-                        variant="determinate"
-                        value={40}
-                        color="success"
-                      />
-                    </Grid>
-                    <Grid item xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
-                    </Grid>
-                  </Grid>
-                </Box>
-                {/* Other rating bars remain the same */}
-              </Grid>
-            </Grid>
-          </div>
-        </section>
-
-        <section className="pt-10">
-          <h1 className="py-5 text-xl font-bold">Similar Products</h1>
-          {mensPolos.length > 0 && <HomeSectionCarousel products={mensPolos} />}
-          {tops.length > 0 && <HomeSectionCarousel products={tops} />}
-          {shirts.length > 0 && <HomeSectionCarousel products={shirts} />}
-          {jeans.length > 0 && <HomeSectionCarousel products={jeans} />}
-        </section>
+        {/* Similar Products */}
+        {similarProducts.length > 0 && (
+          <section className="pt-10">
+            <h1 className="py-5 text-xl font-bold">Similar Products</h1>
+            <HomeSectionCarousel products={similarProducts} />
+          </section>
+        )}
       </div>
     </div>
   );
