@@ -28,7 +28,7 @@
   
   @media (max-width: 480px) {
     .main-carousel-container {
-      height: 26vh; /* Further adjust for very small devices */
+      height: 21vh; /* Further adjust for very small devices */
     }
     
     .carousel-image {
