@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navigation from "../customer/components/Navigation/Navigation";
 import Footer from "../customer/components/Footer/Footer";
 import HomePage from "../customer/pages/HomePage/HomePage";
@@ -11,10 +11,22 @@ import Order from "../customer/components/Order/Order";
 import OrderDetails from "../customer/components/Order/OrderDetails";
 import ProductsCategory from "../customer/components/Product/ProductsCategory";
 
+// ScrollToTop Component
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 const CustomerRoutes = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navigation />
+      <ScrollToTop /> {/* Scrolls to top on route change */}
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />
