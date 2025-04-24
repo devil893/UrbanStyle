@@ -56,7 +56,7 @@ async function removeCartItem(userId, cartItemId) {
   const reqUser = await userService.findUserById(userId);
 
   if (user.id === reqUser.id) {
-    await CartItem.findByIdAndDelete(cartItem.id);
+    return await CartItem.findByIdAndDelete(cartItem.id);
   } else {
     throw new UserException("You can't remove another user's item");
   }
