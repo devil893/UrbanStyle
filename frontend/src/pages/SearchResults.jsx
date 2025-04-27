@@ -13,7 +13,7 @@ const SearchResults = () => {
     
     // Filter states
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [priceRange, setPriceRange] = useState({ min: 0, max: 300 });
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
     const [showFilters, setShowFilters] = useState(false);
     
     // Available categories
@@ -83,7 +83,7 @@ const SearchResults = () => {
     // Clear all filters
     const clearFilters = () => {
         setSelectedCategories([]);
-        setPriceRange({ min: 0, max: 300 });
+        setPriceRange({ min: 0, max: 1000 });
     };
     
     // Toggle filter visibility on mobile
