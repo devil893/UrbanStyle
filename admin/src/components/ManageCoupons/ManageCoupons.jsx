@@ -1,0 +1,186 @@
+import React, { useState, useEffect } from "react";
+import './ManageCoupons.css';
+import bin from './../../assets/recycle-bin.png';
+import { toast } from "react-toastify";
+
+const ManageCoupons = () => {
+    const backend_url = process.env.REACT_APP_API_URL;
+    const token = localStorage.getItem("token");
+    const [coupons, setCoupons] = useState([]);
+    const [couponDetails, setCouponDetails] = useState({
+        code: "",
+        value: "",
+        expiryDate: ""
+    });
+
+    const fetchCoupons = async () => {
+        try {
+            const response = await fetch(`${backend_url}/api/coupons`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setCoupons(data);
+            } else {
+                toast.error(data.error || "Failed to fetch coupons");
+            }
+        } catch (error) {
+            toast.error("Error connecting to server");
+        }
+    };
+
+    useEffect(() => {
+        fetchCoupons();
+    }, []);
+
+    const changeHandler = (e) => {
+        setCouponDetails({ ...couponDetails, [e.target.name]: e.target.value });
+    };
+
+    const addCoupon = async () => {
+        try {
+            if (!couponDetails.code || !couponDetails.value) {
+                return toast.error("Coupon code and value are required");
+            }
+
+            const response = await fetch(`${backend_url}/api/coupons`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(couponDetails)
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                toast.success("Coupon added successfully");
+                setCouponDetails({
+                    code: "",
+                    value: "",
+                    expiryDate: ""
+                });
+                fetchCoupons();
+            } else {
+                toast.error(data.error || "Failed to add coupon");
+            }
+        } catch (error) {
+            toast.error("Error connecting to server");
+        }
+    };
+
+    const deleteCoupon = async (id) => {
+        try {
+            const response = await fetch(`${backend_url}/api/coupons/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                toast.success("Coupon deleted successfully");
+                fetchCoupons();
+            } else {
+                toast.error(data.error || "Failed to delete coupon");
+            }
+        } catch (error) {
+            toast.error("Error connecting to server");
+        }
+    };
+
+    // Check if coupon is expired
+    const isExpired = (expiryDate) => {
+        if (!expiryDate) return false;
+        return new Date() > new Date(expiryDate);
+    };
+
+    return (
+        <div className="manage-coupons">
+            <h1>Manage Coupons</h1>
+            
+            <div className="add-coupon-section">
+                <h2>Add New Coupon</h2>
+                <div className="coupon-form">
+                    <div className="coupon-form-field">
+                        <p>Coupon Code</p>
+                        <input 
+                            type="text" 
+                            name="code" 
+                            placeholder="Enter coupon code" 
+                            value={couponDetails.code}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="coupon-form-field">
+                        <p>Discount Value ($)</p>
+                        <input 
+                            type="number" 
+                            name="value" 
+                            placeholder="Enter discount amount" 
+                            value={couponDetails.value}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="coupon-form-field">
+                        <p>Expiry Date (Optional)</p>
+                        <input 
+                            type="date" 
+                            name="expiryDate" 
+                            value={couponDetails.expiryDate}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <button className="add-coupon-btn" onClick={addCoupon}>ADD COUPON</button>
+                </div>
+            </div>
+
+            <div className="coupon-list-section">
+                <h2>Current Coupons</h2>
+                <div className="coupon-list-format-main">
+                    <p>Code</p>
+                    <p>Value</p>
+                    <p>Expiry Date</p>
+                    <p>Status</p>
+                    <p>Remove</p>
+                </div>
+                <div className="coupon-list">
+                    <hr />
+                    {coupons.length === 0 ? (
+                        <div className="no-coupons">
+                            <p>No coupons found. Add one to get started.</p>
+                        </div>
+                    ) : (
+                        coupons.map((coupon, index) => (
+                            <React.Fragment key={index}>
+                                <div className="coupon-list-format-main coupon-list-item">
+                                    <p>{coupon.code}</p>
+                                    <p>${coupon.value}</p>
+                                    <p>{coupon.expiryDate ? new Date(coupon.expiryDate).toLocaleDateString() : "No expiry"}</p>
+                                    <p className={isExpired(coupon.expiryDate) ? "expired" : "active"}>
+                                        {isExpired(coupon.expiryDate) ? "Expired" : "Active"}
+                                    </p>
+                                    <img 
+                                        src={bin} 
+                                        alt="delete" 
+                                        className="coupon-remove-icon" 
+                                        onClick={() => deleteCoupon(coupon._id)}
+                                    />
+                                </div>
+                                <hr />
+                            </React.Fragment>
+                        ))
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ManageCoupons;
+
