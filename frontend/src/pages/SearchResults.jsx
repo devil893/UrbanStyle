@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Item from '../components/Item/Item';
-import { StoreContext } from '../context/StoreContext';
-import './CSS/SearchResults.css';
+import Item from "../components/Item/Item";
+import { StoreContext } from "../context/StoreContext";
+import "./CSS/SearchResults.css";
 
 const SearchResults = () => {
     const location = useLocation();
@@ -13,7 +13,7 @@ const SearchResults = () => {
     
     // Filter states
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [priceRange, setPriceRange] = useState({ min: 0, max: 200 });
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 300 });
     const [showFilters, setShowFilters] = useState(false);
     
     // Available categories
@@ -43,22 +43,21 @@ const SearchResults = () => {
     
     // Apply filters to get filtered results
     const getFilteredResults = () => {
-        // If no filters are active, return all search results
-        if (selectedCategories.length === 0 && priceRange.min === 0 && priceRange.max === 200) {
-            return searchResults;
-        }
-
         let filtered = [...searchResults];
         
         // Apply category filter if any categories are selected
         if (selectedCategories.length > 0) {
-            filtered = filtered.filter(item => selectedCategories.includes(item.category));
+            filtered = filtered.filter(item => {
+                const itemCategory = item.category.toLowerCase();
+                return selectedCategories.some(category => category.toLowerCase() === itemCategory);
+            });
         }
         
-        // Apply price range filter
-        filtered = filtered.filter(item => 
-            item.new_price >= priceRange.min && item.new_price <= priceRange.max
-        );
+        // Always apply price range filter regardless of default values
+        filtered = filtered.filter(item => {
+            const price = Number(item.new_price);
+            return price >= Number(priceRange.min) && price <= Number(priceRange.max);
+        });
         
         return filtered;
     };
@@ -84,13 +83,14 @@ const SearchResults = () => {
     // Clear all filters
     const clearFilters = () => {
         setSelectedCategories([]);
-        setPriceRange({ min: 0, max: 200 });
+        setPriceRange({ min: 0, max: 300 });
     };
     
     // Toggle filter visibility on mobile
     const toggleFilters = () => {
         setShowFilters(!showFilters);
     };
+
     return (
         <div className="search-results-page">
             <div className="search-results-header">
@@ -103,7 +103,7 @@ const SearchResults = () => {
             </div>
             
             <div className="search-results-container">
-                <div className={`filter-sidebar ${showFilters ? 'show' : ''}`}>
+                <div className={`filter-sidebar ${showFilters ? "show" : ""}`}>
                     <div className="filter-section">
                         <h3>Filter By Category</h3>
                         <div className="filter-options">
@@ -170,7 +170,7 @@ const SearchResults = () => {
                     <div className="no-results">
                         <h2>No products found</h2>
                         <p>Try a different search term or browse our categories</p>
-                        <button onClick={() => navigate('/')}>Back to Home</button>
+                        <button onClick={() => navigate("/")}>Back to Home</button>
                     </div>
                 )}
             </div>
