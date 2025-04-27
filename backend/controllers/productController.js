@@ -1,7 +1,7 @@
 const Product = require("./../models/productModel");
 const fs = require("fs");
 require("dotenv").config({ path: "./config.env" });
-const cloudinary = require('./../utils/cloudinary');
+const cloudinary = require("./../utils/cloudinary");
 
 const backend_url = process.env.BACKEND_URL;
 
@@ -19,7 +19,7 @@ exports.createProduct = async (req, res, next) => {
   const length = products.length;
   let id = 1;
   if (length > 0) id = products[length - 1].id + 1;
-  const { name, category, new_price, old_price } = req.body;
+  const { name, category, new_price, old_price, description } = req.body;
   try {
     // upload image to Cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
@@ -28,6 +28,7 @@ exports.createProduct = async (req, res, next) => {
       name,
       image: result.secure_url,
       category,
+      description,
       new_price,
       old_price,
     });
@@ -42,7 +43,7 @@ exports.deleteProduct = async (req, res, next) => {
   try {
     const product = await Product.findOne({ id });
     // Delete the image from Cloudinary 
-    const imageId = product.image.split('/').pop().split('.')[0]; 
+    const imageId = product.image.split("/").pop().split(".")[0]; 
     await cloudinary.uploader.destroy(imageId);
     await Product.findOneAndDelete({ id });
     res.status(200).json(product);

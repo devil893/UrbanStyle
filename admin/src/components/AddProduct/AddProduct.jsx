@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import './AddProduct.css';
-import upload_area from './../../assets/upload_area.svg';
+import "./AddProduct.css";
+import upload_area from "./../../assets/upload_area.svg";
 import {toast} from "react-toastify";
 
 const AddProduct = () => {
@@ -11,6 +11,7 @@ const AddProduct = () => {
     const [productDetails, setProductDetails] = useState({
         name: "",
         category:"tshirts",
+        description: "", // Added description field
         new_price:"",
         old_price:""
     });
@@ -21,22 +22,21 @@ const AddProduct = () => {
 
     const changeHandler = (e)=>{
         setProductDetails({...productDetails,[e.target.name]:e.target.value})
-        // console.log(productDetails);
     }
 
     const addProduct = async () =>{
-
         const formData = new FormData();
         formData.append("name",productDetails.name);
         formData.append("product",image);
         formData.append("category",productDetails.category);
+        formData.append("description",productDetails.description); // Added description
         formData.append("new_price",productDetails.new_price);
         formData.append("old_price",productDetails.old_price);
     
         const response = await fetch(`${backend_url}/api/products`,{
-            method:'POST',
+            method:"POST",
             headers:{
-                'Authorization': `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             },
             body:formData,
         });
@@ -44,11 +44,12 @@ const AddProduct = () => {
             setProductDetails({
                 name: "",
                 category:"tshirts",
+                description: "", // Reset description
                 new_price:"",
                 old_price:""
             });
             setImage(false);
-            toast.success('product added');
+            toast.success("product added");
         }
         else toast.error("failed");
     }
@@ -58,6 +59,19 @@ const AddProduct = () => {
             <div className="addproduct-itemfield">
                 <p>Product Title</p>
                 <input value={productDetails.name} onChange={changeHandler} type="text" name="name" placeholder="Type here"/>
+                
+                <div className="addproduct-itemfield">
+                    <p>Product Description</p>
+                    <textarea 
+                        value={productDetails.description}
+                        onChange={changeHandler}
+                        name="description"
+                        placeholder="Enter product description"
+                        className="addproduct-description"
+                        rows="4"
+                    />
+                </div>
+
                 <div className="addproduct-price">
                     <div className="addproduct-itemfield">
                         <p>Price</p>
@@ -80,7 +94,7 @@ const AddProduct = () => {
                     <label htmlFor="file-input">
                         <img src={image?URL.createObjectURL(image):upload_area} alt="" className="addproduct-thumbnail-img"/>
                     </label>
-                    <input onChange={imageHandler} type="file" name='image' id='file-input' hidden/>
+                    <input onChange={imageHandler} type="file" name="image" id="file-input" hidden/>
                 </div>
                 <button onClick={addProduct} className="addproduct-btn">ADD</button>
             </div>
