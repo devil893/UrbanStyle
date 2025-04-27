@@ -64,13 +64,31 @@ const Navbar = () => {
         setShowResults(false);
     };
 
+    // Handle search form submit
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim() !== "") {
+            navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+            setShowResults(false);
+        }
+    };
+
+    // Handle key press in search input
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSearchSubmit(e);
+        }
+    };
+
     return ( 
         <div className='navbar'>
             <div className="nav-logo">
                 <img src={logo} alt="" />
                 <p>UrbanStyle</p>
             </div>
+            
             <img className="nav-hamburger" onClick={hamburger_toggle} src={hamburger} alt="" />
+            
             <ul ref={menuRef} className="nav-menu">
                 <li onClick={()=>setMenu("home")}><Link style={{textDecoration: 'none'}} to="/" className={menu==="home"?"active":""}>Home</Link></li>
                 <li onClick={()=>setMenu("polo")}><Link style={{textDecoration: 'none'}} to="/polo" className={menu==="polo"?"active":""}>Polo</Link></li>
@@ -79,19 +97,24 @@ const Navbar = () => {
             </ul>
             
             <div className="nav-search" ref={searchRef}>
-                <div className="search-input-container">
+                <form onSubmit={handleSearchSubmit} className="search-input-container">
                     <input 
                         type="text" 
-                        placeholder="Search products..." 
+                        placeholder="Search & press Enter..." 
                         value={searchTerm}
                         onChange={(e) => {
                             setSearchTerm(e.target.value);
                             setShowResults(true);
                         }}
                         onFocus={() => setShowResults(true)}
+                        onKeyPress={handleKeyPress}
                     />
-                    <div className="search-icon"></div>
-                </div>
+                    <div 
+                        className="search-icon" 
+                        onClick={handleSearchSubmit}
+                        title="Search"
+                    ></div>
+                </form>
                 
                 {showResults && searchResults.length > 0 && (
                     <ul className="search-results">

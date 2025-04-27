@@ -12,6 +12,7 @@ import Footer from "./components/Footer/Footer";
 import PlaceOrder from "./pages/PlaceOrder";
 import Verify from "./pages/Verify";
 import MyOrders from "./pages/MyOrders";
+import SearchResults from "./pages/SearchResults";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/order" element={<PlaceOrder/>}/>
           <Route path="/verify" element={<Verify/>}/>
           <Route path="myorders" element={<MyOrders/>}/>
+          <Route path="/search" element={<SearchResults/>}/>
         </Routes>
         <Footer />
     </div>
