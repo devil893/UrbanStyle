@@ -119,10 +119,96 @@
     cursor: pointer;
 }
 
+/* Search styling */
+.nav-search {
+    position: relative;
+    width: 250px;
+}
+
+.search-input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav-search input {
+    width: 100%;
+    padding: 8px 35px 8px 12px;
+    border: 1px solid tomato;
+    border-radius: 75px;
+    outline: none;
+    font-size: 14px;
+    color: #515151;
+}
+
+.search-icon {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    right: 12px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.search-icon::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border: 2px solid tomato;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.search-icon::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 6px;
+    height: 2px;
+    background-color: tomato;
+    transform: rotate(45deg);
+    transform-origin: 0 0;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin-top: 5px;
+    background-color: #fff;
+    border: 1px solid tomato;
+    border-radius: 4px;
+    z-index: 1000;
+    padding: 0;
+    list-style: none;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.search-results li {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-results li:hover {
+    background-color: #f5e0e0;
+    color: tomato;
+}
+
 
 @media(max-width:1280px){
     .navbar{
         padding: 12px 50px;
+    }
+    .nav-search {
+        width: 200px;
     }
     .nav-logo img{
         width: 40px;
@@ -151,6 +237,9 @@
     .navbar{
         padding: 12px 30px;
     }
+    .nav-search {
+        width: 150px;
+    }
     .nav-menu{
         gap: 25px;
         font-size: 14px;
@@ -171,6 +260,13 @@
 @media(max-width:800px){
     .navbar{
         padding: 10px 0px;
+    }
+    .nav-search {
+        width: 120px;
+    }
+    .nav-search input {
+        font-size: 12px;
+        padding: 6px 30px 6px 10px;
     }
     .nav-hamburger{
         display: block;
@@ -199,6 +295,27 @@
     .navbar{
         padding: 8px 0px;
         gap: 0;
+    }
+    .nav-search {
+        width: 100px;
+    }
+    .nav-search input {
+        font-size: 11px;
+        padding: 5px 25px 5px 8px;
+    }
+    .search-icon {
+        width: 14px;
+        height: 14px;
+        right: 8px;
+    }
+    .search-icon::before {
+        width: 8px;
+        height: 8px;
+    }
+    .search-icon::after {
+        top: 10px;
+        left: 10px;
+        width: 4px;
     }
     .nav-logo{
         transform: scale(0.8);
