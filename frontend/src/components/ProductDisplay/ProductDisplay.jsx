@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import './ProductDisplay.css'
+import "./ProductDisplay.css"
 import star_icon from "../../assets/star_icon.png"
 import star_dull_icon from "../../assets/star_dull_icon.png"
 import { StoreContext } from "../../context/StoreContext";
@@ -7,6 +7,22 @@ import { StoreContext } from "../../context/StoreContext";
 const ProductDisplay = (props) => {
     const {product} = props;
     const {addToCart} = useContext(StoreContext);
+
+    // Function to render stars based on rating
+    const renderStars = (rating) => {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            stars.push(
+                <img 
+                    key={i} 
+                    src={i <= rating ? star_icon : star_dull_icon} 
+                    alt={`star ${i}`} 
+                />
+            );
+        }
+        return stars;
+    };
+
     return ( 
         <div className="productdisplay">
             <div className="productdisplay-left">
@@ -23,12 +39,8 @@ const ProductDisplay = (props) => {
             <div className="productdisplay-right">
                 <h1>{product.name}</h1>
                 <div className="productdisplay-right-stars">
-                    <img src={star_icon} alt="" />
-                    <img src={star_icon} alt="" />
-                    <img src={star_icon} alt="" />
-                    <img src={star_icon} alt="" />
-                    <img src={star_dull_icon} alt="" />
-                    <p>(122)</p>
+                    {renderStars(Math.round(product.averageRating || 0))}
+                    <p>({product.numReviews || 0} reviews)</p>
                 </div>
                 <div className="productdisplay-right-prices">
                    <div className="productdisplay-right-price-old">
@@ -39,27 +51,38 @@ const ProductDisplay = (props) => {
                    </div>
                 </div>
                 <div className="productdisplay-right-description">
-                Experience the perfect blend of style and comfort with our Classic Comfort Garment. Crafted from high-quality, breathable fabric, this cloth offers an incredibly soft touch against your skin. Available in a wide range of vibrant colors and sizes, this is a must-have staple in any wardrobe.
-                </div>
-                <div className="productdisplay-right-size">
-                    <h1>Select Size</h1>
-                    <div className="productdisplay-right-sizes">
-                        <div>S</div>
-                        <div>M</div>
-                        <div>L</div>
-                        <div>XL</div>
-                        <div>XXL</div>
-                    </div>
+                    {product.description || "No description available"}
                 </div>
                 <button onClick={()=>{addToCart(product.id)}}>ADD TO CART</button>
-                <div className="productdisplay-right-category">
-                    <span>Category :</span>{product.category}
-                </div>
-                <div className="productdisplay-right-category">
-                    <span>Tags :</span>Modern, Latest
+
+                {/* Reviews Section */}
+                <div className="productdisplay-reviews">
+                    <h2>Customer Reviews</h2>
+                    {product.reviews && product.reviews.length > 0 ? (
+                        <div className="reviews-list">
+                            {product.reviews.map((review, index) => (
+                                <div key={index} className="review-item">
+                                    <div className="review-header">
+                                        <div className="review-stars">
+                                            {renderStars(review.rating)}
+                                        </div>
+                                        <div className="review-date">
+                                            {new Date(review.createdAt).toLocaleDateString()}
+                                        </div>
+                                    </div>
+                                    <div className="review-comment">
+                                        {review.comment}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="no-reviews">No reviews yet</p>
+                    )}
                 </div>
             </div>
         </div>
      );
 }
+ 
 export default ProductDisplay;

@@ -62,26 +62,6 @@
     color: tomato;
 }
 
-.productdisplay-right-size h1{
-    margin-top: 15px;
-    color: #656565;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.productdisplay-right-sizes{
-    display: flex;
-    margin: 15px 0;
-    gap: 15px;
-}
-
-.productdisplay-right-sizes div{
-    padding: 12px 18px;
-    background: #fbfbfb;
-    border: 1px solid #ebebeb;
-    cursor: pointer;
-}
-
 .productdisplay-right button{
     padding: 13px 30px;
     width: 200px;
@@ -90,17 +70,78 @@
     color: #fff;
     background: tomato;
     border: none;
-    margin-bottom: 20px;
+    margin: 30px 0;
     outline: none;
     cursor: pointer;
+    border-radius: 4px;
 }
 
-.productdisplay-right-category{
-    margin-top: 2px;
+/* New Reviews Section Styles */
+.productdisplay-reviews {
+    margin-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
 }
 
-.productdisplay-right-category span{
-    font-weight: 600;
+.productdisplay-reviews h2 {
+    font-size: 20px;
+    color: #3d3d3d;
+    margin-bottom: 20px;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-item {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review-stars {
+    display: flex;
+    gap: 4px;
+}
+
+.review-stars img {
+    width: 16px;
+    height: 16px;
+}
+
+.review-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.review-comment {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.no-reviews {
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+.productdisplay-right-description {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px 0;
 }
 
 @media(max-width:1280px){
@@ -130,16 +171,15 @@
     .productdisplay-right-description{
         font-size: 15px;
     }
-    .productdisplay-right-sizes div{
-        padding: 14px 20px;
-    }
     .productdisplay-right button{
         width: 150px;
         padding: 15px 0;
     }
-    .productdisplay-right-category{
-        margin-top: 4px;
-        font-size: 15px;
+    .reviews-list {
+        gap: 15px;
+    }
+    .review-item {
+        padding: 12px;
     }
 }
 
@@ -168,24 +208,16 @@
     .productdisplay-right-prices{
         font-size: 16px;
     }
-    .productdisplay-right-size h1{
-        font-size: 16px;
-        margin-top: 10px;
-    }
-    .productdisplay-right-sizes{
-        margin: 10px 0;
-    }
-    .productdisplay-right-sizes div{
-        padding: 10px 16px;
-        font-size: 12px;
-    }
     .productdisplay-right button{
         width: 120px;
         padding: 10px 0;
         margin-bottom: 10px;
         font-size: 12px;
     }
-    .productdisplay-right-category{
+    .review-item {
+        padding: 10px;
+    }
+    .review-comment {
         font-size: 12px;
     }
 }
@@ -219,19 +251,17 @@
         font-size: 14px;
         gap: 15px;
     }
-    .productdisplay-right-sizes{
-        margin-top: 10px;
-        gap: 5px;
-    }
-    .productdisplay-right-sizes div{
-        padding: 4px 11px;
-    }
     .productdisplay-right button{
         width: 100px;
         padding: 12px 0;
     }
-    .productdisplay-right-category{
-        font-size: 12px;
+    .reviews-list {
+        gap: 10px;
+    }
+    .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
     }
 }
 
@@ -262,23 +292,12 @@
         font-size: 16px;
         gap: 20px;
     }
-    .productdisplay-right-sizes h1{
-        font-size: 16px;
-    }
-    .productdisplay-right-sizes{
-        gap: 10px;
-        margin: 15px 0px;
-    }
-    .productdisplay-right-sizes div{
-        padding: 10px 16px;
-        font-size: 14px;
-    }
     .productdisplay-right button{
         width: 130px;
         font-size: 14px;
         padding: 12px 0px;
     }
-    .productdisplay-right-category{
-        font-size: 14px;
+    .review-item {
+        margin: 0 5px;
     }
 }
