@@ -14,7 +14,6 @@ const SearchResults = () => {
     // Filter states
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [priceRange, setPriceRange] = useState({ min: 0, max: 200 });
-    const [filteredResults, setFilteredResults] = useState([]);
     const [showFilters, setShowFilters] = useState(false);
     
     // Available categories
@@ -25,9 +24,8 @@ const SearchResults = () => {
     ];
 
     useEffect(() => {
-        // Get search query from URL
         const queryParams = new URLSearchParams(location.search);
-        const query = queryParams.get('q') || "";
+        const query = queryParams.get("q") || "";
         setSearchQuery(query);
 
         if (query.trim() === "") {
@@ -43,16 +41,16 @@ const SearchResults = () => {
         setSearchResults(results);
     }, [location.search, all_product]);
     
-    // Apply filters to search results
-    useEffect(() => {
-        if (searchResults.length === 0) {
-            setFilteredResults([]);
-            return;
+    // Apply filters to get filtered results
+    const getFilteredResults = () => {
+        // If no filters are active, return all search results
+        if (selectedCategories.length === 0 && priceRange.min === 0 && priceRange.max === 200) {
+            return searchResults;
         }
 
         let filtered = [...searchResults];
         
-        // Apply category filter
+        // Apply category filter if any categories are selected
         if (selectedCategories.length > 0) {
             filtered = filtered.filter(item => selectedCategories.includes(item.category));
         }
@@ -62,8 +60,8 @@ const SearchResults = () => {
             item.new_price >= priceRange.min && item.new_price <= priceRange.max
         );
         
-        setFilteredResults(filtered);
-    }, [searchResults, selectedCategories, priceRange]);
+        return filtered;
+    };
     
     // Handle category filter
     const handleCategoryChange = (categoryId) => {
@@ -97,7 +95,7 @@ const SearchResults = () => {
         <div className="search-results-page">
             <div className="search-results-header">
                 <h1>Search Results for "{searchQuery}"</h1>
-                <p>{filteredResults.length} products found</p>
+                <p>{getFilteredResults().length} products found</p>
                 
                 <button className="filter-toggle" onClick={toggleFilters}>
                     {showFilters ? "Hide Filters" : "Show Filters"}
@@ -157,7 +155,7 @@ const SearchResults = () => {
                 
                 {searchResults.length > 0 ? (
                     <div className="search-results-grid">
-                        {filteredResults.map((item, i) => (
+                        {getFilteredResults().map((item, i) => (
                             <Item 
                                 key={i} 
                                 id={item.id} 
