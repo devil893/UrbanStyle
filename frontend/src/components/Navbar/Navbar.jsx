@@ -100,7 +100,10 @@ const Navbar = () => {
                                 key={item.id} 
                                 onClick={() => handleProductClick(item.id)}
                             >
-                                {item.name}
+                                <div className="search-result-item">
+                                    <img src={item.image} alt={item.name} className="search-result-image" />
+                                    <span className="search-result-name">{item.name}</span>
+                                </div>
                             </li>
                         ))}
                     </ul>
