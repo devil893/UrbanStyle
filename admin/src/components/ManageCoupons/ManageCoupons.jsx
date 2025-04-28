@@ -119,11 +119,11 @@ const ManageCoupons = () => {
                         />
                     </div>
                     <div className="coupon-form-field">
-                        <p>Discount Value ($)</p>
+                        <p>Discount Value (PKR)</p>
                         <input 
                             type="number" 
                             name="value" 
-                            placeholder="Enter discount amount" 
+                            placeholder="Enter discount amount in PKR" 
                             value={couponDetails.value}
                             onChange={changeHandler}
                         />
@@ -161,7 +161,7 @@ const ManageCoupons = () => {
                             <React.Fragment key={index}>
                                 <div className="coupon-list-format-main coupon-list-item">
                                     <p>{coupon.code}</p>
-                                    <p>${coupon.value}</p>
+                                    <p>PKR {coupon.value.toLocaleString('en-PK')}</p>
                                     <p>{coupon.expiryDate ? new Date(coupon.expiryDate).toLocaleDateString() : "No expiry"}</p>
                                     <p className={isExpired(coupon.expiryDate) ? "expired" : "active"}>
                                         {isExpired(coupon.expiryDate) ? "Expired" : "Active"}

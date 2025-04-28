@@ -115,7 +115,7 @@ const PlaceOrder = () => {
                     <div>
                         <div className="cart-total-details">
                             <p>Subtotal</p>
-                            <p>${getTotalCartAmount()}.00</p>
+                            <p>PKR {getTotalCartAmount().toLocaleString('en-PK')}</p>
                         </div>
                         <hr />
                         
@@ -125,7 +125,7 @@ const PlaceOrder = () => {
                                     <p>
                                         Coupon Discount <span className="coupon-code-label">({coupon.code})</span>
                                     </p>
-                                    <p className="discount-value">-${getCouponDiscount()}.00</p>
+                                    <p className="discount-value">-PKR {getCouponDiscount().toLocaleString('en-PK')}</p>
                                 </div>
                                 <hr />
                             </>
@@ -133,13 +133,13 @@ const PlaceOrder = () => {
                         
                         <div className="cart-total-details">
                             <p>Shipping Fee</p>
-                            <p>${getTotalCartAmount() === 0 ? 0 : 1}.00</p>
+                            <p>PKR {(getTotalCartAmount() === 0 ? 0 : 1).toLocaleString('en-PK')}</p>
                         </div>
                         <hr />
                         
                         <div className="cart-total-details">
                             <h3>Total </h3>
-                            <h3>${getTotalCartAmount() === 0 ? 0 : getTotalWithDiscount() + 1}.00</h3>
+                            <h3>PKR {(getTotalCartAmount() === 0 ? 0 : getTotalWithDiscount() + 1).toLocaleString('en-PK')}</h3>
                         </div>
                     </div>
                     

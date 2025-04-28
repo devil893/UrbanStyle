@@ -9,10 +9,10 @@ const Item = (props) => {
             <p>{props.name}</p>
             <div className="item-prices">
                 <div className="item-price-new">
-                    ${props.new_price}
+                    PKR {props.new_price.toLocaleString('en-PK')}
                 </div>
                 <div className="item-price-old">
-                    ${props.old_price}
+                    PKR {props.old_price.toLocaleString('en-PK')}
                 </div>
             </div>
         </div>

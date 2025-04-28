@@ -70,11 +70,11 @@ exports.placeOrder = async (req, res, next) => {
       
       return {
         price_data: {
-          currency: "usd",
+          currency: "pkr",
           product_data: {
             name: item.name + (discountAmount > 0 ? ` (Discounted with coupon: ${appliedCoupon.code})` : ""),
           },
-          unit_amount: Math.round(discountedUnitPrice * 100),
+          unit_amount: Math.round(discountedUnitPrice * 100), // Convert to paisa (1 PKR = 100 paisa)
         },
         quantity: item.quantity,
       };
@@ -83,11 +83,11 @@ exports.placeOrder = async (req, res, next) => {
     // Add shipping fee
     line_items.push({
       price_data: {
-        currency: "usd",
+        currency: "pkr",
         product_data: {
           name: "Shipping Fee",
         },
-        unit_amount: 1 * 100,
+        unit_amount: 1 * 100, // Convert to paisa (1 PKR = 100 paisa)
       },
       quantity: 1,
     });

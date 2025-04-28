@@ -157,7 +157,7 @@ const ListOrder = () => {
                                     <span className="order-id">Order #{order._id?.substring(order._id.length - 6) || index}</span>
                                     <span className="order-date">{formatDate(order.createdAt, order._id)}</span>
                                 </div>
-                                <div className="order-amount">${order.amount?.toFixed(2)}</div>
+                                <div className="order-amount">PKR {order.amount?.toLocaleString('en-PK')}</div>
                             </div>
                             
                             <div className="order-customer">
@@ -186,7 +186,7 @@ const ListOrder = () => {
                                             <div className="item-details">
                                                 <p className="item-name">{item.name}</p>
                                                 <div className="item-meta">
-                                                    <span className="item-price">${item.price?.toFixed(2)}</span>
+                                                    <span className="item-price">PKR {item.price?.toLocaleString('en-PK')}</span>
                                                     <span className="item-quantity">x{item.quantity}</span>
                                                 </div>
                                             </div>

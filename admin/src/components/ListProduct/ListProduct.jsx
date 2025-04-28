@@ -78,8 +78,8 @@ const ListProduct = () => {
                     return <><div className="listproduct-format-main listproduct-format" key={index}>
                         <img src={product.image} alt="" className="listproduct-product-icon" />
                         <p>{product.name}</p>
-                        <p>${product.old_price}</p>
-                        <p>${product.new_price}</p>
+                        <p>PKR {product.old_price.toLocaleString('en-PK')}</p>
+                        <p>PKR {product.new_price.toLocaleString('en-PK')}</p>
                         <p>{product.category === "polo" ? "Polo" : 
                            product.category === "tshirts" ? "T-Shirts" : 
                            product.category === "formalshirts" ? "Formal Shirts" : 

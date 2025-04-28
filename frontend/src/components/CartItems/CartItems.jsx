@@ -38,9 +38,9 @@ const CartItems = () => {
                             <div className="cartitems-format cartitems-format-main">
                                 <img src={e.image} alt="" className="carticon-product-icon"/>
                                 <p>{e.name}</p>
-                                <p>${e.new_price}</p>
+                                <p>PKR {e.new_price.toLocaleString('en-PK')}</p>
                                 <button className="cartitems-quantity">{cartItems[e.id]}</button>
-                                <p>${e.new_price*cartItems[e.id]}</p>
+                                <p>PKR {(e.new_price*cartItems[e.id]).toLocaleString('en-PK')}</p>
                                 <img className="cartitems-remove-icon" src={bin} onClick={()=>{removeFromCart(e.id)}} alt="" />
                             </div>
                             <hr />
@@ -86,7 +86,7 @@ const CartItems = () => {
                                 <div className="applied-coupon-info">
                                     <span className="coupon-label">Applied Coupon:</span>
                                     <span className="coupon-code">{coupon.code}</span>
-                                    <span className="coupon-value">-${coupon.value}.00</span>
+                                    <span className="coupon-value">-PKR {coupon.value.toLocaleString('en-PK')}</span>
                                 </div>
                                 <button 
                                     className="remove-coupon-btn" 
@@ -101,7 +101,7 @@ const CartItems = () => {
                     <div>
                         <div className="cartitems-total-item">
                             <p>Subtotal</p>
-                            <p>${getTotalCartAmount()}.00</p>
+                            <p>PKR {getTotalCartAmount().toLocaleString('en-PK')}</p>
                         </div>
                         <hr />
                         
@@ -109,7 +109,7 @@ const CartItems = () => {
                             <>
                                 <div className="cartitems-total-item discount">
                                     <p>Coupon Discount</p>
-                                    <p>-${getCouponDiscount()}.00</p>
+                                    <p>-PKR {getCouponDiscount().toLocaleString('en-PK')}</p>
                                 </div>
                                 <hr />
                             </>
@@ -117,13 +117,13 @@ const CartItems = () => {
                         
                         <div className="cartitems-total-item">
                             <p>Shipping Fee</p>
-                            <p>${getTotalCartAmount()===0?0:1}.00</p>
+                            <p>PKR {(getTotalCartAmount()===0?0:1).toLocaleString('en-PK')}</p>
                         </div>
                         <hr />
                         
                         <div className="cartitems-total-item">
                             <h3>Total</h3>
-                            <h3>${getTotalCartAmount()===0?0:getTotalWithDiscount()+1}.00</h3>
+                            <h3>PKR {(getTotalCartAmount()===0?0:getTotalWithDiscount()+1).toLocaleString('en-PK')}</h3>
                         </div>
                     </div>
                     

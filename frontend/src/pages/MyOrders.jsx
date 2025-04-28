@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './CSS/MyOrders.css'
-import parcel_icon from  './../assets/parcel_icon.png';
+import cart_icon from './../assets/cart_icon.png';
 import { toast } from 'react-toastify';
 
 const MyOrders = () => {
@@ -73,7 +73,7 @@ const MyOrders = () => {
                     orders.map((order, index) => {
                         return (
                             <div key={order._id || index} className='my-orders-order card'>
-                                <img src={parcel_icon} alt="Order" />
+                                <img src={cart_icon} alt="Order" />
                                 <p>{order.items && Array.isArray(order.items) ? 
                                     order.items.map((item, itemIndex) => {
                                         if (itemIndex === order.items.length-1) {
@@ -82,7 +82,7 @@ const MyOrders = () => {
                                             return `${item.name} x ${item.quantity}, `
                                         }
                                     }) : 'No items'}</p>
-                                <p>${order.amount ? order.amount.toFixed(2) : '0.00'}</p>
+                                <p>PKR {order.amount ? order.amount.toLocaleString('en-PK') : '0'}</p>
                                 <p>Items: {order.items && Array.isArray(order.items) ? order.items.length : 0}</p>
                                 <p><span>&#x25cf;</span> <b>{order.status || 'Processing'}</b></p>
                                 <button onClick={fetchOrders}>Track Order</button>

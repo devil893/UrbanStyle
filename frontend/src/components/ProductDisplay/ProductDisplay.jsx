@@ -224,10 +224,10 @@ const ProductDisplay = (props) => {
                 </div>
                 <div className="productdisplay-right-prices">
                    <div className="productdisplay-right-price-old">
-                    ${product?.old_price || 0}
+                    PKR {(product?.old_price || 0).toLocaleString('en-PK')}
                    </div>
                    <div className="productdisplay-right-price-new">
-                    ${product?.new_price || 0}
+                    PKR {(product?.new_price || 0).toLocaleString('en-PK')}
                    </div>
                 </div>
                 <div className="productdisplay-right-description">
