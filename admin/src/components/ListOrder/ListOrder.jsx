@@ -1,7 +1,7 @@
 import React from "react";
 import './ListOrder.css'
 import { useState } from "react";
-import parcel_icon from './../../assets/parcel_icon.png'
+import order_icon from './../../assets/order_icon.png'
 import { useEffect } from "react";
 import {toast} from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
@@ -162,7 +162,7 @@ const ListOrder = () => {
                             
                             <div className="order-customer">
                                 <div className="customer-icon">
-                                    <img src={parcel_icon} alt="" className="parcel-icon" />
+                                    <img src={order_icon} alt="" className="order-icon" />
                                 </div>
                                 <div className="customer-details">
                                     <h3 className='customer-name'>{order.address?.firstName + " " + order.address?.lastName}</h3>
@@ -181,7 +181,7 @@ const ListOrder = () => {
                                     {order.items?.map((item, itemIndex) => (
                                         <div key={itemIndex} className="item-card">
                                             <div className="item-image">
-                                                <img src={item.image} alt={item.name} onError={(e) => {e.target.src = parcel_icon}} />
+                                                <img src={item.image} alt={item.name} onError={(e) => {e.target.src = order_icon}} />
                                             </div>
                                             <div className="item-details">
                                                 <p className="item-name">{item.name}</p>
