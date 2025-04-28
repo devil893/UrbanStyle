@@ -35,10 +35,20 @@ exports.removeFromCart = async (req, res, next) => {
 };
 
 //get cart
-exports.getCart = async (req, res) => {
-  const { _id } = req.user;
+exports.getCart = async (req, res, next) => {
   try {
+    // Check if user exists
+    if (!req.user) {
+      return res.status(401).json({ error: "Authentication required" });
+    }
+    
+    const { _id } = req.user;
     const userData = await User.findById(_id);
+    
+    if (!userData) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    
     const cartData = await userData.cartData;
     res.status(200).json(cartData);
   } catch (err) {

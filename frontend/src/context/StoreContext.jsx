@@ -9,33 +9,63 @@ const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
     const [coupon, setCoupon] = useState({ code: "", value: 0, isValid: false });
     const backend_url = process.env.REACT_APP_API_URL;
-    const token = localStorage.getItem('token');
 
-    useEffect(()=>{
-        const fetchData = async()=>{
-            const response = await fetch(`${backend_url}/api/products`);
-            const json = await response.json();
-            if(response.ok){
-                setAll_product(json);
-            }
-            else toast.error(json.error);
-            
-            if(localStorage.getItem('token')){
-                const response = await fetch(`${backend_url}/api/cart/getCart`,{
-                    method:'POST',
-                    headers:{
-                        'Content-Type':'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    },
-                    body:"",
-                });
+    useEffect(() => {
+        let isMounted = true;
+        
+        const fetchData = async() => {
+            try {
+                // Fetch all products
+                const response = await fetch(`${backend_url}/api/products`);
                 const json = await response.json();
-                if(response.ok) setCartItems(json);
-                else toast.error(json.error);
+                
+                if (response.ok && isMounted) {
+                    setAll_product(json);
+                } else if (isMounted) {
+                    toast.error(json.error || "Failed to fetch products");
+                }
+                
+                // Get the current token for cart operations
+                const token = localStorage.getItem('token');
+                
+                if (token && isMounted) {
+                    try {
+                        const cartResponse = await fetch(`${backend_url}/api/cart/getCart`, {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        
+                        const cartJson = await cartResponse.json();
+                        
+                        if (cartResponse.ok && isMounted) {
+                            setCartItems(cartJson);
+                        } else if (isMounted) {
+                            toast.error(cartJson.error || "Failed to fetch cart");
+                        }
+                    } catch (error) {
+                        console.error("Error fetching cart:", error);
+                        if (isMounted) {
+                            toast.error("Could not connect to server");
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error in data fetching:", error);
+                if (isMounted) {
+                    toast.error("Network error occurred");
+                }
             }
         };
+        
         fetchData();
-    },[])
+        
+        // Cleanup function to prevent state updates after unmount
+        return () => {
+            isMounted = false;
+        };
+    }, [backend_url]);
 
     const addToCart = async (itemId) =>{
         if (!cartItems[itemId]) {
@@ -44,7 +74,8 @@ const StoreContextProvider = (props) => {
         else {
             setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
         }
-        if(localStorage.getItem('token')){
+        const token = localStorage.getItem('token');
+        if(token){
             const response = await fetch(`${backend_url}/api/cart/addToCart`,{
                 method:'POST',
                 headers:{
@@ -62,7 +93,8 @@ const StoreContextProvider = (props) => {
 
     const removeFromCart = async (itemId) =>{
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}));
-        if(localStorage.getItem('token')){
+        const token = localStorage.getItem('token');
+        if(token){
             const response = await fetch(`${backend_url}/api/cart/removeFromCart`,{
                 method:'POST',
                 headers:{
