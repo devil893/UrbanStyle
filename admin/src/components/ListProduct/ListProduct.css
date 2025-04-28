@@ -17,7 +17,7 @@
 
 .listproduct-format-main{
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 0.5fr 0.5fr;
     gap: 10px;
     width: 100%;
     padding: 20px 0px;
@@ -35,9 +35,19 @@
     height: 80px;
 }
 
-.listproduct-remove-icon{
+.listproduct-remove-icon, .listproduct-edit-icon{
     cursor: pointer;
     margin: auto;
+    width: 20px;
+    height: 20px;
+}
+
+.listproduct-edit-icon {
+    filter: brightness(0.9);
+}
+
+.listproduct-edit-icon:hover {
+    filter: brightness(1.1);
 }
 
 @media(max-width:800px){

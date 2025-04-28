@@ -378,3 +378,59 @@ exports.deleteReview = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.updateProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const numericId = Number(id);
+    
+    // Find product by id
+    const product = await Product.findOne({ id: numericId });
+    
+    if (!product) {
+      return res.status(404).json({ 
+        error: "Product not found",
+        message: `No product found with ID ${id}`
+      });
+    }
+    
+    // Get updated fields from request body
+    const { name, category, new_price, old_price, description } = req.body;
+    
+    // Create updated product object
+    const updatedFields = {
+      name: name || product.name,
+      category: category || product.category,
+      new_price: new_price || product.new_price,
+      old_price: old_price || product.old_price,
+      description: description || product.description
+    };
+    
+    // Check if there's a new image to upload
+    if (req.file) {
+      // Delete the old image from Cloudinary if it exists
+      if (product.image) {
+        const imageId = product.image.split("/").pop().split(".")[0];
+        await cloudinary.uploader.destroy(imageId);
+      }
+      
+      // Upload new image to Cloudinary
+      const result = await cloudinary.uploader.upload(req.file.path);
+      updatedFields.image = result.secure_url;
+    }
+    
+    // Update the product
+    const updatedProduct = await Product.findOneAndUpdate(
+      { id: numericId },
+      updatedFields,
+      { new: true, runValidators: true }
+    );
+    
+    res.status(200).json({
+      message: "Product updated successfully",
+      product: updatedProduct
+    });
+  } catch (err) {
+    next(err);
+  }
+};

@@ -1,14 +1,18 @@
-import React,{useState,useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import './ListProduct.css';
 import bin from './../../assets/recycle-bin.png';
+import editIcon from './../../assets/edit-icon.svg';
 import {toast} from "react-toastify";
 import CategoryFilter from "../CategoryFilter/CategoryFilter";
+import EditProduct from "../EditProduct/EditProduct";
 
 const ListProduct = () => {
     const backend_url = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem("token");
     const [allproducts, setAllProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     const fetchInfo = async ()=>{
         const response = await fetch(`${backend_url}/api/products`);
@@ -44,6 +48,16 @@ const ListProduct = () => {
         setFilteredProducts(filtered);
     };
 
+    const openEditModal = (product) => {
+        setSelectedProduct(product);
+        setIsEditModalOpen(true);
+    };
+
+    const closeEditModal = () => {
+        setIsEditModalOpen(false);
+        setSelectedProduct(null);
+    };
+
     return ( 
         <div className="list-product">
             <h1>All Products</h1>
@@ -54,6 +68,7 @@ const ListProduct = () => {
                 <p>Old Price</p>
                 <p>New Price</p>
                 <p>Category</p>
+                <p>Edit</p>
                 <p>Remove</p>
             </div>
             <div className="listproduct-allproducts">
@@ -68,12 +83,33 @@ const ListProduct = () => {
                            product.category === "tshirts" ? "T-Shirts" : 
                            product.category === "formalshirts" ? "Formal Shirts" : 
                            product.category}</p>
-                        <img onClick={()=>{removeProduct(product.id)}} src={bin} alt="" className="listproduct-remove-icon"/>
+                        <img 
+                            onClick={() => openEditModal(product)} 
+                            src={editIcon} 
+                            alt="Edit" 
+                            className="listproduct-edit-icon"
+                            title="Edit product"
+                        />
+                        <img 
+                            onClick={() => removeProduct(product.id)} 
+                            src={bin} 
+                            alt="Delete" 
+                            className="listproduct-remove-icon"
+                            title="Remove product"
+                        />
                     </div>
                     <hr />
                     </>
                 })}
             </div>
+            
+            {/* Edit Product Modal */}
+            <EditProduct 
+                isOpen={isEditModalOpen} 
+                onClose={closeEditModal} 
+                product={selectedProduct} 
+                onProductUpdated={fetchInfo}
+            />
         </div>
      );
 }

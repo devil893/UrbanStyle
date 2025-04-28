@@ -21,7 +21,8 @@ const upload = multer({ storage: storage });
 
 router.get("/", productController.getAllProducts);
 router.post("/",authMiddleware, upload.single("product"),productController.createProduct);
-router.delete("/:id", authMiddleware,productController.deleteProduct);
+router.delete("/:id", authMiddleware, adminMiddleware, productController.deleteProduct);
+router.patch("/:id", authMiddleware, adminMiddleware, upload.single("product"), productController.updateProduct);
 router.get("/newCollections", productController.getNewCollections);
 router.get("/popularTShirts", productController.getPopularTShirts);
 router.get("/category/:category", productController.getProductsByCategory);
