@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import './CSS/MyOrders.css'
-import cart_icon from './../assets/cart_icon.png';
 import { toast } from 'react-toastify';
 
 const MyOrders = () => {
@@ -50,6 +49,19 @@ const MyOrders = () => {
         }
     }, [token]);
 
+    const getStatusColor = (status) => {
+        switch(status?.toLowerCase()) {
+            case 'processing':
+                return 'status-processing';
+            case 'shipped':
+                return 'status-shipped';
+            case 'delivered':
+                return 'status-delivered';
+            default:
+                return 'status-processing';
+        }
+    }
+
     return ( 
         <div className="my-orders">
             <h2>My Orders</h2>
@@ -71,21 +83,40 @@ const MyOrders = () => {
                 ) : (
                     // Render orders when available
                     orders.map((order, index) => {
+                        const statusClass = getStatusColor(order.status);
                         return (
-                            <div key={order._id || index} className='my-orders-order card'>
-                                <img src={cart_icon} alt="Order" />
-                                <p>{order.items && Array.isArray(order.items) ? 
-                                    order.items.map((item, itemIndex) => {
-                                        if (itemIndex === order.items.length-1) {
-                                            return `${item.name} x ${item.quantity}`
-                                        } else {
-                                            return `${item.name} x ${item.quantity}, `
-                                        }
-                                    }) : 'No items'}</p>
-                                <p>PKR {order.amount ? order.amount.toLocaleString('en-PK') : '0'}</p>
-                                <p>Items: {order.items && Array.isArray(order.items) ? order.items.length : 0}</p>
-                                <p><span>&#x25cf;</span> <b>{order.status || 'Processing'}</b></p>
-                                <button onClick={fetchOrders}>Track Order</button>
+                            <div key={order._id || index} className={`my-orders-order card ${statusClass}`}>
+                                <div className="order-images">
+                                    {order.items && Array.isArray(order.items) && 
+                                        order.items.map((item, itemIndex) => (
+                                            <div key={itemIndex} className="order-image-container">
+                                                <img 
+                                                    src={item.image} 
+                                                    alt={item.name} 
+                                                    className="order-product-image"
+                                                    title={`${item.name} x ${item.quantity}`}
+                                                />
+                                                <span className="item-quantity">{item.quantity}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                                <div className="order-details">
+                                    <p className="order-items">
+                                        {order.items && Array.isArray(order.items) ? 
+                                            order.items.map((item, itemIndex) => {
+                                                if (itemIndex === order.items.length-1) {
+                                                    return `${item.name} x ${item.quantity}`
+                                                } else {
+                                                    return `${item.name} x ${item.quantity}, `
+                                                }
+                                            }) : 'No items'}
+                                    </p>
+                                    <p className="order-amount">PKR {order.amount ? order.amount.toLocaleString('en-PK') : '0'}</p>
+                                    <p className="order-count">Items: {order.items && Array.isArray(order.items) ? order.items.length : 0}</p>
+                                    <p className="order-status"><span>&#x25cf;</span> <b>{order.status || 'Processing'}</b></p>
+                                    <button className="track-button" onClick={fetchOrders}>Track Order</button>
+                                </div>
                             </div>
                         )
                     })
