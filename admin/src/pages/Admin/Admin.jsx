@@ -6,6 +6,7 @@ import AddProduct from "../../components/AddProduct/AddProduct";
 import ListProduct from "../../components/ListProduct/ListProduct";
 import ListOrder from "../../components/ListOrder/ListOrder";
 import ManageCoupons from "../../components/ManageCoupons/ManageCoupons";
+import ReviewManagement from "../../components/ReviewManagement/ReviewManagement";
 import Login from "./../../components/Login/Login";
 
 const Admin = () => {
@@ -18,6 +19,7 @@ const Admin = () => {
                 <Route path='/listproduct' element={<ListProduct/>}/>
                 <Route path="/listorder" element={<ListOrder/>}/>
                 <Route path="/managecoupons" element={<ManageCoupons/>}/>
+                <Route path="/reviews" element={<ReviewManagement/>}/>
             </Routes>
         </div>
     );

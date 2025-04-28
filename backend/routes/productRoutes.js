@@ -3,6 +3,7 @@ const multer = require("multer");
 const path = require("path");
 const productController = require("./../controllers/productController");
 const authMiddleware = require("./../middleware/authMiddleware");
+const adminMiddleware = require("./../middleware/adminMiddleware");
 const {CloudinaryStorage} = require("multer-storage-cloudinary");
 const cloudinary = require("./../utils/cloudinary")
 
@@ -26,4 +27,5 @@ router.get("/popularTShirts", productController.getPopularTShirts);
 router.get("/category/:category", productController.getProductsByCategory);
 router.get("/:id", productController.getProductById);
 router.post("/:id/reviews", authMiddleware, productController.createReview);
+router.delete("/:productId/reviews/:reviewId", authMiddleware, adminMiddleware, productController.deleteReview);
 module.exports = router;

@@ -314,3 +314,67 @@ exports.getProductsByCategory = async (req, res, next) => {
     next(err);
   }
 };
+
+/**
+ * Delete a review from a product (admin only)
+ */
+exports.deleteReview = async (req, res, next) => {
+  try {
+    const { productId, reviewId } = req.params;
+    
+    console.log(`Admin attempting to delete review ${reviewId} from product ${productId}`);
+    
+    // Convert product ID to number for consistency
+    const numericProductId = Number(productId);
+    
+    // Find the product
+    const product = await Product.findOne({ id: numericProductId });
+    
+    if (!product) {
+      return res.status(404).json({ 
+        error: "Product not found",
+        message: `No product found with ID ${productId}`
+      });
+    }
+    
+    // Check if the review exists
+    const reviewIndex = product.reviews.findIndex(
+      review => review._id.toString() === reviewId
+    );
+    
+    if (reviewIndex === -1) {
+      return res.status(404).json({ 
+        error: "Review not found",
+        message: `No review found with ID ${reviewId} for this product`
+      });
+    }
+    
+    // Get review details for the response
+    const deletedReview = {
+      _id: product.reviews[reviewIndex]._id,
+      userId: product.reviews[reviewIndex].userId,
+      rating: product.reviews[reviewIndex].rating,
+      comment: product.reviews[reviewIndex].comment,
+      createdAt: product.reviews[reviewIndex].createdAt
+    };
+    
+    // Remove the review
+    product.reviews.splice(reviewIndex, 1);
+    
+    // Save the product (pre-save hook will handle ratings recalculation)
+    await product.save();
+    
+    res.status(200).json({
+      message: "Review deleted successfully",
+      deletedReview,
+      product: {
+        id: product.id,
+        name: product.name,
+        averageRating: product.averageRating,
+        numReviews: product.numReviews
+      }
+    });
+  } catch (err) {
+    next(err);
+  }
+};
