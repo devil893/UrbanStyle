@@ -1,30 +1,62 @@
-import React,{useContext} from "react";
-import {StoreContext} from "./../../context/StoreContext";
-import './Navbar.css'
-import navlogo from './../../assets/nav-logo.svg'
-import profile_icon from './../../assets/profile_icon.png'
-import {useNavigate} from 'react-router-dom';
-import { toast} from "react-toastify";
-
+import React from "react";
+import { useAuth } from "../../context/AuthContext";
+import './Navbar.css';
+import navlogo from './../../assets/nav-logo.svg';
+import profile_icon from './../../assets/profile_icon.png';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const {token, admin, setAdmin, setToken} = useContext(StoreContext);
-    const logout = ()=>{
-        localStorage.removeItem("token");
-        localStorage.removeItem("admin");
-        setToken("");
-        setAdmin(false);
-        toast.success("Logged out successfully")
-        window.location.replace("/");
+    const { isAuthenticated, isAdmin, logout, loading } = useAuth();
+    
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    };
+    
+    // Don't show login/logout during authentication check
+    if (loading) {
+        return (
+            <div className="navbar">
+                <Link to="/">
+                    <img src={navlogo} alt="Urban Style Admin" className="nav-logo" />
+                </Link>
+                <div className="nav-right">
+                    <div className="loading-dot"></div>
+                </div>
+            </div>
+        );
     }
+    
     return ( 
         <div className="navbar">
-            <img src={navlogo} alt="" className="nav-logo" />
-            {(token && admin)?(<p className="login-condition" onClick={logout}>Logout</p>):(<p className="login-condition" onClick={()=>navigate("/")}>Login</p>)}
-            <img src={profile_icon} alt="" className="nav-profile"/>
+            <Link to={isAuthenticated && isAdmin ? "/addproduct" : "/"}>
+                <img src={navlogo} alt="Urban Style Admin" className="nav-logo" />
+            </Link>
+            
+            <div className="nav-right">
+                {isAuthenticated && isAdmin ? (
+                    <>
+                        <p className="admin-badge">Admin Panel</p>
+                        <button 
+                            className="login-condition logout-btn" 
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </button>
+                        <img src={profile_icon} alt="Admin" className="nav-profile" />
+                    </>
+                ) : (
+                    <button 
+                        className="login-condition" 
+                        onClick={() => navigate("/")}
+                    >
+                        Login
+                    </button>
+                )}
+            </div>
         </div> 
     );
-}
+};
  
 export default Navbar;

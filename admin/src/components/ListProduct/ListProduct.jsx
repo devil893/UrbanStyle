@@ -5,10 +5,11 @@ import editIcon from './../../assets/edit-icon.svg';
 import {toast} from "react-toastify";
 import CategoryFilter from "../CategoryFilter/CategoryFilter";
 import EditProduct from "../EditProduct/EditProduct";
+import { useAuth } from "../../context/AuthContext";
 
 const ListProduct = () => {
     const backend_url = process.env.REACT_APP_API_URL;
-    const token = localStorage.getItem("token");
+    const { token, isAuthenticated } = useAuth();
     const [allproducts, setAllProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);

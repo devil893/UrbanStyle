@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ReviewManagement.css';
 import { toast } from 'react-toastify';
-import { StoreContext } from '../../context/StoreContext';
+import { useAuth } from '../../context/AuthContext';
 
 const ReviewManagement = () => {
-    const { token } = useContext(StoreContext);
+    const { token, isAuthenticated } = useAuth();
     const backend_url = process.env.REACT_APP_API_URL;
     
     const [products, setProducts] = useState([]);
@@ -50,6 +50,13 @@ const ReviewManagement = () => {
     // Handle review deletion
     const handleDeleteReview = async () => {
         if (!selectedReview) return;
+        
+        // Check if user is authenticated
+        if (!isAuthenticated || !token) {
+            toast.error("You must be logged in as admin to delete reviews");
+            closeModal();
+            return;
+        }
         
         setDeleteLoading(true);
         try {
@@ -98,6 +105,12 @@ const ReviewManagement = () => {
 
     // Open confirmation modal
     const openModal = (productId, reviewId, username, comment) => {
+        // Check if user is authenticated before allowing deletion
+        if (!isAuthenticated || !token) {
+            toast.error("You must be logged in as admin to delete reviews");
+            return;
+        }
+        
         setSelectedReview({ productId, reviewId, username, comment });
         setModalOpen(true);
     };

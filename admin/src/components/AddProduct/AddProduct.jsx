@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./AddProduct.css";
 import upload_area from "./../../assets/upload_area.svg";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
 
 const AddProduct = () => {
 
     const backend_url = process.env.REACT_APP_API_URL;
-    const token = localStorage.getItem("token");
+    const { token, isAuthenticated } = useAuth();
     const [image,setImage] = useState(false);
     const [productDetails, setProductDetails] = useState({
         name: "",

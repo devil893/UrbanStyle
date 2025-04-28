@@ -1,76 +1,82 @@
-import React, { useContext,useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
-import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
-import {StoreContext} from "./../../context/StoreContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 
-const Login = ()=>{
+const Login = () => {
     const navigate = useNavigate();
-    const {admin,setAdmin,token,setToken}=useContext(StoreContext);
-    const backend_url = process.env.REACT_APP_API_URL;
-    const [formData,setFormData]=useState({
-        email:"",
-        password:"",
+    const { isAuthenticated, isAdmin, login } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
     });
-    const onChangeHandler = (e)=>{
-        setFormData({...formData,[e.target.name]:e.target.value});
+    
+    const onChangeHandler = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    const onLogin = async (e)=>{
+    
+    const onLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch(`${backend_url}/api/users/login`,{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(formData),
-        });
-        const json = await response.json();
-        if(response.ok){
-            if(json.role==='admin'){
-                setToken(response.formData.token);
-                setAdmin(true);
-                localStorage.setItem("token", json.token);
-                localStorage.setItem("admin", true);
-                toast.success("You're logged in.");
-                window.location.replace("/addproduct");
+        setIsLoading(true);
+        
+        try {
+            const success = await login(formData.email, formData.password);
+            
+            if (success) {
+                // Login successful - navigation will happen in useEffect
+                setFormData({ email: "", password: "" });
             }
-            else{
-                toast.error("Invalid Credentials");
-            }
-        }
-        else{
-            toast.error(json.error);
+        } catch (error) {
+            console.error("Login error:", error);
+            toast.error("An unexpected error occurred");
+        } finally {
+            setIsLoading(false);
         }
     };
-    useEffect(()=>{
-        if(admin && token){
-           navigate("/addproduct");
+    
+    // Redirect to admin dashboard if already authenticated
+    useEffect(() => {
+        if (isAuthenticated && isAdmin) {
+            navigate("/addproduct");
         }
-    },[]);
-    return(
+    }, [isAuthenticated, isAdmin, navigate]);
+    return (
         <div className="login-popup">
             <form onSubmit={onLogin} className="login-popup-container">
-                <h2 className="login-popup-title">Login</h2>
+                <h2 className="login-popup-title">Admin Login</h2>
                 <div className="login-popup-inputs">
-                <input
-                    name="email"
-                    onChange={onChangeHandler}
-                    value={formData.email}
-                    type="email"
-                    placeholder="Your email"
-                    required
-                />
-                <input
-                    name="password"
-                    onChange={onChangeHandler}
-                    value={formData.password}
-                    type="password"
-                    placeholder="Your password"
-                    required
-                />
+                    <input
+                        name="email"
+                        onChange={onChangeHandler}
+                        value={formData.email}
+                        type="email"
+                        placeholder="Your email"
+                        required
+                        disabled={isLoading}
+                    />
+                    <input
+                        name="password"
+                        onChange={onChangeHandler}
+                        value={formData.password}
+                        type="password"
+                        placeholder="Your password"
+                        required
+                        disabled={isLoading}
+                    />
                 </div>
-                <button type="submit">Login</button>
+                <button 
+                    type="submit" 
+                    disabled={isLoading}
+                    className={isLoading ? "loading" : ""}
+                >
+                    {isLoading ? "Logging in..." : "Login"}
+                </button>
+                <div className="login-info">
+                    <p>Only admin users can access this panel</p>
+                </div>
             </form>
         </div>
     );

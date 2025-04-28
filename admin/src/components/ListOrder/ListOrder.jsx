@@ -4,12 +4,13 @@ import { useState } from "react";
 import parcel_icon from './../../assets/parcel_icon.png'
 import { useEffect } from "react";
 import {toast} from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
 
 
 const ListOrder = () => {
     const backend_url = process.env.REACT_APP_API_URL;
     const [orders, setOrders] = useState([]);
-    const token = localStorage.getItem("token")
+    const { token, isAuthenticated } = useAuth();
 
     const fetchOrders = async()=>{
         const response = await fetch(`${backend_url}/api/orders`);

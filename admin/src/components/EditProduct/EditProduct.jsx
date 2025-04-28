@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./EditProduct.css";
 import upload_area from "./../../assets/upload_area.svg";
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
 
 const EditProduct = ({ isOpen, onClose, product, onProductUpdated }) => {
     // Move all hooks to the top level
     const backend_url = process.env.REACT_APP_API_URL;
-    const token = localStorage.getItem("token");
+    const { token, isAuthenticated } = useAuth();
     
     const [image, setImage] = useState(null);
     const [imageChanged, setImageChanged] = useState(false);

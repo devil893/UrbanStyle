@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import './ManageCoupons.css';
 import bin from './../../assets/recycle-bin.png';
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
 
 const ManageCoupons = () => {
     const backend_url = process.env.REACT_APP_API_URL;
-    const token = localStorage.getItem("token");
+    const { token, isAuthenticated } = useAuth();
     const [coupons, setCoupons] = useState([]);
     const [couponDetails, setCouponDetails] = useState({
         code: "",

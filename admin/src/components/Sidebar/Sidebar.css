@@ -19,6 +19,17 @@
     background-color: #f6f6f6;
     gap: 20px;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sidebar-item:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.sidebar-item.active {
+    background-color: #ffe9e5;
+    border-left: 4px solid tomato;
 }
 
 @media(max-width:800px){
