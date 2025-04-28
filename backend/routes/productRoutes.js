@@ -23,4 +23,7 @@ router.post("/",authMiddleware, upload.single("product"),productController.creat
 router.delete("/:id", authMiddleware,productController.deleteProduct);
 router.get("/newCollections", productController.getNewCollections);
 router.get("/popularTShirts", productController.getPopularTShirts);
+router.get("/category/:category", productController.getProductsByCategory);
+router.get("/:id", productController.getProductById);
+router.post("/:id/reviews", authMiddleware, productController.createReview);
 module.exports = router;

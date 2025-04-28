@@ -3,6 +3,7 @@ const User = require("./../models/userModel");
 const errorHandler = require("./../utils/errorHandler");
 const jwt = require("jsonwebtoken");
 const Stripe = require("stripe");
+const { normalizeCategory, categoriesMatch } = require('../utils/categoryUtils');
 require("dotenv").config({ path: "./config.env" });
 
 //configure stripe
@@ -15,10 +16,25 @@ exports.placeOrder = async (req, res, next) => {
 
   const { items, amount, address, appliedCoupon } = req.body;
   try {
-    // Create the order with coupon information if applied
+    // Normalize categories in items before saving
+    const normalizedItems = items.map(item => {
+      if (item.category) {
+        return {
+          ...item,
+          category: normalizeCategory(item.category)
+        };
+      }
+      return item;
+    });
+    
+    console.log('Normalizing item categories for order');
+    console.log('Before:', items.map(item => item.category));
+    console.log('After:', normalizedItems.map(item => item.category));
+
+    // Create the order with coupon information if applied and normalized categories
     const order = await Order.create({
       userId: _id,
-      items,
+      items: normalizedItems,
       amount,
       address,
       appliedCoupon
@@ -113,9 +129,61 @@ exports.verifyOrder = async (req, res, next) => {
 // Get user's orders
 exports.userOrders = async (req, res, next) => {
   const { _id } = req.user;
+  const { productId, productCategory } = req.body;
+  
   try {
-    const orders = await Order.find({ userId: _id });
-    res.status(200).json(orders);
+    console.log(`Finding orders for user ${_id} with productId: ${productId}, category: ${productCategory}`);
+    
+    // Start with basic query for user's orders
+    let query = { userId: _id.toString() };
+    
+    // We'll fetch all user orders and then filter for product matches
+    // This allows more flexible matching including by category
+    const orders = await Order.find(query);
+    
+    console.log(`Found ${orders.length} orders for user ${_id}`);
+    
+    // If no product filtering is needed, return all orders
+    if (!productId && !productCategory) {
+      return res.status(200).json({
+        orders,
+        userId: _id
+      });
+    }
+    
+    // Filter orders that contain the product (by ID or category)
+    const filteredOrders = orders.filter(order => {
+      return order.items.some(item => {
+        // Match by ID if productId is provided
+        const idMatch = productId && (
+          Number(item.id) === Number(productId) || 
+          String(item.id) === String(productId)
+        );
+        
+        // Match by category if productCategory is provided
+        const categoryMatch = productCategory && 
+          categoriesMatch(item.category, productCategory);
+        
+        // Log matching attempts for debugging
+        if (idMatch || categoryMatch) {
+          console.log(`Match found in order ${order._id}:`);
+          console.log(`  Item: ${item.name}, Category: ${item.category}`);
+          console.log(`  Match type: ${idMatch ? 'ID' : 'Category'}`);
+        }
+        
+        return idMatch || categoryMatch;
+      });
+    });
+    
+    console.log(`Filtered to ${filteredOrders.length} orders containing requested product`);
+    
+    // Add the userId to the response for the frontend to use
+    res.status(200).json({ 
+      orders: filteredOrders,
+      userId: _id,
+      totalOrders: orders.length,
+      matchingOrders: filteredOrders.length
+    });
   } catch (err) {
     next(err);
   }
