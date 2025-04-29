@@ -20,7 +20,7 @@ const Footer = () => {
         },
         body: JSON.stringify({ email }),
       });
-
+      
       const json = await response.json();
       
       if (response.ok) {
@@ -44,11 +44,15 @@ const Footer = () => {
           <Typography variant="h6" gutterBottom>
             Shop
           </Typography>
-          {["New Arrivals", "Best Sellers", "Accessories", "Sale", "Gift Cards"].map((item) => (
-            <Button key={item} color="inherit" sx={{ display: "block", textAlign: "left" }}>
-              {item}
-            </Button>
-          ))}
+          <Button component="a" href="/tshirts" color="inherit" sx={{ display: "block", textAlign: "left" }}>
+            T-Shirts
+          </Button>
+          <Button component="a" href="/polo" color="inherit" sx={{ display: "block", textAlign: "left" }}>
+            Polo
+          </Button>
+          <Button component="a" href="/formalshirts" color="inherit" sx={{ display: "block", textAlign: "left" }}>
+            Formal Shirts
+          </Button>
         </Grid>
 
         {/* CUSTOMER SERVICE */}
@@ -56,11 +60,18 @@ const Footer = () => {
           <Typography variant="h6" gutterBottom>
             Customer Service
           </Typography>
-          {["FAQs", "Shipping & Returns", "Size Guide", "Track Order", "Contact Us"].map((item) => (
-            <Button key={item} color="inherit" sx={{ display: "block", textAlign: "left" }}>
-              {item}
-            </Button>
-          ))}
+          <Button component="a" href="/faq" color="inherit" sx={{ display: "block", textAlign: "left" }}>
+            FAQs
+          </Button>
+          <Button component="a" href="/shipping-returns" color="inherit" sx={{ display: "block", textAlign: "left" }}>
+            Shipping & Returns
+          </Button>
+          <Button component="a" href="/myorders" color="inherit" sx={{ display: "block", textAlign: "left" }}>
+            Track Order
+          </Button>
+          <Button component="a" href="/contact" color="inherit" sx={{ display: "block", textAlign: "left" }}>
+            Contact Us
+          </Button>
         </Grid>
 
         {/* ABOUT US */}
@@ -68,14 +79,9 @@ const Footer = () => {
           <Typography variant="h6" gutterBottom>
             About UrbanStyle
           </Typography>
-          <Typography variant="body2" sx={{ maxWidth: 250, mb: 2 }}>
-            Redefining men's fashion with premium bamboo fiber clothing—sustainable, comfortable, and stylish.
+          <Typography variant="body2" sx={{ maxWidth: 280, mb: 2 }}>
+            UrbanStyle is a sleek e-commerce platform dedicated to men's fashion, offering a smooth, user-friendly shopping experience. Customers can browse premium clothing, use smart search features, and track orders easily. Sellers benefit from efficient product, order, and promotion management. The platform ensures seamless navigation and interactive displays for modern shoppers.
           </Typography>
-          {["Our Story", "Sustainability", "Careers"].map((item) => (
-            <Button key={item} color="inherit" sx={{ display: "block", textAlign: "left" }}>
-              {item}
-            </Button>
-          ))}
         </Grid>
 
         {/* NEWSLETTER & SOCIAL MEDIA */}

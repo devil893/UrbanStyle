@@ -13,6 +13,9 @@ import PlaceOrder from "./pages/PlaceOrder";
 import Verify from "./pages/Verify";
 import MyOrders from "./pages/MyOrders";
 import SearchResults from "./pages/SearchResults";
+import FAQ from "./pages/FAQ";
+import ShippingReturns from "./pages/ShippingReturns";
+import ContactUs from "./pages/ContactUs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -44,6 +47,9 @@ function App() {
           <Route path="/verify" element={<Verify/>}/>
           <Route path="myorders" element={<MyOrders/>}/>
           <Route path="/search" element={<SearchResults/>}/>
+          <Route path="/faq" element={<FAQ/>}/>
+          <Route path="/shipping-returns" element={<ShippingReturns/>}/>
+          <Route path="/contact" element={<ContactUs/>}/>
         </Routes>
         <Footer />
     </div>
