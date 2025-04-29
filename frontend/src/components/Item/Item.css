@@ -4,6 +4,10 @@
 
 .item img{
     width: 280px;
+    height: 280px;
+    object-fit: contain;
+    background-color: #f9f9f9;
+    border-radius: 4px;
 }
 
 .item p{
@@ -40,6 +44,7 @@
     }
     .item img{
         width: 220px;
+        height: 220px;
     }
     .item-price-old{
         font-size: 14px;
@@ -56,6 +61,7 @@
     }
     .item img{
         width: 170px;
+        height: 170px;
     }
     .item-price-old{
         font-size: 13px;
@@ -72,6 +78,7 @@
     }
     .item img{
         width: 120px;
+        height: 120px;
     }
     .item-price-old{
         font-size: 12px;
@@ -87,5 +94,6 @@
     }
     .item img{
         width: 160px;
+        height: 160px;
     }
 }
