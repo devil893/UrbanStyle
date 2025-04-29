@@ -35,11 +35,12 @@
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .category-card {
@@ -48,12 +49,12 @@
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
-    height: 350px;
+    height: 380px;
     text-decoration: none;
     color: inherit;
     --card-color: #3498db;
     animation: fadeIn 0.8s ease forwards;
-    animation-delay: calc(var(--index, 0) * 0.1s);
+    animation-delay: calc(var(--index, 0) * 0.15s);
     opacity: 0;
 }
 
@@ -88,8 +89,9 @@
     bottom: 0;
     background: linear-gradient(
         to bottom,
-        transparent 30%,
-        rgba(0, 0, 0, 0.7) 100%
+        transparent 20%,
+        rgba(0, 0, 0, 0.5) 60%,
+        rgba(0, 0, 0, 0.8) 100%
     );
     z-index: 1;
 }
@@ -99,22 +101,24 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 1.5rem;
+    padding: 2rem;
     color: white;
     z-index: 2;
     text-align: left;
     transition: transform 0.3s ease;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .category-card:hover .category-content {
-    transform: translateY(-10px);
+    transform: translateY(-15px);
 }
 
 .category-content h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
     position: relative;
+    letter-spacing: 0.5px;
 }
 
 .category-content h3::after {
@@ -141,20 +145,31 @@
 .category-button {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
+    gap: 0.7rem;
+    font-size: 1rem;
+    font-weight: 600;
     color: white;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 0.7rem 1.4rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
     transform: translateX(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 0.8rem;
 }
 
 .category-card:hover .category-button {
     background-color: var(--card-color);
-    transform: translateX(5px);
+    transform: translateX(8px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.category-button svg {
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-button svg {
+    transform: translateX(3px);
 }
 
 /* Animation for cards */
@@ -172,16 +187,20 @@
 /* Responsive styles */
 @media (max-width: 1280px) {
     .category-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
     }
     
     .category-card {
-        height: 300px;
+        height: 340px;
     }
     
     .category-content h3 {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+    }
+    
+    .category-button {
+        padding: 0.6rem 1.2rem;
     }
 }
 
@@ -191,12 +210,36 @@
     }
     
     .category-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
     }
     
     .category-card {
-        height: 280px;
+        height: 300px;
+    }
+    
+    .category-content {
+        padding: 1.5rem;
+    }
+    
+    .category-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .category-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+    }
+    
+    .category-card {
+        height: 320px;
     }
 }
 
