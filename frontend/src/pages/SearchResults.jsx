@@ -13,7 +13,7 @@ const SearchResults = () => {
     
     // Filter states
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 99999999 });
     const [showFilters, setShowFilters] = useState(false);
     
     // Available categories
@@ -83,7 +83,7 @@ const SearchResults = () => {
     // Clear all filters
     const clearFilters = () => {
         setSelectedCategories([]);
-        setPriceRange({ min: 0, max: 1000 });
+        setPriceRange({ min: 0, max: 99999999 });
     };
     
     // Toggle filter visibility on mobile
@@ -125,7 +125,7 @@ const SearchResults = () => {
                         <div className="price-range">
                             <div className="price-inputs">
                                 <div>
-                                    <label>Min ($)</label>
+                                    <label>Min (PKR)</label>
                                     <input
                                         type="number"
                                         name="min"
@@ -135,7 +135,7 @@ const SearchResults = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label>Max ($)</label>
+                                    <label>Max (PKR)</label>
                                     <input
                                         type="number"
                                         name="max"
