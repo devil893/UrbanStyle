@@ -1,5 +1,5 @@
 import React from "react";
-import Hero from "../components/Hero/Hero";
+import MainCarousel from "../components/MainCarousel/MainCarousel";
 import Popular from "../components/Popular/Popular";
 import Offers from "../components/Offers/Offers";
 import NewCollections from "../components/NewCollections/NewCollections";
@@ -9,7 +9,7 @@ import NewsLetter from "../components/NewsLetter/NewsLetter";
 const Shop = () => {
     return ( 
         <div>
-            <Hero/>
+            <MainCarousel />
             <Popular/>
             <Offers/>
             <NewCollections/>
