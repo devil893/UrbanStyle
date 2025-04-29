@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './NewCollections.css';
 import Item from '../Item/Item'
 
-const NewCollections = () => {
+const NewCollections = ({ onQuickView }) => {
     const [new_collection,setNew_collection] = useState([]);
     const backend_url = process.env.REACT_APP_API_URL;
     useEffect(()=>{
@@ -21,7 +21,7 @@ const NewCollections = () => {
             <hr />
             <div className="collections">
                 {new_collection.map((item,i)=>{
-                   return <Item key={i} id={item.id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price}/>
+                   return <Item key={i} id={item.id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price} onQuickView={onQuickView}/>
                 })}
             </div>
         </div>

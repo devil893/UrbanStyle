@@ -35,6 +35,13 @@
     opacity: 1;
 }
 
+/* Image container for positioning quick view button */
+.item-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+}
+
 .item img {
     width: 280px;
     height: 280px;
@@ -47,6 +54,51 @@
 
 .item:hover img {
     transform: scale(1.03);
+}
+
+/* Quick view button styling */
+.quick-view-btn {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #171717;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+.item:hover .quick-view-btn {
+    bottom: 15px;
+    z-index: 10;
+}
+
+/* Add enhanced focus styles for accessibility */
+.quick-view-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.4);
+}
+
+.quick-view-btn:hover {
+    background-color: #4a90e2;
+    color: white;
+    transform: translateX(-50%) translateY(-3px);
+    box-shadow: 0 6px 15px rgba(74, 144, 226, 0.3);
+}
+
+.quick-view-btn:active {
+    transform: translateX(-50%) translateY(-1px);
+    box-shadow: 0 3px 8px rgba(74, 144, 226, 0.3);
 }
 
 .item p {
@@ -91,6 +143,37 @@
     opacity: 0.8;
 }
 
+/* Discount badge styling */
+.item-discount {
+    position: absolute;
+    top: -28px;
+    right: 0;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeInDown 0.5s ease forwards;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Position the price container relatively for absolute positioning of discount badge */
+.item-prices {
+    position: relative;
+}
+
 /* Animation for item appearance */
 @keyframes fadeIn {
     from {
@@ -116,6 +199,17 @@
     .item img {
         width: 220px;
         height: 220px;
+    }
+    
+    .quick-view-btn {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
+    
+    .item-discount {
+        font-size: 11px;
+        padding: 2px 6px;
+        top: -25px;
     }
     
     .item p {
@@ -146,6 +240,24 @@
         height: 170px;
     }
     
+    .quick-view-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+        bottom: -40px;
+    }
+    
+    .item:hover .quick-view-btn {
+        bottom: 10px;
+    }
+    
+    .btn-text {
+        display: none;
+    }
+    
+    .btn-icon {
+        margin: 0 auto;
+    }
+    
     .item p {
         font-size: 13px;
         padding: 0 8px;
@@ -156,10 +268,16 @@
         gap: 10px;
     }
     
-    .item-price-old {
-        font-size: 13px;
+    .item-prices {
+        padding: 0 8px 8px;
+        gap: 10px;
     }
     
+    .item-discount {
+        font-size: 10px;
+        padding: 2px 5px;
+        top: -22px;
+    }
     .item-price-new {
         font-size: 13px;
     }
@@ -182,6 +300,16 @@
         padding: 0.3rem;
     }
     
+    .quick-view-btn {
+        font-size: 10px;
+        padding: 5px 10px;
+        bottom: -30px;
+    }
+    
+    .item:hover .quick-view-btn {
+        bottom: 8px;
+    }
+    
     .item p {
         font-size: 12px;
         padding: 0 6px;
@@ -191,6 +319,12 @@
     .item-prices {
         padding: 0 6px 6px;
         gap: 6px;
+    }
+    
+    .item-discount {
+        font-size: 9px;
+        padding: 1px 4px;
+        top: -20px;
     }
     
     .item-price-old {
@@ -218,6 +352,11 @@
         height: 160px;
     }
     
+    .quick-view-btn {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+    
     .item p {
         font-size: 13px;
     }
@@ -228,6 +367,12 @@
     
     .item-price-new {
         font-size: 13px;
+    }
+    
+    .item-discount {
+        font-size: 10px;
+        padding: 1px 5px;
+        top: -22px;
     }
     
     /* Disable or reduce hover effects on mobile */

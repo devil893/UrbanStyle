@@ -67,34 +67,47 @@ const StoreContextProvider = (props) => {
         };
     }, [backend_url]);
 
-    const addToCart = async (itemId) =>{
+    const addToCart = async (itemId, quantity = 1) => {
+        // Update cart state with the specified quantity (default is 1)
         if (!cartItems[itemId]) {
-            setCartItems((prev) => ({ ...prev, [itemId]: 1 }))
+            setCartItems((prev) => ({ ...prev, [itemId]: quantity }))
         }
         else {
-            setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
+            setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + quantity }))
         }
         
         // Get product name for the notification
         const product = all_product.find(item => item.id === Number(itemId));
         const productName = product ? product.name : 'Item';
         
-        // Show success notification
-        toast.success(`Added to cart: ${productName}`);
+        // Show success notification with quantity information
+        if (quantity > 1) {
+            toast.success(`Added ${quantity} ${productName}${quantity > 1 ? 's' : ''} to cart`);
+        } else {
+            toast.success(`Added to cart: ${productName}`);
+        }
         
         const token = localStorage.getItem('token');
         if(token){
-            const response = await fetch(`${backend_url}/api/cart/addToCart`,{
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body:JSON.stringify({'itemId':itemId}),
-            });
-            const json = await response.json();
-            if(!response.ok){
-                toast.error(json.error);
+            // Make API calls for each item in the quantity
+            for (let i = 0; i < quantity; i++) {
+                try {
+                    const response = await fetch(`${backend_url}/api/cart/addToCart`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({'itemId': itemId}),
+                    });
+                    const json = await response.json();
+                    if(!response.ok){
+                        toast.error(json.error);
+                    }
+                } catch (error) {
+                    console.error("Error adding item to cart:", error);
+                    toast.error("Failed to update cart on server");
+                }
             }
         }
     }
