@@ -2,12 +2,10 @@ import React from "react";
 import './Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from "../../context/AuthContext";
-import add_product_icon from '../../assets/Product_Cart.svg';
-import list_product_icon from '../../assets/Product_list_icon.svg';
-import order_icon from '../../assets/order_icon.png';
-import review_icon from '../../assets/review_icon.svg';
-import coupon_icon from '../../assets/coupon_icon.svg';
-import message_icon from '../../assets/message_icon.svg'; // You may need to create this icon
+import { MdInventory2, MdAddBox, MdRateReview } from 'react-icons/md';
+import { FaShoppingBag } from 'react-icons/fa';
+import { RiCoupon3Fill } from 'react-icons/ri';
+import { IoMdChatboxes } from 'react-icons/io';
 
 const Sidebar = () => {
     const { isAuthenticated, isAdmin } = useAuth();
@@ -27,37 +25,37 @@ const Sidebar = () => {
         <div className="sidebar">
             <Link to={'/listproduct'} style={{textDecoration:'none'}}>
                 <div className={`sidebar-item ${isActive('/listproduct') ? 'active' : ''}`}>
-                    <img src={list_product_icon} alt="" />
+                    <MdInventory2 style={{ color: '#FF9800', fontSize: '24px' }} />
                     <p>Product List</p>
                 </div>
             </Link>
             <Link to={'/addproduct'} style={{textDecoration:'none'}}>
                 <div className={`sidebar-item ${isActive('/addproduct') ? 'active' : ''}`}>
-                    <img src={add_product_icon} alt="" />
+                    <MdAddBox style={{ color: '#4CAF50', fontSize: '24px' }} />
                     <p>Add Product</p>
                 </div>
             </Link>
             <Link to={'/listorder'} style={{textDecoration:'none'}}>
                 <div className={`sidebar-item ${isActive('/listorder') ? 'active' : ''}`}>
-                    <img src={order_icon} alt="" />
+                    <FaShoppingBag style={{ color: '#2196F3', fontSize: '22px' }} />
                     <p>Orders</p>
                 </div>
             </Link>
             <Link to={'/reviews'} style={{textDecoration:'none'}}>
                 <div className={`sidebar-item ${isActive('/reviews') ? 'active' : ''}`}>
-                    <img src={review_icon} alt="" />
+                    <MdRateReview style={{ color: '#9C27B0', fontSize: '24px' }} />
                     <p>Manage Reviews</p>
                 </div>
             </Link>
             <Link to={'/managecoupons'} style={{textDecoration:'none'}}>
                 <div className={`sidebar-item ${isActive('/managecoupons') ? 'active' : ''}`}>
-                    <img src={coupon_icon} alt="" />
+                    <RiCoupon3Fill style={{ color: '#FFC107', fontSize: '24px' }} />
                     <p>Manage Coupons</p>
                 </div>
             </Link>
             <Link to={'/messages'} style={{textDecoration:'none'}}>
                 <div className={`sidebar-item ${isActive('/messages') ? 'active' : ''}`}>
-                    <img src={message_icon} alt="" />
+                    <IoMdChatboxes style={{ color: '#009688', fontSize: '24px' }} />
                     <p>Messages</p>
                 </div>
             </Link>
