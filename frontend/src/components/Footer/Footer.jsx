@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Typography, Button, TextField, Box } from "@mui/material";
+import { Grid, Typography, Button, TextField, Box, IconButton } from "@mui/material";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { toast } from "react-toastify";
 
@@ -113,9 +113,51 @@ const Footer = () => {
 
           {/* SOCIAL MEDIA LINKS */}
           <Box sx={{ mt: 3, display: "flex", justifyContent: "center", gap: 2 }}>
-            <Instagram fontSize="large" />
-            <Facebook fontSize="large" />
-            <Twitter fontSize="large" />
+            <IconButton 
+              href="https://www.instagram.com/urbanstyle" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              color="inherit"
+              sx={{ 
+                transition: 'transform 0.2s, color 0.2s',
+                '&:hover': { 
+                  transform: 'scale(1.1)',
+                  color: '#E1306C' // Instagram brand color
+                } 
+              }}
+            >
+              <Instagram fontSize="large" />
+            </IconButton>
+            <IconButton 
+              href="https://www.facebook.com/urbanstyle" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              color="inherit"
+              sx={{ 
+                transition: 'transform 0.2s, color 0.2s',
+                '&:hover': { 
+                  transform: 'scale(1.1)',
+                  color: '#1877F2' // Facebook brand color
+                } 
+              }}
+            >
+              <Facebook fontSize="large" />
+            </IconButton>
+            <IconButton 
+              href="https://twitter.com/urbanstyle" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              color="inherit"
+              sx={{ 
+                transition: 'transform 0.2s, color 0.2s',
+                '&:hover': { 
+                  transform: 'scale(1.1)',
+                  color: '#1DA1F2' // Twitter brand color
+                } 
+              }}
+            >
+              <Twitter fontSize="large" />
+            </IconButton>
           </Box>
         </Grid>
       </Grid>
