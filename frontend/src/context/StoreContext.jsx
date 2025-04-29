@@ -74,6 +74,14 @@ const StoreContextProvider = (props) => {
         else {
             setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
         }
+        
+        // Get product name for the notification
+        const product = all_product.find(item => item.id === Number(itemId));
+        const productName = product ? product.name : 'Item';
+        
+        // Show success notification
+        toast.success(`Added to cart: ${productName}`);
+        
         const token = localStorage.getItem('token');
         if(token){
             const response = await fetch(`${backend_url}/api/cart/addToCart`,{
@@ -92,7 +100,21 @@ const StoreContextProvider = (props) => {
     }
 
     const removeFromCart = async (itemId) =>{
+        // Get current quantity and product info before updating
+        const currentQuantity = cartItems[itemId];
+        const product = all_product.find(item => item.id === Number(itemId));
+        const productName = product ? product.name : 'Item';
+        
+        // Update cart state
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}));
+        
+        // Show appropriate notification based on remaining quantity
+        if (currentQuantity > 1) {
+            toast.info(`Quantity decreased: ${productName}`);
+        } else {
+            toast.info(`Removed from cart: ${productName}`);
+        }
+        
         const token = localStorage.getItem('token');
         if(token){
             const response = await fetch(`${backend_url}/api/cart/removeFromCart`,{
