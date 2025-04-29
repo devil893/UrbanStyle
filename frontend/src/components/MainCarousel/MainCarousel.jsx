@@ -2,7 +2,7 @@ import React from "react";
 import { MainCarouselData } from "./MainCarouselData";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import "./MainCarousel.css"; // Import CSS for further adjustments
+import "./MainCarousel.css";
 
 const MainCarousel = () => {
   const items = MainCarouselData.map((item, index) => (
@@ -35,4 +35,3 @@ const MainCarousel = () => {
 };
 
 export default MainCarousel;
-
