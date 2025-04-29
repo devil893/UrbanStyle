@@ -1,3 +1,6 @@
+/* This file has been removed as its functionality is now handled by App.js and ProtectedRoute component.
+All routes have been moved to App.js and wrapped with ProtectedRoute for authentication.
+
 import React from "react";
 import './Admin.css';
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -8,6 +11,7 @@ import ListOrder from "../../components/ListOrder/ListOrder";
 import ManageCoupons from "../../components/ManageCoupons/ManageCoupons";
 import ReviewManagement from "../../components/ReviewManagement/ReviewManagement";
 import Login from "./../../components/Login/Login";
+import AdminMessages from "../../components/AdminMessages/AdminMessages";
 
 const Admin = () => {
     return ( 
@@ -20,9 +24,11 @@ const Admin = () => {
                 <Route path="/listorder" element={<ListOrder/>}/>
                 <Route path="/managecoupons" element={<ManageCoupons/>}/>
                 <Route path="/reviews" element={<ReviewManagement/>}/>
+                <Route path="/messages" element={<AdminMessages/>}/>
             </Routes>
         </div>
     );
 }
  
 export default Admin;
+*/

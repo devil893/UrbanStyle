@@ -7,6 +7,7 @@ import list_product_icon from '../../assets/Product_list_icon.svg';
 import order_icon from '../../assets/order_icon.png';
 import review_icon from '../../assets/review_icon.svg';
 import coupon_icon from '../../assets/coupon_icon.svg';
+import message_icon from '../../assets/message_icon.svg'; // You may need to create this icon
 
 const Sidebar = () => {
     const { isAuthenticated, isAdmin } = useAuth();
@@ -52,6 +53,12 @@ const Sidebar = () => {
                 <div className={`sidebar-item ${isActive('/managecoupons') ? 'active' : ''}`}>
                     <img src={coupon_icon} alt="" />
                     <p>Manage Coupons</p>
+                </div>
+            </Link>
+            <Link to={'/messages'} style={{textDecoration:'none'}}>
+                <div className={`sidebar-item ${isActive('/messages') ? 'active' : ''}`}>
+                    <img src={message_icon} alt="" />
+                    <p>Messages</p>
                 </div>
             </Link>
         </div>

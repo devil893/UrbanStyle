@@ -1,0 +1,135 @@
+.admin-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  height: calc(100vh - 70px); /* Account for navbar height */
+}
+
+/* Table styling */
+.MuiTableContainer-root {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.MuiTable-root {
+  min-width: 650px;
+}
+
+.MuiTableHead-root {
+  background-color: #f9f9f9;
+}
+
+.MuiTableHead-root .MuiTableCell-root {
+  font-weight: 600;
+  color: #333;
+}
+
+.MuiTableRow-root:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  transition: background-color 0.2s ease;
+}
+
+/* Custom styling for unread messages */
+.unread-message {
+  background-color: rgba(25, 118, 210, 0.08);
+  font-weight: 600;
+}
+
+/* Status chips */
+.MuiChip-root.MuiChip-colorPrimary {
+  background-color: #1976d2;
+  color: white;
+}
+
+.MuiChip-root.MuiChip-colorDefault {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+/* Dialog styling */
+.MuiDialog-paper {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.MuiDialogTitle-root {
+  background-color: #f5f5f5;
+  padding: 16px 24px;
+}
+
+.MuiDialogContent-root.MuiDialogContent-dividers {
+  padding: 20px 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.MuiDialogActions-root {
+  padding: 16px 24px;
+  justify-content: flex-end;
+}
+
+/* Message detail styles */
+.message-content-paper {
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  min-height: 150px;
+}
+
+/* Action buttons */
+.MuiIconButton-root {
+  margin: 0 4px;
+}
+
+.MuiIconButton-root:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Filter controls */
+.filter-controls {
+  margin-bottom: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .admin-content {
+    padding: 16px;
+  }
+  
+  .MuiTableContainer-root {
+    overflow-x: auto;
+  }
+  
+  .MuiTable-root {
+    min-width: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-content {
+    padding: 12px;
+  }
+  
+  .MuiTableCell-root {
+    padding: 8px;
+  }
+  
+  .MuiIconButton-root {
+    padding: 6px;
+  }
+  
+  .MuiDialogContent-root {
+    padding: 16px;
+  }
+}
+
+/* Loading state */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+

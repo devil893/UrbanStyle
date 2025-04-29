@@ -9,6 +9,7 @@ const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const subscriberRoutes = require("./routes/subscriberRoutes");
 const couponRoutes = require("./routes/couponRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 
 const connectDB = require("./db");
 
@@ -28,6 +29,7 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/subscribers", subscriberRoutes);
 app.use("/api/coupons", couponRoutes);
+app.use("/api/messages", messageRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

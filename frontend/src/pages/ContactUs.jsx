@@ -89,21 +89,27 @@ const ContactUs = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulating API call - in a real app, this would connect to your backend
-      // const response = await fetch(`${process.env.REACT_APP_API_URL}/api/contact`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(formData),
-      // });
+      const backend_url = process.env.REACT_APP_API_URL || 'http://localhost:4000';
       
-      // if (!response.ok) {
-      //   throw new Error('Failed to send message');
-      // }
+      // Send message to backend API
+      const response = await fetch(`${backend_url}/api/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
       
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      let data;
+      try {
+        data = await response.json();
+      } catch (error) {
+        throw new Error('Invalid response from server. Please try again later.');
+      }
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
       
       // Success message
       toast.success('Message sent successfully! We will get back to you soon.');
@@ -116,7 +122,15 @@ const ContactUs = () => {
         message: ''
       });
     } catch (error) {
-      toast.error(error.message || 'Failed to send message. Please try again later.');
+      let errorMessage = 'Failed to send message. Please try again later.';
+      
+      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+        errorMessage = 'Network error. Please check your internet connection.';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      toast.error(errorMessage);
       console.error('Contact form submission error:', error);
     } finally {
       setIsSubmitting(false);

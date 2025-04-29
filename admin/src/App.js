@@ -8,6 +8,7 @@ import ListProduct from "./components/ListProduct/ListProduct";
 import ListOrder from "./components/ListOrder/ListOrder";
 import ManageCoupons from "./components/ManageCoupons/ManageCoupons";
 import ReviewManagement from "./components/ReviewManagement/ReviewManagement";
+import AdminMessages from "./components/AdminMessages/AdminMessages";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/listorder" element={<ListOrder />} />
             <Route path="/managecoupons" element={<ManageCoupons />} />
             <Route path="/reviews" element={<ReviewManagement />} />
+            <Route path="/messages" element={<AdminMessages />} />
           </Route>
 
           {/* Catch-all redirect to home */}

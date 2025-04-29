@@ -16,6 +16,7 @@ import SearchResults from "./pages/SearchResults";
 import FAQ from "./pages/FAQ";
 import ShippingReturns from "./pages/ShippingReturns";
 import ContactUs from "./pages/ContactUs";
+import AdminMessages from "./components/Admin/AdminMessages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="/faq" element={<FAQ/>}/>
           <Route path="/shipping-returns" element={<ShippingReturns/>}/>
           <Route path="/contact" element={<ContactUs/>}/>
+          <Route path="/admin/messages" element={<AdminMessages/>}/>
         </Routes>
         <Footer />
     </div>

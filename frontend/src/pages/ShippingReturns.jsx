@@ -80,12 +80,12 @@ const ShippingReturns = () => {
           How to Initiate a Return
         </Typography>
         <Typography variant="body1" paragraph>
-          1. Log into your account and go to "My Orders"<br />
-          2. Select the order containing the item you wish to return<br />
-          3. Click "Request Return" and follow the prompts<br />
-          4. Print the prepaid return shipping label (if applicable)<br />
-          5. Package the item securely with all original tags and packaging<br />
-          6. Drop off the package at your nearest courier location
+          1. Contact our customer service representative at <strong>+92 300 123 4567</strong> or <strong>support@urbanstyle.com</strong><br />
+          2. Provide your order number and details about the item you wish to return<br />
+          3. Our representative will guide you through the return process<br />
+          4. Package the item securely with all original tags and packaging<br />
+          5. Return the parcel to our return address (listed below)<br />
+          6. We recommend using a tracked shipping service for your protection
         </Typography>
         
         <Typography variant="h6" gutterBottom sx={{ fontWeight: 500, mt: 3 }}>
