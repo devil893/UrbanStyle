@@ -9,6 +9,7 @@ const CartItems = () => {
         all_product,
         cartItems,
         removeFromCart,
+        removeItemCompletely,
         addToCart,
         getTotalCartAmount,
         validateCoupon,
@@ -58,7 +59,7 @@ const CartItems = () => {
                                     </button>
                                 </div>
                                 <p>PKR {(e.new_price*cartItems[e.id]).toLocaleString('en-PK')}</p>
-                                <img className="cartitems-remove-icon" src={bin} onClick={()=>{removeFromCart(e.id)}} alt="" />
+                                <img className="cartitems-remove-icon" src={bin} onClick={()=>{removeItemCompletely(e.id)}} alt="Remove item" />
                             </div>
                             <hr />
                         </div>

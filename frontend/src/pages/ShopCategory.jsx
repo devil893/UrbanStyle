@@ -7,7 +7,6 @@ const ShopCategory = (props) => {
     const {all_product} = useContext(StoreContext);
     return ( 
         <div className="shop-category">
-            <img className="shopCategory-banner" src={props.banner} alt="" />
             <div className="shopCategory-products">
                 {all_product.map((item,i)=>{
                     if(props.category===item.category){

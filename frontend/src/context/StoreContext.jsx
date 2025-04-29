@@ -145,6 +145,45 @@ const StoreContextProvider = (props) => {
         }
     }
 
+    const removeItemCompletely = async (itemId) => {
+        // Get product info before removing
+        const product = all_product.find(item => item.id === Number(itemId));
+        const productName = product ? product.name : 'Item';
+        const quantity = cartItems[itemId];
+        
+        // Update cart state - remove the item completely
+        setCartItems((prev) => {
+            const newCart = {...prev};
+            delete newCart[itemId];
+            return newCart;
+        });
+        
+        // Show removal notification
+        toast.info(`Removed from cart: ${productName} (${quantity} ${quantity > 1 ? 'items' : 'item'})`);
+        
+        // Update server if user is logged in
+        const token = localStorage.getItem('token');
+        if(token){
+            try {
+                // Remove the item completely from cart - we need to call the API multiple times
+                // to remove all quantities of the item
+                for (let i = 0; i < quantity; i++) {
+                    await fetch(`${backend_url}/api/cart/removeFromCart`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({'itemId': itemId}),
+                    });
+                }
+            } catch (error) {
+                console.error("Error removing item from cart:", error);
+                toast.error("Failed to update cart on server");
+            }
+        }
+    };
+
     const validateCoupon = async (code) => {
         try {
             const response = await fetch(`${backend_url}/api/coupons/validate`, {
@@ -214,6 +253,7 @@ const StoreContextProvider = (props) => {
         cartItems,
         addToCart,
         removeFromCart,
+        removeItemCompletely,
         getTotalCartAmount,
         getTotalCartItems,
         validateCoupon,

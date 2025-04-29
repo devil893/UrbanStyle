@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import './NewsletterSubscribe.css';
+import { toast } from 'react-toastify';
 
 const NewsletterSubscribe = () => {
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState('idle'); // idle, submitting, success, error
     const [message, setMessage] = useState('');
+    const backend_url = process.env.REACT_APP_API_URL;
     
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     };
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
         // Validate email
@@ -24,19 +26,33 @@ const NewsletterSubscribe = () => {
         // Set submitting state
         setStatus('submitting');
         
-        // Simulate API call with timeout
-        setTimeout(() => {
-            // In a real application, this would be an API call
-            try {
-                // Simulate successful submission
+        try {
+            const response = await fetch(`${backend_url}/api/subscribers`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+            
+            const json = await response.json();
+            
+            if (response.ok) {
+                toast.success('Subscribed successfully');
                 setStatus('success');
                 setMessage('Thank you for subscribing! Stay tuned for updates.');
                 setEmail('');
-            } catch (error) {
+            } else {
+                toast.error(json.error || 'Subscription failed');
                 setStatus('error');
-                setMessage('Something went wrong. Please try again later.');
+                setMessage(json.error || 'Something went wrong. Please try again later.');
             }
-        }, 1500);
+        } catch (error) {
+            console.error('Newsletter subscription error:', error);
+            toast.error('Failed to connect to the server');
+            setStatus('error');
+            setMessage('Unable to connect to the server. Please try again later.');
+        }
     };
     
     return (

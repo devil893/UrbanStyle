@@ -5,9 +5,6 @@ import ShopCategory from "./pages/ShopCategory";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import LoginSignup from "./pages/LoginSignup";
-import polo_banner from "./../src/assets/banner_mens.png";
-import tshirts_banner from "./../src/assets/banner_women.png";
-import formalshirts_banner from "./../src/assets/banner_kids.png";
 import Footer from "./components/Footer/Footer";
 import PlaceOrder from "./pages/PlaceOrder";
 import Verify from "./pages/Verify";
@@ -29,15 +26,15 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/polo"
-            element={<ShopCategory banner={polo_banner} category="polo" />}
+            element={<ShopCategory category="polo" />}
           />
           <Route
             path="/tshirts"
-            element={<ShopCategory banner={tshirts_banner} category="tshirts" />}
+            element={<ShopCategory category="tshirts" />}
           />
           <Route
             path="/formalshirts"
-            element={<ShopCategory banner={formalshirts_banner} category="formalshirts" />}
+            element={<ShopCategory category="formalshirts" />}
           />
           <Route path="/product" element={<Product />}>
             <Route path=":productId" element={<Product/>}/>
