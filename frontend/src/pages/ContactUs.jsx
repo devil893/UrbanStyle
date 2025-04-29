@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Container, 
   Typography, 
@@ -10,13 +10,16 @@ import {
   CircularProgress,
   Divider,
   Card,
-  CardContent 
+  CardContent,
+  Alert,
+  Stack
 } from '@mui/material';
 import { 
   Email as EmailIcon, 
   Phone as PhoneIcon, 
   LocationOn as LocationIcon, 
-  AccessTime as TimeIcon 
+  AccessTime as TimeIcon,
+  Map as MapIcon
 } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 
@@ -30,6 +33,8 @@ const ContactUs = () => {
   
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(true);
+  const [mapError, setMapError] = useState(false);
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -150,8 +155,9 @@ const ContactUs = () => {
       </Box>
       
       <Grid container spacing={4}>
-        {/* Contact Form */}
+        {/* Contact Form - Left Column */}
         <Grid item xs={12} md={7}>
+          {/* Contact Form */}
           <Paper elevation={3} sx={{ p: 4 }}>
             <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
               Send Us a Message
@@ -242,94 +248,155 @@ const ContactUs = () => {
           </Paper>
         </Grid>
         
-        {/* Contact Information */}
+        {/* Contact Information - Right Column */}
         <Grid item xs={12} md={5}>
+          {/* Contact Information Card */}
           <Card elevation={3} sx={{ height: '100%' }}>
-            <CardContent sx={{ p: 4 }}>
-              <Typography variant="h5" gutterBottom sx={{ mb: 4 }}>
-                Contact Information
+              <CardContent sx={{ p: 4 }}>
+                <Typography variant="h5" gutterBottom sx={{ mb: 4 }}>
+                  Contact Information
+                </Typography>
+                
+                <Box>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
+                    <EmailIcon sx={{ mr: 2, color: 'secondary.main' }} />
+                    <Box>
+                      <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
+                        Email Us
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        <a href="mailto:support@urbanstyle.com" style={{ color: 'inherit', textDecoration: 'none' }}>
+                          support@urbanstyle.com
+                        </a>
+                      </Typography>
+                      <Typography variant="body1">
+                        <a href="mailto:info@urbanstyle.com" style={{ color: 'inherit', textDecoration: 'none' }}>
+                          info@urbanstyle.com
+                        </a>
+                      </Typography>
+                    </Box>
+                  </Box>
+                  
+                  <Divider sx={{ my: 3 }} />
+                  
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
+                    <PhoneIcon sx={{ mr: 2, color: 'secondary.main' }} />
+                    <Box>
+                      <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
+                        Call Us
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        <a href="tel:+923001234567" style={{ color: 'inherit', textDecoration: 'none' }}>
+                          +92 300 123 4567
+                        </a>
+                      </Typography>
+                      <Typography variant="body1">
+                        <a href="tel:+923001234568" style={{ color: 'inherit', textDecoration: 'none' }}>
+                          +92 300 123 4568
+                        </a>
+                      </Typography>
+                    </Box>
+                  </Box>
+                  
+                  <Divider sx={{ my: 3 }} />
+                  
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
+                    <LocationIcon sx={{ mr: 2, color: 'secondary.main' }} />
+                    <Box>
+                      <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
+                        Visit Us
+                      </Typography>
+                      <Typography variant="body1">
+                        UrbanStyle Headquarters<br />
+                        123 Fashion Avenue<br />
+                        Gulberg III, Lahore<br />
+                        Pakistan 54000
+                      </Typography>
+                    </Box>
+                  </Box>
+                  
+                  <Divider sx={{ my: 3 }} />
+                  
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <TimeIcon sx={{ mr: 2, color: 'secondary.main' }} />
+                    <Box>
+                      <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
+                        Business Hours
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        <strong>Monday-Friday:</strong> 9:00 AM - 6:00 PM
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        <strong>Saturday:</strong> 10:00 AM - 4:00 PM
+                      </Typography>
+                      <Typography variant="body1">
+                        <strong>Sunday:</strong> Closed
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+        </Grid>
+        
+        {/* Map Container - Second Row */}
+        <Grid item xs={12} md={5}>
+          <Paper elevation={3} sx={{ p: 4 }}>
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
+              <MapIcon sx={{ mr: 2, color: 'secondary.main' }} />
+              <Typography variant="h6" sx={{ fontWeight: 500 }}>
+                Our Location
               </Typography>
-              
-              <Box sx={{ mb: 4 }}>
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
-                  <EmailIcon sx={{ mr: 2, color: 'secondary.main' }} />
-                  <Box>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
-                      Email Us
-                    </Typography>
-                    <Typography variant="body1" sx={{ mb: 1 }}>
-                      <a href="mailto:support@urbanstyle.com" style={{ color: 'inherit', textDecoration: 'none' }}>
-                        support@urbanstyle.com
-                      </a>
-                    </Typography>
-                    <Typography variant="body1">
-                      <a href="mailto:info@urbanstyle.com" style={{ color: 'inherit', textDecoration: 'none' }}>
-                        info@urbanstyle.com
-                      </a>
-                    </Typography>
-                  </Box>
-                </Box>
-                
-                <Divider sx={{ my: 3 }} />
-                
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
-                  <PhoneIcon sx={{ mr: 2, color: 'secondary.main' }} />
-                  <Box>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
-                      Call Us
-                    </Typography>
-                    <Typography variant="body1" sx={{ mb: 1 }}>
-                      <a href="tel:+923001234567" style={{ color: 'inherit', textDecoration: 'none' }}>
-                        +92 300 123 4567
-                      </a>
-                    </Typography>
-                    <Typography variant="body1">
-                      <a href="tel:+923001234568" style={{ color: 'inherit', textDecoration: 'none' }}>
-                        +92 300 123 4568
-                      </a>
-                    </Typography>
-                  </Box>
-                </Box>
-                
-                <Divider sx={{ my: 3 }} />
-                
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 3 }}>
-                  <LocationIcon sx={{ mr: 2, color: 'secondary.main' }} />
-                  <Box>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
-                      Visit Us
-                    </Typography>
-                    <Typography variant="body1">
-                      UrbanStyle Headquarters<br />
-                      123 Fashion Avenue<br />
-                      Gulberg III, Lahore<br />
-                      Pakistan 54000
-                    </Typography>
-                  </Box>
-                </Box>
-                
-                <Divider sx={{ my: 3 }} />
-                
-                <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
-                  <TimeIcon sx={{ mr: 2, color: 'secondary.main' }} />
-                  <Box>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
-                      Business Hours
-                    </Typography>
-                    <Typography variant="body1" sx={{ mb: 1 }}>
-                      <strong>Monday-Friday:</strong> 9:00 AM - 6:00 PM
-                    </Typography>
-                    <Typography variant="body1" sx={{ mb: 1 }}>
-                      <strong>Saturday:</strong> 10:00 AM - 4:00 PM
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Sunday:</strong> Closed
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            </CardContent>
-          </Card>
+            </Box>
+            
+            <Box sx={{ 
+              height: '610px',  
+              width: '685px',
+              border: '1px solid #eee', 
+              borderRadius: 1,  
+              overflow: 'hidden',
+              position: 'relative'
+            }}>
+                  {mapError ? (
+                    <Box sx={{ 
+                      display: 'flex', 
+                      flexDirection: 'column',
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      height: '100%',
+                      p: 2
+                    }}>
+                      <Alert severity="error" sx={{ mb: 2, width: '100%' }}>
+                        Failed to load map
+                      </Alert>
+                      <Button 
+                        variant="outlined" 
+                        href="https://maps.google.com/?q=Gulberg+III,+Lahore" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open in Google Maps
+                      </Button>
+                    </Box>
+                  ) : (
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13611.846903161665!2d74.34676005!3d31.515719049999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190483e58107d9%3A0xc23abe6ccc7e2462!2sGulberg%20III%2C%20Lahore%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1682767253851!5m2!1sen!2s"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      onLoad={() => setMapLoaded(true)}
+                      onError={() => {
+                        setMapLoaded(false);
+                        setMapError(true);
+                      }}
+                      title="UrbanStyle Location"
+                    ></iframe>
+                  )}
+            </Box>
+          </Paper>
         </Grid>
       </Grid>
     </Container>
@@ -337,4 +404,3 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-
