@@ -9,6 +9,7 @@ const CartItems = () => {
         all_product,
         cartItems,
         removeFromCart,
+        addToCart,
         getTotalCartAmount,
         validateCoupon,
         clearCoupon,
@@ -39,7 +40,23 @@ const CartItems = () => {
                                 <img src={e.image} alt="" className="carticon-product-icon"/>
                                 <p>{e.name}</p>
                                 <p>PKR {e.new_price.toLocaleString('en-PK')}</p>
-                                <button className="cartitems-quantity">{cartItems[e.id]}</button>
+                                <div className="cartitems-quantity-control">
+                                    <button 
+                                        className="quantity-btn minus-btn"
+                                        onClick={() => removeFromCart(e.id)}
+                                        aria-label="Decrease quantity"
+                                    >
+                                        -
+                                    </button>
+                                    <span className="quantity-display">{cartItems[e.id]}</span>
+                                    <button 
+                                        className="quantity-btn plus-btn"
+                                        onClick={() => addToCart(e.id)}
+                                        aria-label="Increase quantity"
+                                    >
+                                        +
+                                    </button>
+                                </div>
                                 <p>PKR {(e.new_price*cartItems[e.id]).toLocaleString('en-PK')}</p>
                                 <img className="cartitems-remove-icon" src={bin} onClick={()=>{removeFromCart(e.id)}} alt="" />
                             </div>
