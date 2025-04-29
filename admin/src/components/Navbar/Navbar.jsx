@@ -1,7 +1,6 @@
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import './Navbar.css';
-import navlogo from './../../assets/nav-logo.svg';
 import profile_icon from './../../assets/profile_icon.png';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -18,26 +17,23 @@ const Navbar = () => {
     if (loading) {
         return (
             <div className="navbar">
-                <Link to="/">
-                    <img src={navlogo} alt="Urban Style Admin" className="nav-logo" />
+                <Link to="/" className="navbar-brand">
+                    <h1 className="urbanstyle-logo">Urban<span>Style</span></h1>
                 </Link>
-                <div className="nav-right">
-                    <div className="loading-dot"></div>
-                </div>
             </div>
         );
     }
     
     return ( 
         <div className="navbar">
-            <Link to={isAuthenticated && isAdmin ? "/addproduct" : "/"}>
-                <img src={navlogo} alt="Urban Style Admin" className="nav-logo" />
+            <Link to={isAuthenticated && isAdmin ? "/addproduct" : "/"} className="navbar-brand">
+                <h1 className="urbanstyle-logo">Urban<span>Style</span></h1>
             </Link>
             
             <div className="nav-right">
                 {isAuthenticated && isAdmin ? (
                     <>
-                        <p className="admin-badge">Admin Panel</p>
+                        <span className="admin-panel-text">Admin Panel</span>
                         <button 
                             className="login-condition logout-btn" 
                             onClick={handleLogout}
