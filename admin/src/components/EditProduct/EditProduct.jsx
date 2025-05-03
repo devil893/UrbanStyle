@@ -97,13 +97,15 @@ const EditProduct = ({ isOpen, onClose, product, onProductUpdated }) => {
     };
     // Handle clicking outside the modal to close it
     const handleModalClick = (e) => {
-        if (e.target.className === "modal-overlay") {
+        // Check if className includes modal-overlay instead of exact match
+        // This ensures it works with additional classes like dark-mode
+        if (e.target.className.includes("modal-overlay")) {
             onClose();
         }
     };
 
     return (
-        <div className="modal-overlay" onClick={handleModalClick}>
+        <div className={`modal-overlay ${darkMode ? 'dark-mode' : ''}`} onClick={handleModalClick}>
             <div 
                 className={`edit-product ${darkMode ? 'dark-mode' : ''}`}
                 onClick={e => e.stopPropagation()}

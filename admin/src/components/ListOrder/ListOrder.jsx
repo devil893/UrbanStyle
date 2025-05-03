@@ -145,9 +145,10 @@ const ListOrder = () => {
 
     return (
         <div className={`list-order-container ${darkMode ? 'dark-mode' : ''}`}>
-            <div className="orders-header">
-                <h1>Order Management</h1>
-                <div className="orders-stats">
+            <div className="list-order-content">
+                <div className="orders-header">
+                    <h1>Order Management</h1>
+                    <div className="orders-stats">
                     <div className="stat-item">
                         <span className="stat-value">{orders.length}</span>
                         <span className="stat-label">Total Orders</span>
@@ -264,6 +265,7 @@ const ListOrder = () => {
                     ))}
                 </div>
             )}
+            </div>
         </div>
     );
 }

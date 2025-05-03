@@ -1,21 +1,26 @@
 .category-filter {
-    margin-bottom: 20px;
+    margin: 0;
     background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 0; /* Remove all padding */
+    border-radius: 0;
+    box-shadow: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%; /* Ensure full width */
 }
 
 .category-filter h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
+    margin: 0;
     color: #333;
+    padding: 10px 20px; /* Consistent padding with other headers */
+    background-color: white;
 }
 
 .category-tabs {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    padding: 10px 20px; /* Consistent padding */
+    background-color: white;
 }
 
 .category-tab {
@@ -53,8 +58,17 @@
 }
 
 @media (max-width: 768px) {
+    .category-filter {
+        padding: 0;
+    }
+    
     .category-tabs {
         flex-direction: column;
+        padding: 10px;
+    }
+    
+    .category-filter h3 {
+        padding: 10px;
     }
     
     .category-tab {
@@ -64,33 +78,45 @@
 
 /* CategoryFilter.css dark mode styles */
 .dark-mode .category-filter {
-    background-color: var(--card-bg);
-    border-color: var(--border-color);
-    box-shadow: 0 2px 8px var(--shadow-color);
+    background-color: #000000; /* Match the black background */
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove shadow */
 }
 
 .dark-mode .category-filter h3 {
-    color: var(--text-primary);
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.dark-mode .category-tabs {
+    background-color: #000000;
 }
 
 .dark-mode .category-tab {
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
+    background-color: #1a1a1a; /* Slightly lighter than black for contrast */
+    color: #e0e0e0;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
 }
 
 .dark-mode .category-tab:hover {
-    background-color: var(--bg-hover);
+    background-color: #2d2d2d;
+    transform: translateY(-2px);
 }
 
 .dark-mode .category-tab.active {
-    background-color: var(--accent-color);
+    background-color: #ff6b6b;
     color: white;
+    border: 1px solid #ff6b6b;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
 }
 
 .dark-mode .category-count {
     background-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
 }
 
 .dark-mode .category-tab.active .category-count {
     background-color: rgba(255, 255, 255, 0.3);
+    color: white;
 }

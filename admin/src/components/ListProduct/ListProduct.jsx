@@ -62,7 +62,7 @@ const ListProduct = () => {
     };
 
     return ( 
-        <div className={`list-product-container ${darkMode ? 'dark-mode' : ''}`}>
+        <div className={`list-product ${darkMode ? 'dark-mode' : ''}`}>
             <h1>All Products</h1>
             <CategoryFilter products={allproducts} onFilterChange={handleFilterChange} />
             <div className="listproduct-format-main">

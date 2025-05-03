@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './CategoryFilter.css';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 const CategoryFilter = ({ products, onFilterChange }) => {
     const [activeTab, setActiveTab] = useState("All");
     const tabs = ["All", "Polo", "T-Shirts", "Formal Shirts"];
+    const { darkMode } = useContext(DarkModeContext);
 
     const getCategoryCount = (category) => {
         if (category === "All") return products.length;
@@ -39,7 +41,7 @@ const CategoryFilter = ({ products, onFilterChange }) => {
     };
 
     return (
-        <div className="category-filter">
+        <div className={`category-filter ${darkMode ? 'dark-mode' : ''}`}>
             <h3>Filter by Category</h3>
             <div className="category-tabs">
                 {tabs.map((tab) => (
