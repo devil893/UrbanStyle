@@ -1,15 +1,36 @@
 /* Main container */
-.orders-container {
-    padding: 25px;
-    max-width: 1200px;
-    margin: 0 auto;
+.list-order-container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: auto; /* Changed from hidden to auto */
+    background-color: #f8f9fa; /* Light mode background */
     color: #333;
     font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Added for better positioning context */
+}
+
+/* Content wrapper */
+/* Content wrapper */
+.list-order-content {
+    flex: 1;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: auto;
+    background-color: #f8f9fa;
+    position: relative; /* Added for better positioning context */
+    min-height: 0; /* Added to ensure proper scrolling */
 }
 
 /* Header with statistics */
 .orders-header {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    padding: 0;
 }
 
 .orders-header h1 {
@@ -21,8 +42,8 @@
 
 .orders-stats {
     display: flex;
-    gap: 20px;
-    margin-bottom: 30px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .stat-item {
@@ -60,9 +81,14 @@
 .order-list {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    min-height: 0; /* Added to ensure proper scrolling */
 }
-
 /* Order Card */
 .order-card {
     background: white;
@@ -353,26 +379,29 @@
 
 /* Responsive Design */
 @media (max-width: 1000px) {
-    .orders-container {
-        padding: 15px;
+    .list-order-content {
+        padding: 8px;
     }
     
     .orders-stats {
         flex-direction: row;
         flex-wrap: wrap;
+        margin-bottom: 15px;
+        gap: 10px; /* Added for better spacing */
     }
     
     .stat-item {
         min-width: 120px;
-        padding: 15px;
+        padding: 10px;
+        flex: 1 1 calc(50% - 10px); /* Added for better responsive layout */
     }
     
     .order-card {
-        padding: 20px 15px;
+        padding: 15px 10px;
     }
     
     .items-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjusted for better fit */
     }
     
     .order-footer {
@@ -387,14 +416,41 @@
 }
 
 @media (max-width: 600px) {
+    .list-order-content {
+        padding: 5px;
+    }
+    
     .orders-header h1 {
         font-size: 22px;
+        margin-bottom: 10px;
+    }
+    
+    .orders-header {
+        margin-bottom: 15px;
+    }
+    
+    .order-list {
+        gap: 15px;
+    }
+    
+    .stat-item {
+        padding: 8px;
+        flex: 1 1 100%; /* Full width on very small screens */
+    }
+    
+    .items-grid {
+        grid-template-columns: 1fr; /* Single column on small screens */
     }
 }
 
 /* Dark Mode Styles */
-.dark-mode .orders-container {
+.dark-mode.list-order-container {
     color: #e0e0e0;
+    background-color: #121212;
+}
+
+.dark-mode .list-order-content {
+    background-color: #121212;
 }
 
 .dark-mode .orders-header h1 {
@@ -533,9 +589,9 @@
 
 /* Status selector dark mode styles */
 .dark-mode .status-selector select {
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-    border-color: var(--border-color);
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border-color: #444;
 }
 
 /* Status-specific colors for dark mode */
@@ -570,29 +626,29 @@
 
 /* Status selector hover and focus states */
 .dark-mode .status-selector select:hover {
-    background-color: var(--bg-hover);
+    background-color: #333;
 }
 
 .dark-mode .status-selector select:focus {
-    border-color: var(--accent-color);
+    border-color: #ff6b6b;
     box-shadow: 0 0 0 2px rgba(255, 99, 71, 0.2);
     outline: none;
 }
 
 /* Status selector label */
 .dark-mode .status-selector label {
-    color: var(--text-primary);
+    color: #ffffff;
 }
 
 /* Custom dropdown arrow */
 .dark-mode .select-wrapper::after {
-    color: var(--text-secondary);
+    color: #b0b0b0;
 }
 
 /* Status badge styles */
 .dark-mode .status-badge {
     background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--border-color);
+    border: 1px solid #444;
 }
 
 /* Animation for status changes */
@@ -603,6 +659,6 @@
 
 /* Option styles in dropdown */
 .dark-mode .status-selector select option {
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
+    background-color: #2d2d2d;
+    color: #ffffff;
 }
