@@ -1,4 +1,32 @@
 /* ReviewManagement.css */
+/* CSS variables */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --input-bg: #f9f9f9;
+    --accent-color: #ff6b6b;
+    --bg-hover: #e2e2e2;
+}
+
+/* Dark mode variables */
+.dark-mode {
+    --bg-primary: #000000;
+    --bg-secondary: #1a1a1a;
+    --card-bg: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --border-color: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --input-bg: #1a1a1a;
+    --accent-color: #ff6b6b;
+    --bg-hover: #2d2d2d;
+}
+
 /* Main container */
 .review-management {
     padding: 30px;
@@ -455,8 +483,10 @@
 /* Add these dark mode styles at the end of ReviewManagement.css */
 
 /* Dark mode styles */
-.dark-mode.review-management {
+.dark-mode.review-management,
+.dark-mode .review-management {
     background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .dark-mode .review-management h1 {
@@ -476,6 +506,10 @@
     border-color: var(--border-color);
     color: var(--text-primary);
     box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.dark-mode .review-search input::placeholder {
+    color: var(--text-secondary);
 }
 
 .dark-mode .review-search input:focus {
@@ -554,8 +588,12 @@
 }
 
 /* Modal styles */
+.dark-mode .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 .dark-mode .modal-content {
-    background-color: var(--card-bg);
+    background-color: var(--bg-primary);
     box-shadow: 0 5px 15px var(--shadow-color);
 }
 
@@ -575,13 +613,18 @@
     color: var(--text-primary);
 }
 
+.dark-mode .loading-container p {
+    color: var(--text-primary);
+}
+
 .dark-mode .spinner {
     border-color: rgba(255, 99, 71, 0.2);
     border-top-color: var(--accent-color);
 }
 
 .dark-mode .error-message {
-    background-color: rgba(255, 99, 71, 0.1);
+    background-color: rgba(255, 107, 107, 0.1);
+    color: var(--text-primary);
 }
 
 .dark-mode .error-message p {

@@ -86,7 +86,7 @@ const AddProduct = () => {
     }
 
     return ( 
-        <div className={`add-product-container ${darkMode ? 'dark-mode' : ''}`}>
+        <div className={`add-product ${darkMode ? 'dark-mode' : ''}`}>
             <h2 className="add-product-title">Add New Product</h2>
             <div className="addproduct-itemfield">
                 <p>Product Title</p>
