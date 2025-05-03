@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import MainCarousel from "../components/MainCarousel/MainCarousel";
 import Popular from "../components/Popular/Popular";
 import NewCollections from "../components/NewCollections/NewCollections";
@@ -10,6 +11,7 @@ import "./HomePage.css";
 
 const Home = () => {
     const [quickViewItem, setQuickViewItem] = useState(null);
+    const navigate = useNavigate();
     
     const handleQuickView = (item) => {
         setQuickViewItem(item);
@@ -17,6 +19,11 @@ const Home = () => {
     
     const closeQuickView = () => {
         setQuickViewItem(null);
+    };
+    
+    const handleShopClick = () => {
+        navigate('/formalshirts');
+        window.scrollTo(0, 0);
     };
     
     return ( 
@@ -29,6 +36,22 @@ const Home = () => {
                 <section className="home-section featured-section">
                     <FeaturedCategories />
                 </section>
+                
+                {/* Coupon Banner */}
+                <div className="coupon-banner">
+                    <div className="coupon-content">
+                        <div className="coupon-badge">
+                            <span>NEW</span>
+                        </div>
+                        <div className="coupon-text">
+                            <h3>Welcome Offer</h3>
+                            <p>Use coupon <span className="coupon-code">WELCOME100</span> for a discount of Rs. 100</p>
+                        </div>
+                        <div className="coupon-action">
+                            <button className="coupon-button" onClick={handleShopClick}>Shop Now</button>
+                        </div>
+                    </div>
+                </div>
                 
                 {/* Popular Products - Existing section */}
                 <section className="home-section popular-section">
