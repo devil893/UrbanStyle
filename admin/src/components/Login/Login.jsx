@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Login.css';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 
 const Login = () => {
     const navigate = useNavigate();
     const { isAuthenticated, isAdmin, login } = useAuth();
+    const { darkMode } = useContext(DarkModeContext);
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
@@ -44,9 +46,9 @@ const Login = () => {
         }
     }, [isAuthenticated, isAdmin, navigate]);
     return (
-        <div className="login-popup">
-            <form onSubmit={onLogin} className="login-popup-container">
-                <h2 className="login-popup-title">Admin Login</h2>
+        <div className={`login-container ${darkMode ? 'dark-mode' : ''}`}>
+            <form onSubmit={onLogin} className="login-card">
+                <h2 className="login-title">Admin Login</h2>
                 <div className="login-popup-inputs">
                     <input
                         name="email"

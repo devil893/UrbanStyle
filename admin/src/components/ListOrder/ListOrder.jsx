@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './ListOrder.css'
-import { useState } from "react";
 import order_icon from './../../assets/order_icon.png'
-import { useEffect } from "react";
 import {toast} from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
+import { DarkModeContext } from "../../context/DarkModeContext";
 import { format, parse, parseISO, subDays } from 'date-fns'
+import StatusFilter from "../StatusFilter/StatusFilter";
 
 // Generate a consistent fallback date based on orderId
 const generateFallbackDate = (orderId) => {
@@ -49,9 +49,12 @@ const statusColors = {
 const ListOrder = () => {
     const backend_url = process.env.REACT_APP_API_URL;
     const [orders, setOrders] = useState([]);
+    const [filteredOrders, setFilteredOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [activeStatus, setActiveStatus] = useState("All");
     const { token, isAuthenticated } = useAuth();
+    const { darkMode } = useContext(DarkModeContext);
 
     const fetchOrders = async() => {
         setLoading(true);
@@ -64,6 +67,7 @@ const ListOrder = () => {
                     new Date(b.createdAt) - new Date(a.createdAt)
                 );
                 setOrders(sortedOrders);
+                setFilteredOrders(sortedOrders);
                 setError(null);
             } else {
                 setError(json.error || "Failed to fetch orders");
@@ -101,7 +105,25 @@ const ListOrder = () => {
             
             if (response.ok) {
                 toast.success(`Order status updated to ${newStatus}`);
-                await fetchOrders();
+                
+                // Update local state instead of fetching all orders again
+                const updatedOrders = orders.map(order => 
+                    order._id === orderId ? { ...order, status: newStatus } : order
+                );
+                setOrders(updatedOrders);
+                
+                // Update filtered orders based on active status
+                if (activeStatus === "All") {
+                    setFilteredOrders(updatedOrders);
+                } else if (activeStatus === newStatus) {
+                    // If we're viewing the same status as the new status, keep the order
+                    setFilteredOrders(updatedOrders.filter(order => order.status === activeStatus));
+                } else {
+                    // If we're viewing a different status, remove this order from filtered view
+                    setFilteredOrders(prevFiltered => 
+                        prevFiltered.filter(order => order._id !== orderId)
+                    );
+                }
             } else {
                 toast.error(json.error || "Failed to update order status");
             }
@@ -110,8 +132,19 @@ const ListOrder = () => {
         }
     }
 
-    return ( 
-        <div className='orders-container'>
+    const handleStatusFilterChange = (filtered) => {
+        setFilteredOrders(filtered);
+        
+        // Track the active status
+        if (filtered.length === orders.length) {
+            setActiveStatus("All");
+        } else if (filtered.length > 0) {
+            setActiveStatus(filtered[0].status);
+        }
+    };
+
+    return (
+        <div className={`list-order-container ${darkMode ? 'dark-mode' : ''}`}>
             <div className="orders-header">
                 <h1>Order Management</h1>
                 <div className="orders-stats">
@@ -134,6 +167,12 @@ const ListOrder = () => {
                 </div>
             </div>
             
+            <StatusFilter 
+                orders={orders} 
+                onFilterChange={handleStatusFilterChange} 
+                statusColors={statusColors}
+            />
+            
             {loading ? (
                 <div className="loading-container">
                     <div className="loading-spinner"></div>
@@ -150,7 +189,7 @@ const ListOrder = () => {
                 </div>
             ) : (
                 <div className="order-list">
-                    {orders.map((order, index) => (
+                    {filteredOrders.map((order, index) => (
                         <div key={order._id || index} className='order-card'>
                             <div className="order-header">
                                 <div className="order-info">
@@ -204,7 +243,7 @@ const ListOrder = () => {
                                             onChange={(event) => statusHandler(event, order._id)} 
                                             value={order.status}
                                             style={{
-                                                backgroundColor: statusColors[order.status] + '20', // Add transparency
+                                                backgroundColor: statusColors[order.status] + '20',
                                                 borderColor: statusColors[order.status],
                                                 color: order.status === "Delivered" ? "#2c722c" : "#333"
                                             }}

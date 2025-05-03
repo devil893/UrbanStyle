@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { 
   Container, 
   Paper, 
@@ -39,10 +39,12 @@ import {
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { useAuth } from '../../context/AuthContext';
+import { DarkModeContext } from '../../context/DarkModeContext';
 import './AdminMessages.css';
 
 const AdminMessages = () => {
   const { token } = useAuth(); // Get token from auth context
+  const { darkMode } = useContext(DarkModeContext); // Get dark mode state
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -219,8 +221,8 @@ const AdminMessages = () => {
   };
 
   return (
-    <div className="admin-content">
-      <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
+    <div className={`admin-messages-container ${darkMode ? 'dark-mode' : ''}`}>
+      <Paper elevation={3} sx={{ p: 3, mb: 4, transition: 'all 0.3s ease' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
           <Typography variant="h5" component="h2" gutterBottom>
             Customer Messages
@@ -313,9 +315,13 @@ const AdminMessages = () => {
                   {paginatedMessages.map((message) => (
                     <TableRow 
                       key={message._id}
+                      data-status={message.status}
                       sx={{ 
-                        '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
-                        bgcolor: message.status === 'unread' ? 'rgba(25, 118, 210, 0.08)' : 'inherit'
+                        '&:hover': { bgcolor: darkMode ? 'var(--dark-hover-bg)' : 'rgba(0, 0, 0, 0.04)' },
+                        bgcolor: message.status === 'unread' 
+                          ? darkMode ? 'var(--dark-unread-bg)' : 'rgba(25, 118, 210, 0.08)' 
+                          : 'inherit',
+                        transition: 'background-color 0.2s ease'
                       }}
                     >
                       <TableCell>{message.name}</TableCell>
@@ -391,6 +397,7 @@ const AdminMessages = () => {
       <Dialog
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
+        className={darkMode ? 'dark-mode' : ''}
       >
         <DialogTitle>Delete Message</DialogTitle>
         <DialogContent>
@@ -414,6 +421,7 @@ const AdminMessages = () => {
         onClose={() => setDetailDialogOpen(false)}
         maxWidth="md"
         fullWidth
+        className={darkMode ? 'dark-mode' : ''}
       >
         {selectedMessage && (
           <>

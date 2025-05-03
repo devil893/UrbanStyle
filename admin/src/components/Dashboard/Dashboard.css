@@ -1,5 +1,8 @@
 .dashboard {
     padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .dashboard h1 {
@@ -133,3 +136,76 @@
     }
 }
 
+/* Dark Mode Styles */
+.dark-mode .dashboard h1 {
+    color: #ffffff;
+}
+
+.dark-mode .stats-card {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .stats-card h2 {
+    color: #e0e0e0;
+}
+
+.dark-mode .stat-value {
+    color: #ffffff;
+}
+
+.dark-mode .stat-percent {
+    color: #b0b0b0;
+}
+
+/* Dark mode stat cards with specific backgrounds */
+.dark-mode .stats-card.total {
+    background-color: #1a1a1a;
+    border-left: 4px solid #4a4a4a;
+}
+
+.dark-mode .stats-card.polo {
+    background-color: #1a2635;
+    border-left: 4px solid #1976d2;
+}
+
+.dark-mode .stats-card.tshirts {
+    background-color: #1a2820;
+    border-left: 4px solid #43a047;
+}
+
+.dark-mode .stats-card.formalshirts {
+    background-color: #2b2317;
+    border-left: 4px solid #ff9800;
+}
+
+.dark-mode .latest-products {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .latest-products h2 {
+    color: #ffffff;
+}
+
+.dark-mode .product-item {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .product-details h3 {
+    color: #ffffff;
+}
+
+.dark-mode .product-details .category {
+    color: #b0b0b0;
+}
+
+.dark-mode .product-details .price {
+    color: #ff6b6b;
+}
+
+/* Dark mode hover effects */
+.dark-mode .stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}

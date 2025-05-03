@@ -391,3 +391,218 @@
         font-size: 22px;
     }
 }
+
+/* Dark Mode Styles */
+.dark-mode .orders-container {
+    color: #e0e0e0;
+}
+
+.dark-mode .orders-header h1 {
+    color: #ffffff;
+}
+
+/* Stats Cards */
+.dark-mode .stat-item {
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .stat-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .stat-label {
+    color: #b0b0b0;
+}
+
+/* Order Cards */
+.dark-mode .order-card {
+    background: #1e1e1e;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .order-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .order-header {
+    border-bottom-color: #333;
+}
+
+.dark-mode .order-id {
+    color: #e0e0e0;
+}
+
+.dark-mode .order-date {
+    color: #999;
+}
+
+.dark-mode .order-amount {
+    color: #ffffff;
+}
+
+.dark-mode .order-customer {
+    border-bottom-color: #333;
+}
+
+.dark-mode .customer-name {
+    color: #e0e0e0;
+}
+
+.dark-mode .address-details {
+    color: #b0b0b0;
+}
+
+.dark-mode .customer-phone {
+    color: #999;
+}
+
+/* Order Items */
+.dark-mode .order-items h4 {
+    color: #e0e0e0;
+}
+
+.dark-mode .item-card {
+    background-color: #2d2d2d;
+}
+
+.dark-mode .item-card:hover {
+    background-color: #333333;
+}
+
+.dark-mode .item-image {
+    background-color: #1e1e1e;
+    border-color: #404040;
+}
+
+.dark-mode .item-name {
+    color: #e0e0e0;
+}
+
+.dark-mode .item-price {
+    color: #e0e0e0;
+}
+
+.dark-mode .item-quantity {
+    color: #999;
+}
+
+/* Status Selector */
+.dark-mode .status-selector label {
+    color: #b0b0b0;
+}
+
+.dark-mode .select-wrapper::after {
+    color: #999;
+}
+
+.dark-mode .status-selector select {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #404040;
+}
+
+.dark-mode .status-selector select:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+/* Loading States */
+.dark-mode .loading-container,
+.dark-mode .error-message,
+.dark-mode .no-orders {
+    background-color: #1e1e1e;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .loading-spinner {
+    border-color: #333;
+    border-top-color: tomato;
+}
+
+.dark-mode .loading-container p,
+.dark-mode .error-message p,
+.dark-mode .no-orders p {
+    color: #b0b0b0;
+}
+
+/* Loading Animation */
+.dark-mode .loading-spinner {
+    border: 4px solid #333;
+    border-top: 4px solid tomato;
+}
+
+/* Status selector dark mode styles */
+.dark-mode .status-selector select {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Status-specific colors for dark mode */
+.dark-mode .status-selector select[style*="background-color"] {
+    color: white !important;
+}
+
+/* Individual status colors in dark mode */
+.dark-mode .status-selector select[value="Ordered"] {
+    background-color: rgba(240, 173, 78, 0.2) !important;
+    border-color: #f0ad4e !important;
+    color: #f0ad4e !important;
+}
+
+.dark-mode .status-selector select[value="Shipped"] {
+    background-color: rgba(91, 192, 222, 0.2) !important;
+    border-color: #5bc0de !important;
+    color: #5bc0de !important;
+}
+
+.dark-mode .status-selector select[value="Out for delivery"] {
+    background-color: rgba(2, 117, 216, 0.2) !important;
+    border-color: #0275d8 !important;
+    color: #0275d8 !important;
+}
+
+.dark-mode .status-selector select[value="Delivered"] {
+    background-color: rgba(92, 184, 92, 0.2) !important;
+    border-color: #5cb85c !important;
+    color: #5cb85c !important;
+}
+
+/* Status selector hover and focus states */
+.dark-mode .status-selector select:hover {
+    background-color: var(--bg-hover);
+}
+
+.dark-mode .status-selector select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(255, 99, 71, 0.2);
+    outline: none;
+}
+
+/* Status selector label */
+.dark-mode .status-selector label {
+    color: var(--text-primary);
+}
+
+/* Custom dropdown arrow */
+.dark-mode .select-wrapper::after {
+    color: var(--text-secondary);
+}
+
+/* Status badge styles */
+.dark-mode .status-badge {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+/* Animation for status changes */
+.dark-mode .status-selector select,
+.dark-mode .status-badge {
+    transition: all 0.3s ease;
+}
+
+/* Option styles in dropdown */
+.dark-mode .status-selector select option {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}

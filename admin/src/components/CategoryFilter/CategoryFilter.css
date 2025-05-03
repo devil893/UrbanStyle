@@ -62,3 +62,35 @@
     }
 }
 
+/* CategoryFilter.css dark mode styles */
+.dark-mode .category-filter {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.dark-mode .category-filter h3 {
+    color: var(--text-primary);
+}
+
+.dark-mode .category-tab {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.dark-mode .category-tab:hover {
+    background-color: var(--bg-hover);
+}
+
+.dark-mode .category-tab.active {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.dark-mode .category-count {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .category-tab.active .category-count {
+    background-color: rgba(255, 255, 255, 0.3);
+}

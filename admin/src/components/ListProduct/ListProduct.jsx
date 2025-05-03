@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import './ListProduct.css';
 import bin from './../../assets/recycle-bin.png';
 import editIcon from './../../assets/edit-icon.svg';
@@ -6,10 +6,12 @@ import {toast} from "react-toastify";
 import CategoryFilter from "../CategoryFilter/CategoryFilter";
 import EditProduct from "../EditProduct/EditProduct";
 import { useAuth } from "../../context/AuthContext";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 const ListProduct = () => {
     const backend_url = process.env.REACT_APP_API_URL;
     const { token, isAuthenticated } = useAuth();
+    const { darkMode } = useContext(DarkModeContext);
     const [allproducts, setAllProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -60,7 +62,7 @@ const ListProduct = () => {
     };
 
     return ( 
-        <div className="list-product">
+        <div className={`list-product-container ${darkMode ? 'dark-mode' : ''}`}>
             <h1>All Products</h1>
             <CategoryFilter products={allproducts} onFilterChange={handleFilterChange} />
             <div className="listproduct-format-main">

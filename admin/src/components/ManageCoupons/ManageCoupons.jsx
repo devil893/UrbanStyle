@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './ManageCoupons.css';
 import bin from './../../assets/recycle-bin.png';
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 const ManageCoupons = () => {
-    const backend_url = process.env.REACT_APP_API_URL;
     const { token, isAuthenticated } = useAuth();
+    const { darkMode } = useContext(DarkModeContext);
+    const backend_url = process.env.REACT_APP_API_URL;
     const [coupons, setCoupons] = useState([]);
     const [couponDetails, setCouponDetails] = useState({
         code: "",
@@ -14,27 +16,31 @@ const ManageCoupons = () => {
         expiryDate: ""
     });
 
-    const fetchCoupons = async () => {
-        try {
-            const response = await fetch(`${backend_url}/api/coupons`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            const data = await response.json();
-            if (response.ok) {
-                setCoupons(data);
-            } else {
-                toast.error(data.error || "Failed to fetch coupons");
-            }
-        } catch (error) {
-            toast.error("Error connecting to server");
-        }
-    };
-
     useEffect(() => {
-        fetchCoupons();
-    }, []);
+        const fetchCoupons = async () => {
+            if (!isAuthenticated || !token) return;
+            
+            try {
+                const response = await fetch(`${backend_url}/api/coupons`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    setCoupons(data);
+                } else {
+                    toast.error(data.error || "Failed to fetch coupons");
+                }
+            } catch (error) {
+                toast.error("Error connecting to server");
+            }
+        };
+
+        if (isAuthenticated && token) {
+            fetchCoupons();
+        }
+    }, [isAuthenticated, token, backend_url]);
 
     const changeHandler = (e) => {
         setCouponDetails({ ...couponDetails, [e.target.name]: e.target.value });
@@ -64,7 +70,16 @@ const ManageCoupons = () => {
                     value: "",
                     expiryDate: ""
                 });
-                fetchCoupons();
+                // Refetch coupons after adding a new one
+                const response = await fetch(`${backend_url}/api/coupons`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const couponsData = await response.json();
+                if (response.ok) {
+                    setCoupons(couponsData);
+                }
             } else {
                 toast.error(data.error || "Failed to add coupon");
             }
@@ -86,7 +101,16 @@ const ManageCoupons = () => {
             
             if (response.ok) {
                 toast.success("Coupon deleted successfully");
-                fetchCoupons();
+                // Refetch coupons after deletion
+                const response = await fetch(`${backend_url}/api/coupons`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const couponsData = await response.json();
+                if (response.ok) {
+                    setCoupons(couponsData);
+                }
             } else {
                 toast.error(data.error || "Failed to delete coupon");
             }
@@ -100,9 +124,8 @@ const ManageCoupons = () => {
         if (!expiryDate) return false;
         return new Date() > new Date(expiryDate);
     };
-
     return (
-        <div className="manage-coupons">
+        <div className={`manage-coupons-container ${darkMode ? 'dark-mode' : ''}`}>
             <h1>Manage Coupons</h1>
             
             <div className="add-coupon-section">

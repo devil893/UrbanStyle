@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './ReviewManagement.css';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 const ReviewManagement = () => {
     const { token, isAuthenticated } = useAuth();
+    const { darkMode } = useContext(DarkModeContext);
     const backend_url = process.env.REACT_APP_API_URL;
     
     const [products, setProducts] = useState([]);
@@ -154,7 +156,7 @@ const ReviewManagement = () => {
     );
 
     return (
-        <div className="review-management">
+        <div className={`review-management-container ${darkMode ? 'dark-mode' : ''}`}>
             <h1>Review Management</h1>
             
             <div className="review-management-header">

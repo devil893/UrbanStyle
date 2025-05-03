@@ -97,3 +97,52 @@
         justify-content: center;
     }
 }
+
+/* Dark Mode Styles */
+.dark-mode .login-popup-container {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #b0b0b0;
+}
+
+.dark-mode .login-popup-title {
+    color: #ffffff;
+}
+
+.dark-mode .login-popup-inputs input {
+    background-color: #2d2d2d;
+    border: 1px solid #404040;
+    color: #e0e0e0;
+}
+
+.dark-mode .login-popup-inputs input:focus {
+    border-color: tomato;
+    background-color: #333333;
+}
+
+.dark-mode .login-popup-inputs input::placeholder {
+    color: #808080;
+}
+
+.dark-mode .login-popup-container button {
+    background-color: tomato;
+    color: #ffffff;
+}
+
+.dark-mode .login-popup-container button:hover {
+    background-color: #ff3814;
+}
+
+.dark-mode .login-popup-container button:disabled {
+    background-color: #ffaa9a;
+}
+
+.dark-mode .login-info {
+    color: #808080;
+}
+
+/* Dark mode loading animation */
+.dark-mode .login-popup-container button.loading::before {
+    border: 2px solid #ffffff;
+    border-top-color: transparent;
+}

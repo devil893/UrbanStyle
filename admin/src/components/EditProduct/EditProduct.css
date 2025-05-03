@@ -151,3 +151,145 @@
     }
 }
 
+/* Add dark mode styles after the existing styles */
+
+/* Modal overlay dark mode */
+.dark-mode .edit-product-modal {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Container dark mode */
+.dark-mode.edit-product {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+/* Header dark mode */
+.dark-mode .edit-product-header {
+    border-bottom-color: var(--border-color);
+}
+
+.dark-mode .edit-product-header h2 {
+    color: var(--text-primary);
+}
+
+.dark-mode .close-button {
+    color: var(--text-primary);
+}
+
+.dark-mode .close-button:hover {
+    background-color: var(--bg-hover);
+    border-radius: 50%;
+}
+
+/* Form fields dark mode */
+.dark-mode .editproduct-itemfield {
+    color: var(--text-secondary);
+}
+
+.dark-mode .editproduct-itemfield input {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .editproduct-itemfield input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(255, 99, 71, 0.2);
+}
+
+.dark-mode .editproduct-description {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .editproduct-description:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(255, 99, 71, 0.2);
+}
+
+.dark-mode .edit-product-selector {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .edit-product-selector:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(255, 99, 71, 0.2);
+}
+
+/* Image upload dark mode */
+.dark-mode .editproduct-thumbnail-img {
+    border-color: var(--border-color);
+    background-color: var(--bg-secondary);
+}
+
+/* Buttons dark mode */
+.dark-mode .update-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.dark-mode .update-btn:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+.dark-mode .update-btn:disabled {
+    background-color: #666;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.dark-mode .cancel-btn {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.dark-mode .cancel-btn:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Scrollbar customization */
+.dark-mode.edit-product::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dark-mode.edit-product::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.dark-mode.edit-product::-webkit-scrollbar-thumb {
+    background-color: var(--text-muted);
+    border-radius: 4px;
+}
+
+.dark-mode.edit-product::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-secondary);
+}
+
+/* Hover states */
+.dark-mode .editproduct-itemfield input:hover,
+.dark-mode .editproduct-description:hover,
+.dark-mode .edit-product-selector:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Transitions */
+.dark-mode.edit-product,
+.dark-mode .editproduct-itemfield input,
+.dark-mode .editproduct-description,
+.dark-mode .edit-product-selector,
+.dark-mode .update-btn,
+.dark-mode .cancel-btn {
+    transition: all 0.3s ease;
+}
+
+/* Media query adjustments */
+@media(max-width:800px) {
+    .dark-mode.edit-product {
+        background-color: var(--card-bg);
+    }
+}

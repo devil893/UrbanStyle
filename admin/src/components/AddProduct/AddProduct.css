@@ -235,3 +235,84 @@
         width: 100px;
     }
 }
+
+/* Dark Mode Styles */
+.dark-mode .add-product {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .add-product-title {
+    color: #ffffff;
+    border-bottom-color: #333;
+}
+
+.dark-mode .addproduct-itemfield p {
+    color: #e0e0e0;
+}
+
+.dark-mode .addproduct-itemfield input,
+.dark-mode .addproduct-itemfield textarea,
+.dark-mode .add-product-selector {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+.dark-mode .addproduct-itemfield input:focus,
+.dark-mode .addproduct-itemfield textarea:focus,
+.dark-mode .add-product-selector:focus {
+    border-color: tomato;
+    box-shadow: 0 0 0 2px rgba(255, 99, 71, 0.2);
+    background-color: #333333;
+}
+
+.dark-mode .add-product-selector {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
+.dark-mode .add-product-selector:hover {
+    border-color: #505050;
+    background-color: #333333;
+}
+
+.dark-mode .upload-area-container {
+    border-color: #404040;
+    background-color: #2d2d2d;
+}
+
+.dark-mode .upload-area-container:hover {
+    border-color: tomato;
+    background-color: rgba(255, 99, 71, 0.1);
+}
+
+.dark-mode .upload-icon {
+    color: #666;
+}
+
+.dark-mode .upload-area-container:hover .upload-icon {
+    color: tomato;
+}
+
+.dark-mode .upload-text {
+    color: #b0b0b0;
+}
+
+.dark-mode .upload-area-container:hover .upload-text {
+    color: #e0e0e0;
+}
+
+.dark-mode .addproduct-btn {
+    background: linear-gradient(135deg, #ff5945, #ff7a66);
+    box-shadow: 0 4px 10px rgba(255, 99, 71, 0.1);
+}
+
+.dark-mode .addproduct-btn:hover {
+    background: linear-gradient(135deg, #ff4431, #ff6652);
+    box-shadow: 0 6px 15px rgba(255, 99, 71, 0.2);
+}
+
+.dark-mode .addproduct-btn:disabled {
+    background: linear-gradient(135deg, #444, #555);
+    color: #888;
+}

@@ -2,7 +2,7 @@
 /* Main container */
 .review-management {
     padding: 30px;
-    background-color: #f9f9f9;
+    background-color: var(--bg-primary);
     min-height: 80vh;
 }
 
@@ -30,10 +30,10 @@
 }
 
 .review-stats p {
-    background-color: #fff;
+    background-color: var(--bg-secondary);
     padding: 10px 15px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px var(--shadow-color);
     font-size: 14px;
 }
 
@@ -92,9 +92,9 @@
 }
 
 .product-card {
-    background-color: white;
+    background-color: var(--card-bg);
     border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 10px var(--shadow-color);
     overflow: hidden;
 }
 
@@ -452,3 +452,173 @@
     }
 }
 
+/* Add these dark mode styles at the end of ReviewManagement.css */
+
+/* Dark mode styles */
+.dark-mode.review-management {
+    background-color: var(--bg-primary);
+}
+
+.dark-mode .review-management h1 {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
+}
+
+/* Header section with stats and search */
+.dark-mode .review-stats p {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.dark-mode .review-search input {
+    background-color: var(--input-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.dark-mode .review-search input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(255, 99, 71, 0.2);
+}
+
+.dark-mode .filter-toggle {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .filter-toggle.active {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.dark-mode .filter-toggle:hover {
+    background-color: var(--bg-hover);
+}
+
+.dark-mode .filter-toggle.active:hover {
+    background-color: #ff4431;
+}
+
+/* Products list */
+.dark-mode .product-card {
+    background-color: var(--card-bg);
+    box-shadow: 0 3px 10px var(--shadow-color);
+}
+
+.dark-mode .product-header {
+    border-bottom-color: var(--border-color);
+}
+
+.dark-mode .product-info h2 {
+    color: var(--text-primary);
+}
+
+.dark-mode .product-category {
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
+}
+
+.dark-mode .star-empty {
+    color: #4a4a4a;
+}
+
+/* Reviews container */
+.dark-mode .review-item {
+    border-color: var(--border-color);
+    background-color: var(--bg-secondary);
+}
+
+.dark-mode .negative-review {
+    background-color: rgba(255, 107, 107, 0.1);
+    border-color: #ff6b6b;
+}
+
+.dark-mode .review-date {
+    color: var(--text-secondary);
+}
+
+.dark-mode .review-content {
+    border-bottom-color: var(--border-color);
+}
+
+.dark-mode .review-content p {
+    color: var(--text-primary);
+}
+
+.dark-mode .review-user {
+    color: var(--text-secondary);
+}
+
+/* Modal styles */
+.dark-mode .modal-content {
+    background-color: var(--card-bg);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.dark-mode .modal-content h2 {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
+}
+
+.dark-mode .modal-review-preview {
+    background-color: var(--bg-secondary);
+    border-color: var(--accent-color);
+    color: var(--text-primary);
+}
+
+/* Loading and error states */
+.dark-mode .loading-container {
+    color: var(--text-primary);
+}
+
+.dark-mode .spinner {
+    border-color: rgba(255, 99, 71, 0.2);
+    border-top-color: var(--accent-color);
+}
+
+.dark-mode .error-message {
+    background-color: rgba(255, 99, 71, 0.1);
+}
+
+.dark-mode .error-message p {
+    color: #ff6b6b;
+}
+
+.dark-mode .no-reviews {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+}
+
+/* Button styles */
+.dark-mode .delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.dark-mode .delete-btn:hover {
+    background-color: #c82333;
+}
+
+.dark-mode .delete-btn:disabled {
+    background-color: #614344;
+    color: var(--text-secondary);
+}
+
+.dark-mode .cancel-btn {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.dark-mode .cancel-btn:hover {
+    background-color: var(--bg-hover);
+}
+
+.dark-mode .cancel-btn:disabled {
+    background-color: var(--bg-hover);
+    color: var(--text-secondary);
+}

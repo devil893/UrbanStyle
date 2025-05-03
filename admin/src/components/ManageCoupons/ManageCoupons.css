@@ -7,10 +7,19 @@
     max-width: 1300px;
 }
 
+.manage-coupons.dark-mode {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
 .manage-coupons h1 {
     margin-bottom: 30px;
     font-size: 30px;
     color: #2e2e2e;
+}
+
+.manage-coupons.dark-mode h1 {
+    color: var(--text-primary);
 }
 
 /* Add Coupon Section */
@@ -22,10 +31,19 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+.manage-coupons.dark-mode .add-coupon-section {
+    background-color: var(--card-bg);
+    box-shadow: 0px 0px 10px var(--shadow-color);
+}
+
 .add-coupon-section h2 {
     margin-bottom: 15px;
     font-size: 20px;
     color: #2e2e2e;
+}
+
+.manage-coupons.dark-mode .add-coupon-section h2 {
+    color: var(--text-primary);
 }
 
 .coupon-form {
@@ -45,6 +63,10 @@
     margin-bottom: 5px;
 }
 
+.manage-coupons.dark-mode .coupon-form-field p {
+    color: var(--text-primary);
+}
+
 .coupon-form-field input {
     width: 100%;
     padding: 10px;
@@ -52,6 +74,12 @@
     border: 1px solid #e5e5e5;
     outline: none;
     font-size: 16px;
+}
+
+.manage-coupons.dark-mode .coupon-form-field input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
 }
 
 .add-coupon-btn {
@@ -70,6 +98,14 @@
     background-color: #5a41e6;
 }
 
+.manage-coupons.dark-mode .add-coupon-btn {
+    background-color: #7c64f8;
+}
+
+.manage-coupons.dark-mode .add-coupon-btn:hover {
+    background-color: #6b56e7;
+}
+
 /* Coupon List Section */
 .coupon-list-section {
     background-color: white;
@@ -78,10 +114,19 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+.manage-coupons.dark-mode .coupon-list-section {
+    background-color: var(--card-bg);
+    box-shadow: 0px 0px 10px var(--shadow-color);
+}
+
 .coupon-list-section h2 {
     margin-bottom: 15px;
     font-size: 20px;
     color: #2e2e2e;
+}
+
+.manage-coupons.dark-mode .coupon-list-section h2 {
+    color: var(--text-primary);
 }
 
 .coupon-list-format-main {
@@ -104,6 +149,14 @@
     margin: 10px 0;
 }
 
+.manage-coupons.dark-mode .coupon-list hr {
+    background-color: var(--border-color);
+}
+
+.manage-coupons.dark-mode .coupon-list-item {
+    color: var(--text-primary);
+}
+
 .coupon-remove-icon {
     width: 20px;
     cursor: pointer;
@@ -118,10 +171,22 @@
     color: red;
 }
 
+.manage-coupons.dark-mode .active {
+    color: #4caf50;
+}
+
+.manage-coupons.dark-mode .expired {
+    color: #ff5252;
+}
+
 .no-coupons {
     text-align: center;
     padding: 20px;
     color: #777;
+}
+
+.manage-coupons.dark-mode .no-coupons {
+    color: #aaa;
 }
 
 @media (max-width: 800px) {

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./AddProduct.css";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
+import { DarkModeContext } from "../../context/DarkModeContext";
 import { FiUploadCloud } from 'react-icons/fi';
 
 const AddProduct = () => {
 
     const backend_url = process.env.REACT_APP_API_URL;
     const { token, isAuthenticated } = useAuth();
+    const { darkMode } = useContext(DarkModeContext);
     const [image,setImage] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [productDetails, setProductDetails] = useState({
@@ -84,7 +86,7 @@ const AddProduct = () => {
     }
 
     return ( 
-        <div className="add-product">
+        <div className={`add-product-container ${darkMode ? 'dark-mode' : ''}`}>
             <h2 className="add-product-title">Add New Product</h2>
             <div className="addproduct-itemfield">
                 <p>Product Title</p>

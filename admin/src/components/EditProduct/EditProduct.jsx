@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./EditProduct.css";
 import upload_area from "./../../assets/upload_area.svg";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 const EditProduct = ({ isOpen, onClose, product, onProductUpdated }) => {
     // Move all hooks to the top level
     const backend_url = process.env.REACT_APP_API_URL;
     const { token, isAuthenticated } = useAuth();
+    const { darkMode } = useContext(DarkModeContext);
     
     const [image, setImage] = useState(null);
     const [imageChanged, setImageChanged] = useState(false);
@@ -38,7 +40,6 @@ const EditProduct = ({ isOpen, onClose, product, onProductUpdated }) => {
 
     // Early return after all hooks
     if (!isOpen) return null;
-
     const imageHandler = (e) => {
         setImage(e.target.files[0]);
         setImageChanged(true);
@@ -94,31 +95,41 @@ const EditProduct = ({ isOpen, onClose, product, onProductUpdated }) => {
             toast.error("An error occurred while updating the product");
         }
     };
-
     // Handle clicking outside the modal to close it
     const handleModalClick = (e) => {
-        if (e.target.className === "edit-product-modal") {
+        if (e.target.className === "modal-overlay") {
             onClose();
         }
     };
 
     return (
-        <div className="edit-product-modal" onClick={handleModalClick}>
-            <div className="edit-product">
+        <div className="modal-overlay" onClick={handleModalClick}>
+            <div 
+                className={`edit-product ${darkMode ? 'dark-mode' : ''}`}
+                onClick={e => e.stopPropagation()}
+            >
                 <div className="edit-product-header">
                     <h2>Edit Product</h2>
-                    <button className="close-button" onClick={onClose}>&times;</button>
+                    <button 
+                        className="close-button" 
+                        onClick={onClose}
+                        aria-label="Close"
+                    >
+                        &times;
+                    </button>
                 </div>
                 
-                <div className="editproduct-itemfield">
-                    <p>Product Title</p>
-                    <input 
-                        value={productDetails.name} 
-                        onChange={changeHandler} 
-                        type="text" 
-                        name="name" 
-                        placeholder="Type here"
-                    />
+                <div className="edit-product-form">
+                    <div className="editproduct-itemfield">
+                        <p>Product Title</p>
+                        <input 
+                            value={productDetails.name} 
+                            onChange={changeHandler} 
+                            type="text" 
+                            name="name" 
+                            placeholder="Type here"
+                        />
+                    </div>
                     
                     <div className="editproduct-itemfield">
                         <p>Product Description</p>
@@ -134,23 +145,23 @@ const EditProduct = ({ isOpen, onClose, product, onProductUpdated }) => {
 
                     <div className="editproduct-price">
                         <div className="editproduct-itemfield">
-                            <p>Price</p>
+                            <p>Original Price</p>
                             <input 
                                 value={productDetails.old_price} 
                                 onChange={changeHandler} 
                                 type="text" 
                                 name="old_price" 
-                                placeholder="Type here"
+                                placeholder="e.g. 1999"
                             />
                         </div>
                         <div className="editproduct-itemfield">
-                            <p>Offer Price</p>
+                            <p>Sale Price</p>
                             <input 
                                 value={productDetails.new_price} 
                                 onChange={changeHandler} 
                                 type="text" 
                                 name="new_price" 
-                                placeholder="Type here"
+                                placeholder="e.g. 1499"
                             />
                         </div>
                     </div>
@@ -171,30 +182,67 @@ const EditProduct = ({ isOpen, onClose, product, onProductUpdated }) => {
                     
                     <div className="editproduct-itemfield">
                         <p>Product Image</p>
-                        <label htmlFor="edit-file-input">
-                            <img 
-                                src={
-                                    imageChanged && image ? 
-                                    URL.createObjectURL(image) : 
-                                    product?.image || upload_area
-                                } 
-                                alt="" 
-                                className="editproduct-thumbnail-img"
-                            />
-                        </label>
+                        <div 
+                            className="upload-area"
+                            onClick={() => document.getElementById('edit-file-input').click()}
+                            role="button"
+                            tabIndex={0}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    document.getElementById('edit-file-input').click();
+                                }
+                            }}
+                        >
+                            {imageChanged && image ? (
+                                <img 
+                                    src={URL.createObjectURL(image)} 
+                                    alt="Preview" 
+                                    className="editproduct-thumbnail-img"
+                                />
+                            ) : product?.image ? (
+                                <img 
+                                    src={product.image} 
+                                    alt="Current" 
+                                    className="editproduct-thumbnail-img"
+                                />
+                            ) : (
+                                <div className="upload-placeholder">
+                                    <img 
+                                        src={upload_area} 
+                                        alt="Upload Area" 
+                                        className="upload-icon"
+                                    />
+                                    <p>Click or drag image to upload</p>
+                                </div>
+                            )}
+                        </div>
                         <input 
                             onChange={imageHandler} 
                             type="file" 
                             name="image" 
                             id="edit-file-input" 
                             hidden
+                            accept="image/*"
                         />
                     </div>
+                </div>
                     
-                    <div className="edit-product-buttons">
-                        <button onClick={onClose} className="cancel-btn">Cancel</button>
-                        <button onClick={updateProduct} className="update-btn">Update</button>
-                    </div>
+                <div className="edit-product-buttons">
+                    <button 
+                        onClick={onClose} 
+                        className="cancel-btn"
+                        type="button"
+                    >
+                        Cancel
+                    </button>
+                    <button 
+                        onClick={updateProduct} 
+                        className="update-btn"
+                        disabled={!productDetails.name || !productDetails.new_price || !productDetails.old_price}
+                        type="button"
+                    >
+                        Update
+                    </button>
                 </div>
             </div>
         </div>

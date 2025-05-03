@@ -67,3 +67,53 @@
         height: 60px;
     }
 }
+
+/* Dark Mode Styles */
+.dark-mode .list-product {
+    background: #1e1e1e;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .listproduct-format-main {
+    color: #e0e0e0;
+    border-bottom-color: #333;
+}
+
+.dark-mode .listproduct-format {
+    color: #b0b0b0;
+    border-bottom: 1px solid #333;
+}
+
+.dark-mode .listproduct-remove-icon {
+    filter: invert(1) brightness(0.8);
+}
+
+.dark-mode .listproduct-remove-icon:hover {
+    filter: invert(1) brightness(1);
+}
+
+.dark-mode .listproduct-edit-icon {
+    filter: invert(1) brightness(0.8);
+}
+
+.dark-mode .listproduct-edit-icon:hover {
+    filter: invert(1) brightness(1);
+}
+
+/* Scrollbar customization for dark mode */
+.dark-mode .listproduct-allproducts::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dark-mode .listproduct-allproducts::-webkit-scrollbar-track {
+    background: #2d2d2d;
+}
+
+.dark-mode .listproduct-allproducts::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.dark-mode .listproduct-allproducts::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

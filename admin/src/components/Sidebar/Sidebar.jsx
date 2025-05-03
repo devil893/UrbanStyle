@@ -1,6 +1,7 @@
-import React from "react";
-import './Sidebar.css';
+import React, { useState, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { DarkModeContext } from '../../context/DarkModeContext';
+import './Sidebar.css';
 import { useAuth } from "../../context/AuthContext";
 import { MdInventory2, MdAddBox, MdRateReview } from 'react-icons/md';
 import { FaShoppingBag } from 'react-icons/fa';
@@ -8,8 +9,10 @@ import { RiCoupon3Fill } from 'react-icons/ri';
 import { IoMdChatboxes } from 'react-icons/io';
 
 const Sidebar = () => {
-    const { isAuthenticated, isAdmin } = useAuth();
     const location = useLocation();
+    const { darkMode } = useContext(DarkModeContext);
+    const { isAuthenticated, isAdmin } = useAuth();
+    const [activeTab, setActiveTab] = useState(location.pathname);
     
     // Only render sidebar for authenticated admin users
     if (!isAuthenticated || !isAdmin) {
@@ -20,9 +23,9 @@ const Sidebar = () => {
     const isActive = (path) => {
         return location.pathname === path;
     };
-    
-    return ( 
-        <div className="sidebar">
+
+    return (
+        <div className={`sidebar ${darkMode ? 'dark-mode' : ''}`}>
             <Link to={'/listproduct'} style={{textDecoration:'none'}}>
                 <div className={`sidebar-item ${isActive('/listproduct') ? 'active' : ''}`}>
                     <MdInventory2 style={{ color: '#FF9800', fontSize: '24px' }} />

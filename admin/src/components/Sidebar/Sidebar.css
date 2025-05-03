@@ -1,3 +1,15 @@
+/* Add CSS variables for theme colors */
+:root {
+    --dark-bg-start: #1a1a1a;
+    --dark-bg-end: #2d2d2d;
+    --dark-item-bg: rgba(255, 255, 255, 0.1);
+    --dark-item-hover-bg: rgba(255, 255, 255, 0.15);
+    --dark-item-active-bg: rgba(255, 255, 255, 0.2);
+    --dark-text: #e0e0e0;
+    --dark-text-active: #ffffff;
+    --transition-duration: 0.3s;
+}
+
 .sidebar{
     display: flex;
     flex-direction: column;
@@ -13,6 +25,15 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+    transition: background var(--transition-duration) ease,
+                box-shadow var(--transition-duration) ease;
+}
+
+/* Dark mode styles for sidebar */
+.sidebar.dark-mode {
+    background: linear-gradient(135deg, var(--dark-bg-start) 0%, var(--dark-bg-end) 100%);
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
 
 .sidebar-item{
@@ -27,9 +48,16 @@
     -webkit-backdrop-filter: blur(8px);
     gap: 20px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all var(--transition-duration) cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Dark mode styles for sidebar items */
+.sidebar.dark-mode .sidebar-item {
+    background-color: var(--dark-item-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-item:hover {
@@ -38,11 +66,22 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
+.sidebar.dark-mode .sidebar-item:hover {
+    background-color: var(--dark-item-hover-bg);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+
 .sidebar-item.active {
     background-color: white;
     border-left: none;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     position: relative;
+}
+
+.sidebar.dark-mode .sidebar-item.active {
+    background-color: var(--dark-item-active-bg);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-item.active::before {
@@ -61,10 +100,18 @@
     color: #555;
 }
 
+.sidebar.dark-mode .sidebar-item.active p {
+    color: var(--dark-text-active);
+}
+
 .sidebar-item p {
     font-weight: 500;
     color: #666;
-    transition: color 0.3s ease;
+    transition: color var(--transition-duration) ease;
+}
+
+.sidebar.dark-mode .sidebar-item p {
+    color: var(--dark-text);
 }
 
 /* Custom scrollbar for webkit browsers */
@@ -81,6 +128,14 @@
     border-radius: 10px;
 }
 
+.sidebar.dark-mode::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.sidebar.dark-mode::-webkit-scrollbar-track {
+    background: transparent;
+}
+
 /* Responsive styles */
 @media(max-width:800px){
     .sidebar{
@@ -93,6 +148,10 @@
         background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
         overflow-x: auto;
         gap: 10px;
+    }
+    
+    .sidebar.dark-mode {
+        background: linear-gradient(90deg, var(--dark-bg-start) 0%, var(--dark-bg-end) 100%);
     }
     
     .sidebar-item{
