@@ -20,6 +20,14 @@ const Navbar = () => {
     const hamburger_toggle = (e) =>{
         menuRef.current.classList.toggle('nav-menu-visible');
     }
+    
+    // Add scroll to top function
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 
     const logout=()=>{
         localStorage.removeItem('token');
@@ -81,8 +89,8 @@ const Navbar = () => {
         }
     };
 
-    return ( 
-        <>
+    return (
+        <div className="header-wrapper">
             <div className='shipping-banner'>
                 <p>Free Shipping Over Rs. 5000</p>
             </div>
@@ -96,10 +104,10 @@ const Navbar = () => {
             <img className="nav-hamburger" onClick={hamburger_toggle} src={hamburger} alt="" />
             
             <ul ref={menuRef} className="nav-menu">
-                <li onClick={()=>setMenu("home")}><Link style={{textDecoration: 'none'}} to="/" className={menu==="home"?"active":""}>Home</Link></li>
-                <li onClick={()=>setMenu("polo")}><Link style={{textDecoration: 'none'}} to="/polo" className={menu==="polo"?"active":""}>Polo</Link></li>
-                <li onClick={()=>setMenu("tshirts")}><Link style={{textDecoration: 'none'}} to="/tshirts" className={menu==="tshirts"?"active":""}>T-Shirts</Link></li>
-                <li onClick={()=>setMenu("formalshirts")}><Link style={{textDecoration: 'none'}} to="/formalshirts" className={menu==="formalshirts"?"active":""}>Formal Shirts</Link></li>
+                <li onClick={()=>{setMenu("home"); scrollToTop();}}><Link style={{textDecoration: 'none'}} to="/" className={menu==="home"?"active":""}>Home</Link></li>
+                <li onClick={()=>{setMenu("polo"); scrollToTop();}}><Link style={{textDecoration: 'none'}} to="/polo" className={menu==="polo"?"active":""}>Polo</Link></li>
+                <li onClick={()=>{setMenu("tshirts"); scrollToTop();}}><Link style={{textDecoration: 'none'}} to="/tshirts" className={menu==="tshirts"?"active":""}>T-Shirts</Link></li>
+                <li onClick={()=>{setMenu("formalshirts"); scrollToTop();}}><Link style={{textDecoration: 'none'}} to="/formalshirts" className={menu==="formalshirts"?"active":""}>Formal Shirts</Link></li>
             </ul>
             
             <div className="nav-search" ref={searchRef}>
@@ -163,16 +171,16 @@ const Navbar = () => {
                 <div className='navbar-profile'>
                     <img src={profile_icon} alt="" />
                     <ul className="nav-profile-dropdown">
-                       <li onClick={()=>navigate("/myorders")}>Orders</li>
+                       <li onClick={()=>{navigate("/myorders"); scrollToTop();}}>Orders</li>
                        <hr />
                        <li onClick={logout}>Logout</li>
                     </ul>
                 </div>}
-                <Link to="/cart"><img src={cart_icon} alt="" /></Link>
+                <Link to="/cart" onClick={scrollToTop}><img src={cart_icon} alt="" /></Link>
                 <div className="nav-cart-count">{getTotalCartItems()}</div>
             </div>
         </div>
-        </>
+        </div>
      );
 }
 

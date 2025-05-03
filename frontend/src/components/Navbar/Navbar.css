@@ -1,3 +1,27 @@
+/* Header wrapper for fixed positioning */
+.header-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--bg-primary);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark-mode.header-wrapper {
+    background-color: #121212;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Apply padding to body for fixed header with transition */
+body {
+    padding-top: 120px; /* Height of navbar + shipping banner */
+    transition: padding-top 0.3s ease;
+}
+
 /*shipping banner*/
 .shipping-banner {
     width: 100%;
@@ -10,7 +34,6 @@
     font-family: 'Poppins', sans-serif;
     letter-spacing: 0.5px;
     z-index: 1001;
-    position: relative;
 }
 .shipping-banner p {
     margin: 0;
@@ -27,13 +50,12 @@
     display: flex;
     justify-content: space-around;
     padding: 16px;
-    box-shadow: 0 1px 3px -2px #000;
     align-items: center;
-}
-
-.dark-mode .navbar {
     background-color: var(--bg-primary);
-    box-shadow: 0 1px 3px -2px rgba(255, 255, 255, 0.1);
+    width: 100%;
+    z-index: 999; /* Slightly lower than header-wrapper */
+    transition: background-color 0.3s ease;
+    position: relative;
 }
 
 .navbar .active{
@@ -244,17 +266,11 @@
     color: #fff;
 }
 
-/* Fix for dark mode user icon */
+/* Fix for dark mode user icon - consolidated */
 .dark-mode .navbar-profile svg, 
 .dark-mode .nav-login-cart svg,
 .dark-mode .nav-hamburger svg,
-.dark-mode .nav-hamburger img {
-    color: white !important;
-    fill: white !important;
-    stroke: white !important;
-}
-
-/* Target all SVG elements and their children inside navbar */
+.dark-mode .nav-hamburger img,
 .dark-mode .navbar svg *,
 .dark-mode .nav-login-cart svg *,
 .dark-mode .navbar-profile svg * {
@@ -322,35 +338,28 @@
 .nav-profile-dropdown{
    position: absolute;
    display: none;
+   top: 100%;
    right: 0;
-   z-index: 1;
+   z-index: 1005; /* Increased z-index to appear above fixed header */
+   gap: 10px;
+   background-color: #fff;
+   padding: 12px 25px;
+   border-radius: 4px;
+   border: 1px solid tomato;
+   list-style: none;
+   outline: none;
+   cursor: pointer;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+   min-width: 150px;
+}
+
+/* Show dropdown on hover */
+.navbar-profile:hover .nav-profile-dropdown {
+   display: block;
 }
 
 .nav-profile-dropdown li{
     cursor: pointer;
-}
-.nav-profile-dropdown li:hover{
-    color: tomato;
-}
-.navbar-profile:hover .nav-profile-dropdown{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background-color: #fff;
-    padding: 12px 25px;
-    border-radius: 4px;
-    border: 1px solid tomato;
-    list-style: none;
-    outline: none;
-    cursor: pointer;
-}
-
-.dark-mode .nav-profile-dropdown {
-    background-color: #121212 !important;
-    border-color: var(--accent-color) !important;
-    color: white !important;
-    z-index: 1002;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .dark-mode .navbar-profile:hover .nav-profile-dropdown {
@@ -462,7 +471,7 @@
     background-color: #fff;
     border: 1px solid tomato;
     border-radius: 4px;
-    z-index: 1000;
+    z-index: 1005; /* Increased z-index to appear above fixed header */
     padding: 0;
     list-style: none;
     max-height: 300px;
@@ -524,6 +533,9 @@
 
 
 @media(max-width:1280px){
+    body {
+        padding-top: 100px; /* Reduced for smaller screens */
+    }
     .shipping-banner {
         padding: 7px 0;
         font-size: 15px;
@@ -559,9 +571,8 @@
 }
 
 @media(max-width:1024px){
-    .shipping-banner {
-        padding: 7px 0;
-        font-size: 14px;
+    body {
+        padding-top: 90px; /* Adjusted for smaller screens */
     }
     .navbar{
         padding: 12px 30px;
@@ -587,9 +598,8 @@
 }
 
 @media(max-width:800px){
-    .shipping-banner {
-        padding: 6px 0;
-        font-size: 13px;
+    body {
+        padding-top: 85px; /* Adjusted for smaller screens */
     }
     .navbar{
         padding: 10px 0px;
@@ -614,17 +624,13 @@
         cursor: pointer;
     }
     
-    /* Additional mobile-specific dark mode icon fixes */
+    /* Additional mobile-specific dark mode icon fixes - consolidated */
     .dark-mode .nav-hamburger svg,
     .dark-mode .nav-hamburger img,
     .dark-mode .nav-hamburger object,
-    .dark-mode .nav-hamburger embed {
-        filter: brightness(10) invert(1) contrast(1) !important;
-    }
-    
-    /* Ensure hamburger menu is visible in mobile dark mode */
+    .dark-mode .nav-hamburger embed,
     .dark-mode img[src*="hamburger.png"] {
-        filter: invert(1) !important;
+        filter: brightness(10) invert(1) contrast(1) !important;
     }
     
     /* Super-specific hamburger icon targeting */
@@ -635,19 +641,20 @@
     }
     
     .nav-menu{
-        display: flex;
-        height: 80px;
+        display: none; /* Initial state */
+        height: auto;
         width: 100%;
-        position: absolute;
-        background: #fff;
+        position: absolute; /* Relative to header-wrapper */
+        top: 100%; /* Position right below the header */
+        left: 0;
+        z-index: 998; /* Lower than header-wrapper but higher than content */
+        background: var(--bg-primary);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 15px 0;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
         justify-content: center;
-        top: 50px;
-        display: none;
-    }
-    
-    .dark-mode .nav-menu {
-        background-color: var(--bg-secondary);
-        color: white;
     }
     
     .nav-menu-visible{
@@ -656,13 +663,17 @@
     
     .dark-mode .nav-menu-visible {
         background-color: var(--bg-secondary);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .dark-mode .nav-menu {
+        background-color: var(--bg-secondary);
     }
 }
 
 @media(max-width:500px){
-    .shipping-banner {
-        padding: 6px 0;
-        font-size: 12px;
+    body {
+        padding-top: 75px; /* Adjusted for smaller screens */
     }
     .navbar{
         padding: 8px 0px;
@@ -673,12 +684,7 @@
     }
     .nav-search input {
         font-size: 11px;
-        padding: 5px 25px 5px 8px;
-    }
-    .search-icon {
-        width: 14px;
-        height: 14px;
-        right: 8px;
+        padding: 6px 26px 6px 8px;
     }
     .search-icon::before {
         width: 8px;
@@ -705,14 +711,8 @@
     .nav-hamburger{
         transform: scale(0.8);
     }
-    .nav-menu{
-        height: 70px;
-    }
     .nav-login-cart{
         transform: scale(0.8);
     }
 }
-
-
-
 
