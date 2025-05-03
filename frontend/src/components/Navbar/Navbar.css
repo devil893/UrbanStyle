@@ -12,9 +12,13 @@
     z-index: 1001;
     position: relative;
 }
-
 .shipping-banner p {
     margin: 0;
+}
+
+.dark-mode .shipping-banner {
+    background-color: #ff6347;
+    color: white;
 }
 
 /*navbar*/
@@ -27,9 +31,21 @@
     align-items: center;
 }
 
+.dark-mode .navbar {
+    background-color: var(--bg-primary);
+    box-shadow: 0 1px 3px -2px rgba(255, 255, 255, 0.1);
+}
+
 .navbar .active{
-    padding-bottom: 2px;
-    border-bottom: 2px solid tomato;
+    padding-bottom: 2px !important;
+    border-bottom: 2px solid tomato !important;
+    color: tomato !important;
+    font-weight: 600;
+}
+
+.dark-mode .navbar .active {
+    border-bottom: 2px solid #ff6347 !important;
+    color: #ff6347 !important;
 }
 
 .nav-logo{
@@ -60,6 +76,14 @@
     text-shadow: 2px 2px 4px rgba(0,0,0,0.15);  /* Softer shadow */
 }
 
+.dark-mode .nav-logo p {
+    background: linear-gradient(45deg, #f5f5f5, #b3b3b3, #f5f5f5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+}
+
 @keyframes shine {
     to {
         background-position: 200% center;
@@ -88,13 +112,42 @@
     gap: 50px;
     align-items: center;
     list-style: none;
-    color: #626262;
     font-size: 20px;
     font-weight: 500;
 }
 
 .nav-menu li{
     cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* Apply specific styling to the actual links in nav-menu */
+.nav-menu li a {
+    color: #171717 !important; /* Black color for light mode */
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    text-decoration: none !important;
+    padding-bottom: 2px;
+}
+
+.nav-menu li a:hover {
+    color: tomato !important;
+}
+
+/* Dark mode specific styling for nav-menu */
+.dark-mode .nav-menu {
+    color: white;
+}
+
+.dark-mode .nav-menu li {
+    color: white;
+}
+
+.dark-mode .nav-menu li a {
+    color: white !important;
+}
+
+.dark-mode .nav-menu li a:hover {
+    color: #ff6347 !important;
 }
 
 .nav-menu hr{
@@ -105,10 +158,48 @@
     background-color: tomato;
 }
 
+.dark-mode .nav-menu hr {
+    background-color: #ff6347;
+}
+
 .nav-login-cart{
     display: flex;
     align-items: center;
-    gap: 45px;
+    gap: 20px;
+}
+
+/* Dark mode toggle button styles */
+.dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    background: #ebebeb;
+}
+
+.dark-mode-toggle svg {
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Dark mode specific styles */
+.dark-mode .dark-mode-toggle {
+    background: #333;
+}
+
+.dark-mode .dark-mode-toggle svg {
+    color: #fff;
 }
 
 .nav-login-cart button{
@@ -128,6 +219,17 @@
     color: #000;
 }
 
+.dark-mode .nav-login-cart button {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+
+.dark-mode .nav-login-cart button:hover {
+    background-color: rgba(255, 99, 71, 0.1);
+    color: var(--text-primary);
+}
+
 .nav-cart-count{
     width: 22px;
     height: 22px;
@@ -140,6 +242,72 @@
     font-size: 14px;
     background-color: tomato;
     color: #fff;
+}
+
+/* Fix for dark mode user icon */
+.dark-mode .navbar-profile svg, 
+.dark-mode .nav-login-cart svg,
+.dark-mode .nav-hamburger svg,
+.dark-mode .nav-hamburger img {
+    color: white !important;
+    fill: white !important;
+    stroke: white !important;
+}
+
+/* Target all SVG elements and their children inside navbar */
+.dark-mode .navbar svg *,
+.dark-mode .nav-login-cart svg *,
+.dark-mode .navbar-profile svg * {
+    color: white !important;
+    fill: white !important;
+    stroke: white !important;
+}
+
+/* Icon color fixes for dark mode - consolidated and prioritized */
+.dark-mode img[src*="cart_icon"],
+.dark-mode img[src*="profile_icon"],
+.dark-mode img[src*="hamburger"],
+.dark-mode .nav-login-cart a img,
+.dark-mode .navbar-profile img {
+    filter: invert(1) brightness(100) !important;
+    opacity: 1 !important;
+}
+
+/* SVG element specific targeting */
+.dark-mode .navbar svg,
+.dark-mode .navbar svg *,
+.dark-mode .nav-login-cart svg,
+.dark-mode .nav-login-cart svg *,
+.dark-mode .navbar-profile svg,
+.dark-mode .navbar-profile svg * {
+    color: white !important;
+    fill: white !important;
+    stroke: white !important;
+}
+
+/* Super-specific SVG element targeting */
+.dark-mode .navbar path,
+.dark-mode .navbar rect,
+.dark-mode .navbar circle,
+.dark-mode .navbar line,
+.dark-mode .navbar polyline,
+.dark-mode .navbar polygon {
+    stroke: white !important;
+    fill: white !important;
+}
+
+/* Ensure even background images and icons are visible */
+.dark-mode .navbar i,
+.dark-mode .navbar .icon,
+.dark-mode .navbar-profile i,
+.dark-mode .nav-login-cart i {
+    color: white !important;
+}
+
+/* For icons that might be using background images */
+.dark-mode .nav-login-cart [style*="background"],
+.dark-mode .navbar-profile [style*="background"] {
+    filter: brightness(10) !important;
 }
 
 .nav-hamburger{
@@ -177,6 +345,45 @@
     cursor: pointer;
 }
 
+.dark-mode .nav-profile-dropdown {
+    background-color: #121212 !important;
+    border-color: var(--accent-color) !important;
+    color: white !important;
+    z-index: 1002;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .navbar-profile:hover .nav-profile-dropdown {
+    background-color: #121212 !important;
+    border-color: var(--accent-color) !important;
+}
+
+.dark-mode .nav-profile-dropdown li,
+.dark-mode .navbar-profile:hover .nav-profile-dropdown li {
+    color: white !important;
+    padding: 5px 0;
+}
+
+.dark-mode .nav-profile-dropdown hr,
+.dark-mode .navbar-profile:hover .nav-profile-dropdown hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+    opacity: 1;
+    margin: 5px 0;
+}
+
+.dark-mode .nav-profile-dropdown li:hover,
+.dark-mode .navbar-profile:hover .nav-profile-dropdown li:hover {
+    color: #ff6347 !important;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Fix for dark mode navbar hover states */
+.dark-mode .navbar .active {
+    border-bottom: 2px solid #ff6347 !important;
+    color: #ff6347 !important;
+}
+
 /* Search styling */
 .nav-search {
     position: relative;
@@ -197,6 +404,12 @@
     outline: none;
     font-size: 14px;
     color: #515151;
+}
+
+.dark-mode .nav-search input {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
 }
 
 .search-icon {
@@ -232,6 +445,14 @@
     transform-origin: 0 0;
 }
 
+.dark-mode .search-icon::before {
+    border-color: var(--accent-color);
+}
+
+.dark-mode .search-icon::after {
+    background-color: var(--accent-color);
+}
+
 .search-results {
     position: absolute;
     top: 100%;
@@ -250,6 +471,12 @@
     min-width: 200px;
 }
 
+.dark-mode .search-results {
+    background-color: var(--card-bg);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
 .search-results li {
     padding: 8px 12px;
     cursor: pointer;
@@ -258,7 +485,15 @@
 
 .search-results li:hover {
     background-color: #f5e0e0;
-    color: tomato;
+    color: #666;
+}
+
+.dark-mode .search-result-item {
+    color: var(--text-primary);
+}
+
+.dark-mode .search-results li:hover {
+    background-color: rgba(255, 99, 71, 0.1);
 }
 
 .search-result-item {
@@ -273,6 +508,10 @@
     object-fit: cover;
     border-radius: 4px;
     border: 1px solid #e0e0e0;
+}
+
+.dark-mode .search-result-image {
+    border-color: var(--border-color);
 }
 
 .search-result-name {
@@ -374,6 +613,27 @@
         margin-top: 5px;
         cursor: pointer;
     }
+    
+    /* Additional mobile-specific dark mode icon fixes */
+    .dark-mode .nav-hamburger svg,
+    .dark-mode .nav-hamburger img,
+    .dark-mode .nav-hamburger object,
+    .dark-mode .nav-hamburger embed {
+        filter: brightness(10) invert(1) contrast(1) !important;
+    }
+    
+    /* Ensure hamburger menu is visible in mobile dark mode */
+    .dark-mode img[src*="hamburger.png"] {
+        filter: invert(1) !important;
+    }
+    
+    /* Super-specific hamburger icon targeting */
+    .dark-mode .nav-hamburger * {
+        stroke: white !important;
+        fill: white !important;
+        color: white !important;
+    }
+    
     .nav-menu{
         display: flex;
         height: 80px;
@@ -384,8 +644,18 @@
         top: 50px;
         display: none;
     }
+    
+    .dark-mode .nav-menu {
+        background-color: var(--bg-secondary);
+        color: white;
+    }
+    
     .nav-menu-visible{
         display: flex;
+    }
+    
+    .dark-mode .nav-menu-visible {
+        background-color: var(--bg-secondary);
     }
 }
 

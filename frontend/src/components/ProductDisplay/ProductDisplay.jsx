@@ -3,11 +3,13 @@ import "./ProductDisplay.css"
 import star_icon from "../../assets/star_icon.png"
 import star_dull_icon from "../../assets/star_dull_icon.png"
 import { StoreContext } from "../../context/StoreContext";
+import { DarkModeContext } from "../../context/DarkModeContext";
 import { toast } from "react-toastify";
 
 const ProductDisplay = (props) => {
     const {product} = props;
     const {addToCart} = useContext(StoreContext);
+    const { darkMode } = useContext(DarkModeContext);
     
     // Initialize with default empty product if product is undefined
     const defaultProduct = {
@@ -195,7 +197,7 @@ const ProductDisplay = (props) => {
     // Show a loading UI when product data is not available
     if (isLoading || !product) {
         return (
-            <div className="productdisplay">
+            <div className={`productdisplay ${darkMode ? 'dark-mode' : ''}`}>
                 <div className="loading-container">
                     <div className="loading-message">Loading product details...</div>
                 </div>
@@ -204,7 +206,7 @@ const ProductDisplay = (props) => {
     }
 
     return ( 
-        <div className="productdisplay">
+        <div className={`productdisplay ${darkMode ? 'dark-mode' : ''}`}>
             <div className="productdisplay-left">
                 <div className="productdisplay-img">
                     <img className="productdisplay-main-img" src={product.image || ''} alt="" />

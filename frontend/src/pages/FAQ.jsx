@@ -1,8 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Typography, Accordion, AccordionSummary, AccordionDetails, Box } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { DarkModeContext } from '../context/DarkModeContext';
 
 const FAQ = () => {
+  const { darkMode } = useContext(DarkModeContext);
+
+  const darkModeStyles = {
+    container: {
+      backgroundColor: 'var(--bg-primary)',
+      color: 'var(--text-primary)',
+    },
+    accordion: {
+      backgroundColor: 'var(--bg-secondary)',
+      color: 'var(--text-primary)',
+      boxShadow: darkMode ? '0 2px 5px var(--shadow-color)' : '0 2px 5px rgba(0,0,0,0.1)',
+      '& .MuiAccordionSummary-root': {
+        backgroundColor: 'var(--bg-secondary)',
+      },
+      '& .MuiAccordionDetails-root': {
+        backgroundColor: 'var(--bg-primary)',
+        borderTop: '1px solid var(--border-color)',
+      },
+      '& .MuiTypography-root': {
+        color: 'var(--text-primary)',
+      },
+      '& .MuiSvgIcon-root': {
+        color: 'var(--text-primary)',
+      },
+    },
+    link: {
+      color: 'var(--accent-color)',
+      fontWeight: 'bold',
+      textDecoration: 'underline',
+    }
+  };
   // FAQ data
   const faqs = [
     {
@@ -40,22 +72,21 @@ const FAQ = () => {
   ];
 
   return (
-    <Container maxWidth="md" sx={{ my: 6, minHeight: '70vh' }}>
-      <Typography variant="h3" component="h1" align="center" gutterBottom sx={{ mb: 4, fontWeight: 'bold' }}>
+    <Container maxWidth="md" sx={{ ...darkModeStyles.container, my: 6, minHeight: '70vh' }}>
+      <Typography variant="h3" component="h1" align="center" gutterBottom sx={{ mb: 4, fontWeight: 'bold', color: 'var(--text-primary)' }}>
         Frequently Asked Questions
       </Typography>
 
       <Box sx={{ mb: 5 }}>
-        <Typography variant="body1" paragraph align="center">
+        <Typography variant="body1" paragraph align="center" sx={{ color: 'var(--text-secondary)' }}>
           Find answers to the most common questions about our products, shipping, returns, and more.
         </Typography>
       </Box>
 
       {faqs.map((faq, index) => (
-        <Accordion key={index} sx={{ mb: 2, boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+        <Accordion key={index} sx={{ ...darkModeStyles.accordion, mb: 2 }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            sx={{ background: '#f7f7f7' }}
           >
             <Typography variant="h6" sx={{ fontWeight: 500 }}>
               {faq.question}
@@ -70,8 +101,8 @@ const FAQ = () => {
       ))}
 
       <Box sx={{ mt: 6, textAlign: 'center' }}>
-        <Typography variant="body1">
-          Still have questions? Feel free to <a href="/contact" style={{ color: '#000', fontWeight: 'bold', textDecoration: 'underline' }}>contact us</a>.
+        <Typography variant="body1" sx={{ color: 'var(--text-secondary)' }}>
+          Still have questions? Feel free to <a href="/contact" style={darkModeStyles.link}>contact us</a>.
         </Typography>
       </Box>
     </Container>

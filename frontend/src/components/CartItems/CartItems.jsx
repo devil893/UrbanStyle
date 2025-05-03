@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './CartItems.css';
 import { StoreContext } from "../../context/StoreContext";
+import { DarkModeContext } from "../../context/DarkModeContext";
 import bin from './../../assets/recycle-bin.png';
 
 const CartItems = () => {
@@ -20,10 +21,11 @@ const CartItems = () => {
     } = useContext(StoreContext);
     const [couponCode, setCouponCode] = useState("");
     const [isApplying, setIsApplying] = useState(false);
+    const { darkMode } = useContext(DarkModeContext);
     const navigate = useNavigate();
     
     return ( 
-        <div className="cartitems">
+        <div className={`cartitems ${darkMode ? 'dark-mode' : ''}`}>
             <div className="cartitems-format-main">
                 <p>Products</p>
                 <p>Title</p>

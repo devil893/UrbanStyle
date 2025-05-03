@@ -1,8 +1,31 @@
+/* Dark mode variables */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --card-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #242424;
+    --card-bg: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
 .my-orders {
     width: 80%;
     margin: auto;
     margin-top: 50px;
     margin-bottom: 50px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 .my-orders .container {
@@ -17,9 +40,11 @@
     flex-direction: column;
     padding: 20px;
     border-radius: 12px;
-    background: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: var(--card-bg);
+    box-shadow: 0 4px 6px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
 }
 
 .my-orders-order:hover {
@@ -42,13 +67,15 @@
 }
 
 .order-images::-webkit-scrollbar-track {
-    background: #f5f5f5;
+    background: var(--bg-secondary);
     border-radius: 10px;
+    transition: background 0.3s ease;
 }
 
 .order-images::-webkit-scrollbar-thumb {
-    background: #ddd;
+    background: var(--border-color);
     border-radius: 10px;
+    transition: background 0.3s ease;
 }
 
 .order-image-container {
@@ -61,11 +88,12 @@
     width: 100%;
     height: 80px;
     object-fit: cover;
+    object-fit: cover;
     border-radius: 8px;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--card-bg);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
 .item-quantity {
     position: absolute;
     top: -8px;
@@ -89,24 +117,27 @@
     gap: 20px;
     align-items: center;
     padding-top: 15px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--border-color);
 }
 
 .order-items {
     font-size: 14px;
-    color: #454545;
+    color: var(--text-secondary);
     margin: 0;
+    transition: color 0.3s ease;
 }
 
 .order-amount {
     font-weight: 600;
-    color: #2d3436;
+    color: var(--text-primary);
     margin: 0;
+    transition: color 0.3s ease;
 }
 
 .order-count {
-    color: #636e72;
+    color: var(--text-secondary);
     margin: 0;
+    transition: color 0.3s ease;
 }
 
 .order-status {
@@ -165,6 +196,22 @@
     color: white;
 }
 
+/* Dark mode status styles */
+.dark-mode .status-processing {
+    background: linear-gradient(to right, rgba(255, 71, 87, 0.1) 0%, var(--card-bg) 100%);
+    border-left: 4px solid #ff4757;
+}
+
+.dark-mode .status-shipped {
+    background: linear-gradient(to right, rgba(33, 150, 243, 0.1) 0%, var(--card-bg) 100%);
+    border-left: 4px solid #2196f3;
+}
+
+.dark-mode .status-delivered {
+    background: linear-gradient(to right, rgba(0, 184, 148, 0.1) 0%, var(--card-bg) 100%);
+    border-left: 4px solid #00b894;
+}
+
 /* Status dots colors */
 .status-processing .order-status span {
     color: #ff4757;
@@ -184,9 +231,11 @@
 .empty-orders {
     text-align: center;
     padding: 40px;
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px var(--shadow-color);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 .shop-now-btn {
@@ -201,6 +250,19 @@
 }
 
 .shop-now-btn:hover {
+    background-color: #ff6b81;
+}
+
+/* Additional dark mode styles for buttons */
+.dark-mode .error-message button,
+.dark-mode .shop-now-btn {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+}
+
+.dark-mode .error-message button:hover,
+.dark-mode .shop-now-btn:hover {
     background-color: #ff6b81;
 }
 

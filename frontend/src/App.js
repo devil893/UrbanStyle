@@ -16,11 +16,27 @@ import ContactUs from "./pages/ContactUs";
 import AdminMessages from "./components/Admin/AdminMessages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useContext } from 'react';
+import { DarkModeContext } from './context/DarkModeContext';
 
 function App() {
+  const { darkMode } = useContext(DarkModeContext);
+  
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={darkMode ? "dark" : "light"}
+        toastClassName={darkMode ? 'dark-toast' : ''}
+      />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

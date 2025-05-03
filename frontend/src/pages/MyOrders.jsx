@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import './CSS/MyOrders.css'
 import { toast } from 'react-toastify';
+import { DarkModeContext } from '../context/DarkModeContext';
 
 const MyOrders = () => {
-
+    const { darkMode } = useContext(DarkModeContext);
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -63,7 +64,7 @@ const MyOrders = () => {
     }
 
     return ( 
-        <div className="my-orders">
+        <div className={`my-orders ${darkMode ? 'dark-mode' : ''}`}>
             <h2>My Orders</h2>
             <div className="container">
                 {isLoading ? (
@@ -85,7 +86,7 @@ const MyOrders = () => {
                     orders.map((order, index) => {
                         const statusClass = getStatusColor(order.status);
                         return (
-                            <div key={order._id || index} className={`my-orders-order card ${statusClass}`}>
+                            <div key={order._id || index} className={`my-orders-order card ${statusClass} ${darkMode ? 'dark' : ''}`}>
                                 <div className="order-images">
                                     {order.items && Array.isArray(order.items) && 
                                         order.items.map((item, itemIndex) => (

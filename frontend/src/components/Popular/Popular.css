@@ -24,6 +24,12 @@
     z-index: -1;
 }
 
+.dark-mode .popular::before {
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.05) 2%, transparent 0%),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 2%, transparent 0%);
+}
+
 .popular h1{
     color: #171717;
     font-size: 50px;
@@ -34,6 +40,10 @@
     position: relative;
     display: inline-block;
     text-align: center;
+}
+
+.dark-mode .popular h1 {
+    color: var(--text-primary);
 }
 
 /* Add animation for heading */
@@ -48,6 +58,10 @@
     background: linear-gradient(90deg, transparent, #252525, transparent);
 }
 
+.dark-mode .popular h1::after {
+    background: linear-gradient(90deg, transparent, var(--text-primary), transparent);
+}
+
 .popular hr{
     width: 200px;
     height: 4px;
@@ -55,6 +69,10 @@
     background: linear-gradient(90deg, transparent, #252525, transparent);
     margin: 1.5rem 0 2.5rem;
     border: none;
+}
+
+.dark-mode .popular hr {
+    background: linear-gradient(90deg, transparent, var(--text-primary), transparent);
 }
 
 .popular-item{
@@ -76,9 +94,18 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+.dark-mode .popular-item .item {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
 .popular-item .item:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .popular-item .item:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .popular-item .item img {
@@ -89,6 +116,10 @@
     border-radius: 8px 8px 0 0;
     transition: transform 0.3s ease;
     padding: 1rem;
+}
+
+.dark-mode .popular-item .item img {
+    background-color: var(--bg-secondary);
 }
 
 .popular-item .item:hover img {
@@ -109,9 +140,15 @@
     transition: color 0.3s ease;
 }
 
+.dark-mode .popular-item .item-name {
+    color: var(--text-primary);
+}
+
 .popular-item .item:hover .item-name {
     color: #4a90e2;
 }
+
+.
 
 .popular-item .item-prices {
     display: flex;

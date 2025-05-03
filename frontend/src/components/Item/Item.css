@@ -12,6 +12,12 @@
     cursor: pointer;
 }
 
+/* Dark mode styles for item card */
+.dark-mode .item {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 .item::after {
     content: '';
     position: absolute;
@@ -25,10 +31,18 @@
     pointer-events: none;
 }
 
+.dark-mode .item::after {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.05) 0%, rgba(0, 0, 0, 0) 60%);
+}
+
 .item:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+}
+
+.dark-mode .item:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
 }
 
 .item:hover::after {
@@ -50,6 +64,10 @@
     border-radius: 8px 8px 0 0;
     transition: transform 0.3s ease;
     padding: 0.5rem;
+}
+
+.dark-mode .item img {
+    background-color: var(--bg-secondary);
 }
 
 .item:hover img {
@@ -78,6 +96,12 @@
     z-index: 2;
 }
 
+.dark-mode .quick-view-btn {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 .item:hover .quick-view-btn {
     bottom: 15px;
     z-index: 10;
@@ -94,6 +118,12 @@
     color: white;
     transform: translateX(-50%) translateY(-3px);
     box-shadow: 0 6px 15px rgba(74, 144, 226, 0.3);
+}
+
+.dark-mode .quick-view-btn:hover {
+    background-color: #4a90e2;
+    color: white;
+    box-shadow: 0 6px 15px rgba(74, 144, 226, 0.4);
 }
 
 .quick-view-btn:active {
@@ -116,7 +146,15 @@
     -webkit-box-orient: vertical;
 }
 
+.dark-mode .item p {
+    color: var(--text-primary);
+}
+
 .item:hover p {
+    color: #4a90e2;
+}
+
+.dark-mode .item:hover p {
     color: #4a90e2;
 }
 
@@ -135,12 +173,20 @@
     position: relative;
 }
 
+.dark-mode .item-price-new {
+    color: var(--text-primary);
+}
+
 .item-price-old {
     color: #8c8c8c;
     font-size: 16px;
     font-weight: 500;
     text-decoration: line-through;
     opacity: 0.8;
+}
+
+.dark-mode .item-price-old {
+    color: var(--text-secondary);
 }
 
 /* Discount badge styling */
@@ -156,6 +202,11 @@
     border-radius: 3px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     animation: fadeInDown 0.5s ease forwards;
+}
+
+.dark-mode .item-discount {
+    background-color: #e74c3c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes fadeInDown {
@@ -285,6 +336,10 @@
     .item:hover {
         transform: translateY(-4px);
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .dark-mode .item:hover {
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
     }
 }
 

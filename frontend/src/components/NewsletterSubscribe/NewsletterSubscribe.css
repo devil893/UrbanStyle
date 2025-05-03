@@ -10,6 +10,11 @@
     margin: 3rem 0;
 }
 
+.dark-mode .newsletter-container {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--card-bg) 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
 .newsletter-content {
     position: relative;
     z-index: 2;
@@ -33,6 +38,10 @@
     position: absolute;
     border-radius: 50%;
     background: linear-gradient(135deg, rgba(74, 144, 226, 0.15) 0%, rgba(74, 144, 226, 0.05) 100%);
+}
+
+.dark-mode .decoration-circle {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.2) 0%, rgba(74, 144, 226, 0.05) 100%);
 }
 
 .circle-1 {
@@ -70,12 +79,20 @@
     margin-bottom: 1rem;
 }
 
+.dark-mode .newsletter-text h2 {
+    color: var(--text-primary);
+}
+
 .newsletter-text p {
     font-size: 1.1rem;
     color: #666;
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
+}
+
+.dark-mode .newsletter-text p {
+    color: var(--text-secondary);
 }
 
 /* Form styles */
@@ -111,6 +128,17 @@
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
 }
 
+.dark-mode .newsletter-form input {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.dark-mode .newsletter-form input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
 .input-focus-border {
     position: absolute;
     bottom: 0;
@@ -140,6 +168,10 @@
 .newsletter-form input:disabled {
     background-color: #f9f9f9;
     cursor: not-allowed;
+}
+
+.dark-mode .newsletter-form input:disabled {
+    background-color: var(--bg-secondary);
 }
 
 /* Button styles */
@@ -177,6 +209,15 @@
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+}
+
+.dark-mode .subscribe-button {
+    background-color: #4a90e2;
+}
+
+.dark-mode .subscribe-button:hover {
+    background-color: #357abf;
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
 }
 
 /* Button states */
@@ -250,6 +291,10 @@
     gap: 0.5rem;
     color: #666;
     font-size: 0.9rem;
+}
+
+.dark-mode .feature {
+    color: var(--text-secondary);
 }
 
 .feature svg {

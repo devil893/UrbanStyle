@@ -28,6 +28,14 @@
     z-index: -1;
 }
 
+.dark-mode .new-collections::before {
+    background-image: 
+        linear-gradient(135deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+        linear-gradient(315deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%);
+}
+
 .new-collections h1{
     color: #171717;
     font-size: 50px;
@@ -38,6 +46,10 @@
     position: relative;
     display: inline-block;
     text-align: center;
+}
+
+.dark-mode .new-collections h1 {
+    color: var(--text-primary);
 }
 
 /* Add animation for heading - slight variation from Popular */
@@ -52,6 +64,10 @@
     background: linear-gradient(90deg, #4a90e2, #252525, #4a90e2);
 }
 
+.dark-mode .new-collections h1::after {
+    background: linear-gradient(90deg, #4a90e2, var(--text-primary), #4a90e2);
+}
+
 .new-collections hr{
     width: 200px;
     height: 4px;
@@ -59,6 +75,10 @@
     background: linear-gradient(90deg, transparent, #252525, transparent);
     margin: 1.5rem 0 2.5rem;
     border: none;
+}
+
+.dark-mode .new-collections hr {
+    background: linear-gradient(90deg, transparent, var(--text-primary), transparent);
 }
 
 .collections{
@@ -81,10 +101,19 @@
     position: relative;
 }
 
+.dark-mode .collections .item {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
 /* Unique hover effect different from Popular section */
 .collections .item:hover {
     transform: translateY(-5px) translateX(3px);
     box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .collections .item:hover {
+    box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .collections .item::after {
@@ -97,6 +126,10 @@
     background: linear-gradient(135deg, rgba(74, 144, 226, 0.05) 0%, rgba(255, 255, 255, 0) 50%);
     opacity: 0;
     transition: opacity 0.3s ease;
+}
+
+.dark-mode .collections .item::after {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.1) 0%, rgba(0, 0, 0, 0) 50%);
 }
 
 .collections .item:hover::after {
@@ -113,6 +146,10 @@
     padding: 1rem;
 }
 
+.dark-mode .collections .item img {
+    background-color: var(--bg-secondary);
+}
+
 .collections .item:hover img {
     transform: scale(1.03) rotate(1deg);
 }
@@ -126,10 +163,18 @@
     border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.dark-mode .collections .item-details {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .collections .item-name {
     font-weight: 500;
     color: #171717;
     transition: color 0.3s ease;
+}
+
+.dark-mode .collections .item-name {
+    color: var(--text-primary);
 }
 
 .collections .item:hover .item-name {
@@ -148,12 +193,20 @@
     position: relative;
 }
 
+.dark-mode .collections .item-price-new {
+    color: var(--text-primary);
+}
+
 
 
 .collections .item-price-old {
     color: #888;
     text-decoration: line-through;
     font-size: 0.9em;
+}
+
+.dark-mode .collections .item-price-old {
+    color: var(--text-secondary);
 }
 
 @media(max-width:1280px){

@@ -49,7 +49,7 @@
 .home-page {
   font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-color);
-  background-color: var(--white);
+  background-color: var(--bg-primary);
   overflow-x: hidden;
   position: relative;
 }
@@ -70,6 +70,18 @@
   opacity: 0.3;
   z-index: -2;
   pointer-events: none;
+}
+
+/* Dark mode styles for the home page background */
+.dark-mode .home-page {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+.dark-mode .home-page::before {
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
 }
 
 /* Coupon Banner Styles */
@@ -109,6 +121,36 @@
   animation: rotate 10s linear infinite;
   z-index: 1;
   pointer-events: none;
+}
+
+/* Dark mode styles for coupon banner */
+.dark-mode .coupon-content {
+  background: linear-gradient(45deg, #2a5380, #1e3a58);
+  box-shadow: var(--shadow-md);
+}
+
+.dark-mode .coupon-badge {
+  background-color: #ff6347;
+  box-shadow: 0 2px 10px rgba(255, 99, 71, 0.3);
+}
+
+.dark-mode .coupon-code {
+  background-color: var(--bg-secondary);
+  color: #4a90e2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .coupon-action button,
+.dark-mode .coupon-action .coupon-button {
+  background-color: var(--bg-secondary);
+  color: #4a90e2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .coupon-action button:hover,
+.dark-mode .coupon-action .coupon-button:hover {
+  background-color: #ff6347;
+  color: var(--text-primary);
 }
 
 .coupon-badge {
@@ -299,6 +341,11 @@
   z-index: 1;
 }
 
+.dark-mode .popular-section {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .popular-section::before {
   content: '';
   position: absolute;
@@ -311,6 +358,11 @@
   z-index: -1;
 }
 
+.dark-mode .popular-section::before {
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.05) 0%, transparent 100%);
+  opacity: 0.7;
+}
+
 /* Collections section specific styles */
 .collections-section {
   background-color: rgba(255, 255, 255, 0.7);
@@ -318,6 +370,11 @@
   position: relative;
   z-index: 1;
   margin-bottom: var(--space-xl);
+}
+
+.dark-mode .collections-section {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .collections-section::before {
@@ -330,6 +387,11 @@
   background: linear-gradient(45deg, transparent 0%, var(--accent-light) 100%);
   opacity: 0.5;
   z-index: -1;
+}
+
+.dark-mode .collections-section::before {
+  background: linear-gradient(45deg, transparent 0%, rgba(74, 144, 226, 0.05) 100%);
+  opacity: 0.7;
 }
 
 /* Section divider */
@@ -345,10 +407,18 @@
   opacity: 0;
 }
 
+.dark-mode .home-section::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
 /* Hover effects for sections */
 .home-section:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-md);
+}
+
+.dark-mode .home-section:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
 
 /* Page scroll animations */
@@ -385,9 +455,17 @@
   background: var(--light-gray);
 }
 
+.dark-mode ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
 ::-webkit-scrollbar-thumb {
   background: var(--medium-gray);
   border-radius: 5px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #444;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -25,6 +25,10 @@
     z-index: -1;
 }
 
+.dark-mode .trends-banner::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
 .trends-content {
     height: 100%;
     display: flex;

@@ -12,15 +12,27 @@
     gap: 30px;
 }
 
+.dark-mode .newsletter {
+    background: linear-gradient(180deg, rgba(50, 50, 50, 0.8) 0%, rgba(30, 30, 30, 0.6) 60%);
+}
+
 .newsletter h1{
     color: #454545;
     font-size: 50px;
     font-weight: 600;
 }
 
+.dark-mode .newsletter h1 {
+    color: var(--text-primary);
+}
+
 .newsletter p{
     color: #454545;
     font-size: 20px;
+}
+
+.dark-mode .newsletter p {
+    color: var(--text-secondary);
 }
 
 .newsletter div{
@@ -34,6 +46,11 @@
     border: 1px solid #e3e3e3;
 }
 
+.dark-mode .newsletter div {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
 .newsletter input{
     width: 500px;
     margin-left: 30px;
@@ -42,6 +59,11 @@
     color: #616161;
     font-family: Poppins;
     font-size: 16px;
+}
+
+.dark-mode .newsletter input {
+    color: var(--text-primary);
+    background-color: var(--card-bg);
 }
 
 .newsletter div button{
@@ -53,6 +75,15 @@
     color: #fff;
     font-size: 16px;
     cursor: pointer;
+}
+
+.dark-mode .newsletter div button {
+    background: #333;
+    color: white;
+}
+
+.dark-mode .newsletter div button:hover {
+    background: #444;
 }
 
 @media(max-width:1280px){

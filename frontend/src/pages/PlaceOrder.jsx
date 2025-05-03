@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './CSS/PlaceOrder.css';
 import { StoreContext } from "../context/StoreContext";
+import { DarkModeContext } from "../context/DarkModeContext";
 import { toast } from 'react-toastify';
 
 const PlaceOrder = () => {
@@ -15,6 +16,8 @@ const PlaceOrder = () => {
         getCouponDiscount,
         clearCoupon
     } = useContext(StoreContext);
+    
+    const { darkMode } = useContext(DarkModeContext);
     
     const token = localStorage.getItem('token');
     const backend_url = process.env.REACT_APP_API_URL;
@@ -89,7 +92,7 @@ const PlaceOrder = () => {
     }, [token, getTotalCartAmount, navigate]);
 
     return ( 
-        <form onSubmit={placeOrder} className="place-order">
+        <form onSubmit={placeOrder} className={`place-order ${darkMode ? 'dark-mode' : ''}`}>
             <div className="place-order-left card">
                 <p className="title">Delivery Information</p>
                 <div className="multi-fields">
