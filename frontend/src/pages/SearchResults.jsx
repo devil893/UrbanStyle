@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Item from "../components/Item/Item";
 import { StoreContext } from "../context/StoreContext";
+import { DarkModeContext } from "../context/DarkModeContext";
 import "./CSS/SearchResults.css";
 
 const SearchResults = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { all_product } = useContext(StoreContext);
+    const { darkMode } = useContext(DarkModeContext);
     const [searchResults, setSearchResults] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     
@@ -92,7 +94,7 @@ const SearchResults = () => {
     };
 
     return (
-        <div className="search-results-page">
+        <div className={`search-results-page ${darkMode ? 'dark-mode' : ''}`}>
             <div className="search-results-header">
                 <h1>Search Results for "{searchQuery}"</h1>
                 <p>{getFilteredResults().length} products found</p>

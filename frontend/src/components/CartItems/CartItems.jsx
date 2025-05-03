@@ -147,7 +147,10 @@ const CartItems = () => {
                         </div>
                     </div>
                     
-                    <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
+                    <button onClick={() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        navigate('/order');
+                    }}>PROCEED TO CHECKOUT</button>
                 </div>
             </div>
         </div>

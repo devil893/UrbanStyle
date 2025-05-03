@@ -224,3 +224,84 @@
         font-size: 14px;
     }
 }
+
+/* Dark Mode Styles */
+.dark-mode .search-results-page {
+    background-color: #1a1a1a;
+}
+
+.dark-mode .search-results-header h1 {
+    color: #ffffff;
+}
+
+.dark-mode .search-results-header p {
+    color: #e0e0e0;
+}
+
+.dark-mode .filter-sidebar {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+}
+
+.dark-mode .filter-section h3 {
+    color: #ffffff;
+}
+
+.dark-mode .filter-checkbox {
+    color: #e0e0e0;
+}
+
+.dark-mode .price-inputs label {
+    color: #e0e0e0;
+}
+
+.dark-mode .price-inputs input {
+    background-color: #1a1a1a;
+    border-color: #404040;
+    color: #ffffff;
+}
+
+.dark-mode .clear-filters {
+    background-color: #2d2d2d;
+    border-color: tomato;
+    color: #e0e0e0;
+}
+
+.dark-mode .clear-filters:hover {
+    background-color: #404040;
+    color: #ffffff;
+}
+
+.dark-mode .filter-toggle {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+.dark-mode .filter-toggle:hover {
+    background-color: #404040;
+}
+
+.dark-mode .no-results {
+    background-color: #2d2d2d;
+    border-color: #404040;
+}
+
+.dark-mode .no-results h2 {
+    color: #ffffff;
+}
+
+.dark-mode .no-results p {
+    color: #e0e0e0;
+}
+
+.dark-mode .no-results button {
+    background-color: #2d2d2d;
+    border-color: tomato;
+    color: #e0e0e0;
+}
+
+.dark-mode .no-results button:hover {
+    background-color: #404040;
+    color: #ffffff;
+}

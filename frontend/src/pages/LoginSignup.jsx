@@ -1,9 +1,11 @@
-import React,{useState} from "react";
+import React, {useState, useContext} from "react";
 import {toast} from "react-toastify";
 import './CSS/LoginSignup.css'
+import { DarkModeContext } from "../context/DarkModeContext";
 
 const LoginSignup = () => {
-
+    const { darkMode } = useContext(DarkModeContext);
+    
     const [state, setState] = useState("Login");
     const [formData, setFormData] = useState({
         name:"",
@@ -55,7 +57,7 @@ const LoginSignup = () => {
     }
 
     return (
-            <div className="loginsignup-container">
+            <div className={`loginsignup-container ${darkMode ? 'dark-mode' : ''}`}>
                 <h1>{state}</h1>
                 <div className="loginsignup-fields">
                     {state==='Sign Up'?<input name="name" value={formData.name} onChange={changeHandler} type="text" placeholder="Your Name"/>:<></>}
