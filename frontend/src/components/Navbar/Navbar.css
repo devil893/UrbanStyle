@@ -1,3 +1,22 @@
+/*shipping banner*/
+.shipping-banner {
+    width: 100%;
+    background-color: tomato;
+    color: white;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    z-index: 1001;
+    position: relative;
+}
+
+.shipping-banner p {
+    margin: 0;
+}
+
 /*navbar*/
 
 .navbar{
@@ -266,6 +285,10 @@
 
 
 @media(max-width:1280px){
+    .shipping-banner {
+        padding: 7px 0;
+        font-size: 15px;
+    }
     .navbar{
         padding: 12px 50px;
     }
@@ -297,6 +320,10 @@
 }
 
 @media(max-width:1024px){
+    .shipping-banner {
+        padding: 7px 0;
+        font-size: 14px;
+    }
     .navbar{
         padding: 12px 30px;
     }
@@ -321,6 +348,10 @@
 }
 
 @media(max-width:800px){
+    .shipping-banner {
+        padding: 6px 0;
+        font-size: 13px;
+    }
     .navbar{
         padding: 10px 0px;
     }
@@ -359,6 +390,10 @@
 }
 
 @media(max-width:500px){
+    .shipping-banner {
+        padding: 6px 0;
+        font-size: 12px;
+    }
     .navbar{
         padding: 8px 0px;
         gap: 0;

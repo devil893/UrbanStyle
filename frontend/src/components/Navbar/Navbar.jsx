@@ -80,7 +80,11 @@ const Navbar = () => {
     };
 
     return ( 
-        <div className='navbar'>
+        <>
+            <div className='shipping-banner'>
+                <p>Free Shipping Over Rs. 5000</p>
+            </div>
+            <div className='navbar'>
             <div className="nav-logo">
                 <p>Urban<span>Style</span></p>
             </div>
@@ -145,6 +149,7 @@ const Navbar = () => {
                 <div className="nav-cart-count">{getTotalCartItems()}</div>
             </div>
         </div>
+        </>
      );
 }
 
