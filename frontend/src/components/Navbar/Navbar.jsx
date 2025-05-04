@@ -5,6 +5,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 import { DarkModeContext } from '../../context/DarkModeContext';
 import hamburger from './../../assets/hamburger.png'
+import hamburgerWhite from './../../assets/hamburger.png' // Using same icon but will apply filter
 import profile_icon from './../../assets/profile_icon.png'
 
 const Navbar = () => {
@@ -16,9 +17,14 @@ const Navbar = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
+    const [showMobileSearch, setShowMobileSearch] = useState(false);
+    const [showSearchOverlay, setShowSearchOverlay] = useState(false);
 
-    const hamburger_toggle = (e) =>{
+    const hamburger_toggle = (e) => {
         menuRef.current.classList.toggle('nav-menu-visible');
+        // Close search if it's open
+        setShowMobileSearch(false);
+        setShowSearchOverlay(false);
     }
     
     // Add scroll to top function
@@ -53,16 +59,48 @@ const Navbar = () => {
     }, [searchTerm, all_product]);
     
     // Close search results when clicking outside
+    // Close search results when clicking outside
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (searchRef.current && !searchRef.current.contains(event.target)) {
-                setShowResults(false);
+        const handleClickOutsideSearch = (event) => {
+            // Only handle search-related clicks if the click wasn't on the menu
+            if (!event.target.closest('.nav-menu') && !event.target.closest('.nav-hamburger')) {
+                if (searchRef.current && !searchRef.current.contains(event.target)) {
+                    setShowResults(false);
+                    
+                    // Add mobile search handling
+                    // Only close if clicking outside search area and not clicking the search icon
+                    if (!event.target.closest('.mobile-search-icon') && 
+                        !event.target.closest('.search-input-container')) {
+                        setShowMobileSearch(false);
+                        setShowSearchOverlay(false);
+                        setSearchTerm('');
+                    }
+                }
             }
         };
         
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutsideSearch);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutsideSearch);
+        };
+    }, []);
+    
+    // Close hamburger menu when clicking outside
+    useEffect(() => {
+        const handleClickOutsideMenu = (event) => {
+            // Check if menu is visible and click is outside menu and hamburger button
+            if (
+                menuRef.current?.classList.contains('nav-menu-visible') && 
+                !menuRef.current.contains(event.target) && 
+                !event.target.closest('.nav-hamburger')
+            ) {
+                menuRef.current.classList.remove('nav-menu-visible');
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutsideMenu);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideMenu);
         };
     }, []);
     
@@ -71,6 +109,10 @@ const Navbar = () => {
         navigate(`/product/${productId}`);
         setSearchTerm("");
         setShowResults(false);
+        // Close both menus
+        menuRef.current.classList.remove('nav-menu-visible');
+        setShowMobileSearch(false);
+        setShowSearchOverlay(false);
     };
 
     // Handle search form submit
@@ -79,6 +121,10 @@ const Navbar = () => {
         if (searchTerm.trim() !== "") {
             navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
             setShowResults(false);
+            // Close both menus
+            menuRef.current.classList.remove('nav-menu-visible');
+            setShowMobileSearch(false);
+            setShowSearchOverlay(false);
         }
     };
 
@@ -88,6 +134,36 @@ const Navbar = () => {
             handleSearchSubmit(e);
         }
     };
+    
+    // Handler for menu item clicks
+    const handleMenuClick = (menuType) => {
+        setMenu(menuType);
+        scrollToTop();
+        // Close both menus
+        menuRef.current.classList.remove('nav-menu-visible');
+        setShowMobileSearch(false);
+        setShowSearchOverlay(false);
+    };
+    
+    // Toggle mobile search
+    const toggleMobileSearch = () => {
+        setShowMobileSearch(!showMobileSearch);
+        setShowSearchOverlay(!showMobileSearch);
+        if (!showMobileSearch) {
+            setSearchTerm('');
+            setShowResults(false);
+        }
+        // Close hamburger menu if it's open
+        menuRef.current.classList.remove('nav-menu-visible');
+    };
+    
+    // Handle overlay click
+    const handleOverlayClick = () => {
+        setShowMobileSearch(false);
+        setShowSearchOverlay(false);
+        setSearchTerm('');
+        setShowResults(false);
+    };
 
     return (
         <div className="header-wrapper">
@@ -95,59 +171,78 @@ const Navbar = () => {
                 <p>Free Shipping Over Rs. 5000</p>
             </div>
             <div className='navbar'>
-            <div className="nav-logo">
-                <Link to="/" style={{textDecoration: 'none'}}>
-                    <p>Urban<span>Style</span></p>
-                </Link>
-            </div>
-            
-            <img className="nav-hamburger" onClick={hamburger_toggle} src={hamburger} alt="" />
-            
-            <ul ref={menuRef} className="nav-menu">
-                <li onClick={()=>{setMenu("home"); scrollToTop();}}><Link style={{textDecoration: 'none'}} to="/" className={menu==="home"?"active":""}>Home</Link></li>
-                <li onClick={()=>{setMenu("polo"); scrollToTop();}}><Link style={{textDecoration: 'none'}} to="/polo" className={menu==="polo"?"active":""}>Polo</Link></li>
-                <li onClick={()=>{setMenu("tshirts"); scrollToTop();}}><Link style={{textDecoration: 'none'}} to="/tshirts" className={menu==="tshirts"?"active":""}>T-Shirts</Link></li>
-                <li onClick={()=>{setMenu("formalshirts"); scrollToTop();}}><Link style={{textDecoration: 'none'}} to="/formalshirts" className={menu==="formalshirts"?"active":""}>Formal Shirts</Link></li>
-            </ul>
-            
-            <div className="nav-search" ref={searchRef}>
-                <form onSubmit={handleSearchSubmit} className="search-input-container">
-                    <input 
-                        type="text" 
-                        placeholder="Search & press Enter..." 
-                        value={searchTerm}
-                        onChange={(e) => {
-                            setSearchTerm(e.target.value);
-                            setShowResults(true);
-                        }}
-                        onFocus={() => setShowResults(true)}
-                        onKeyPress={handleKeyPress}
-                    />
+                <div className="nav-logo">
+                    <Link to="/" style={{textDecoration: 'none'}}>
+                        <p>Urban<span>Style</span></p>
+                    </Link>
+                </div>
+                
+                <img className="nav-hamburger" onClick={hamburger_toggle} src={darkMode ? hamburgerWhite : hamburger} alt="menu" />
+                
+                <ul ref={menuRef} className="nav-menu">
+                    <li onClick={() => handleMenuClick("home")}>
+                        <Link style={{textDecoration: 'none'}} to="/" className={menu==="home"?"active":""}>Home</Link>
+                    </li>
+                    <li onClick={() => handleMenuClick("polo")}>
+                        <Link style={{textDecoration: 'none'}} to="/polo" className={menu==="polo"?"active":""}>Polo</Link>
+                    </li>
+                    <li onClick={() => handleMenuClick("tshirts")}>
+                        <Link style={{textDecoration: 'none'}} to="/tshirts" className={menu==="tshirts"?"active":""}>T-Shirts</Link>
+                    </li>
+                    <li onClick={() => handleMenuClick("formalshirts")}>
+                        <Link style={{textDecoration: 'none'}} to="/formalshirts" className={menu==="formalshirts"?"active":""}>Formal Shirts</Link>
+                    </li>
+                </ul>
+                <div className="nav-search" ref={searchRef}>
+                    {/* Mobile search icon */}
                     <div 
-                        className="search-icon" 
-                        onClick={handleSearchSubmit}
+                        className="mobile-search-icon" 
+                        onClick={toggleMobileSearch}
                         title="Search"
                     ></div>
-                </form>
+                    
+                    {/* Search overlay */}
+                    {showSearchOverlay && (
+                        <div className="search-overlay" onClick={handleOverlayClick}></div>
+                    )}
+                    
+                    <form onSubmit={handleSearchSubmit} className={`search-input-container ${showMobileSearch ? 'show-mobile' : ''}`}>
+                        <input 
+                            type="text" 
+                            placeholder="Search & press Enter..." 
+                            value={searchTerm}
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                                setShowResults(true);
+                            }}
+                            onFocus={() => setShowResults(true)}
+                            onKeyPress={handleKeyPress}
+                        />
+                        <div 
+                            className="search-icon" 
+                            onClick={handleSearchSubmit}
+                            title="Search"
+                        ></div>
+                    </form>
+                    
+                    {showResults && searchResults.length > 0 && (
+                        <ul className="search-results">
+                            {searchResults.map((item) => (
+                                <li 
+                                    key={item.id} 
+                                    onClick={() => handleProductClick(item.id)}
+                                >
+                                    <div className="search-result-item">
+                                        <img src={item.image} alt={item.name} className="search-result-image" />
+                                        <span className="search-result-name">{item.name}</span>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
                 
-                {showResults && searchResults.length > 0 && (
-                    <ul className="search-results">
-                        {searchResults.map((item) => (
-                            <li 
-                                key={item.id} 
-                                onClick={() => handleProductClick(item.id)}
-                            >
-                                <div className="search-result-item">
-                                    <img src={item.image} alt={item.name} className="search-result-image" />
-                                    <span className="search-result-name">{item.name}</span>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
-            
-            <div className="nav-login-cart">
+                <div className="nav-login-cart">
                 <div className="dark-mode-toggle" onClick={toggleDarkMode} title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
                     {darkMode ? (
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -178,8 +273,8 @@ const Navbar = () => {
                 </div>}
                 <Link to="/cart" onClick={scrollToTop}><img src={cart_icon} alt="" /></Link>
                 <div className="nav-cart-count">{getTotalCartItems()}</div>
+                </div>
             </div>
-        </div>
         </div>
      );
 }
