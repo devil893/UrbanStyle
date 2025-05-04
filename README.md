@@ -195,7 +195,7 @@ Use the following test card numbers with any future expiry date and any 3-digit 
 
 1. Register a new user and log in via the frontend.
 2. As an admin, log in to the admin panel.
-3. Add products, view/manage orders, and track performance.
+3. Add products and view/manage orders.
 4. Shop from the customer website and place test orders using Stripe.
 
 ---
