@@ -28,10 +28,16 @@
 }
 
 /* Main container */
-.review-management {
-    padding: 30px;
+.review-management-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    margin: 0;
     background-color: var(--bg-primary);
-    min-height: 80vh;
+    box-sizing: border-box;
+    position: relative;
 }
 
 .review-management h1 {
@@ -50,6 +56,11 @@
     margin-bottom: 30px;
     flex-wrap: wrap;
     gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--bg-primary);
+    padding-bottom: 15px;
 }
 
 .review-stats {
@@ -117,6 +128,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    overflow: visible;
 }
 
 .product-card {
@@ -192,6 +204,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    overflow: visible;
 }
 
 .review-item {
@@ -408,8 +421,8 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
-    .review-management {
-        padding: 20px;
+    .review-management-container {
+        padding: 15px;
     }
     
     .review-management-header {
@@ -445,8 +458,8 @@
 }
 
 @media (max-width: 480px) {
-    .review-management {
-        padding: 15px;
+    .review-management-container {
+        padding: 10px;
     }
     
     .product-card {
@@ -483,8 +496,8 @@
 /* Add these dark mode styles at the end of ReviewManagement.css */
 
 /* Dark mode styles */
-.dark-mode.review-management,
-.dark-mode .review-management {
+.dark-mode.review-management-container,
+.dark-mode .review-management-container {
     background-color: var(--bg-primary);
     color: var(--text-primary);
 }

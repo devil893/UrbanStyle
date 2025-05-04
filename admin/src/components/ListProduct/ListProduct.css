@@ -1,3 +1,31 @@
+/* Add CSS variables at the top of the file */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --input-bg: #f9f9f9;
+    --accent-color: #ff6b6b;
+    --bg-hover: #e2e2e2;
+}
+
+/* Dark mode variables */
+.dark-mode {
+    --bg-primary: #000000;
+    --bg-secondary: #1a1a1a;
+    --card-bg: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --border-color: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --input-bg: #1a1a1a;
+    --accent-color: #ff6b6b;
+    --bg-hover: #2d2d2d;
+}
+
 /* Add specific h1 styles to fix spacing */
 .list-product h1 {
     margin: 0;
@@ -11,25 +39,24 @@
     flex-direction: column;
     align-items: stretch; /* Changed from center */
     width: 100%;
-    height: auto; /* Changed from 100vh */
+    height: 100%;
     padding: 20px;  /* Add padding around the container */
     margin: 0;    /* Removed margin */
     border-radius: 0; /* Remove border radius since it's using full width/height */
-    background: #fff;
+    background: var(--bg-primary);
     box-sizing: border-box; /* Ensure padding is included in width/height */
-    overflow: visible; /* Changed from hidden to allow natural content flow */
+    position: relative;
 }
 
 .listproduct-allproducts{
     width: 100%;
-    overflow-y: visible; /* Changed from auto to allow natural content flow */
+    overflow: visible; /* Ensure no nested scrollbar */
     padding: 0; /* Ensure no padding */
     margin: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     background: inherit;
-    flex: 0 1 auto; /* Don't force grow, allow shrink, auto basis */
 }
 
 /* Style hr elements to minimize their impact */
@@ -56,6 +83,9 @@
     font-size: 15px;
     font-weight: 600;
     background: inherit;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .listproduct-format{
@@ -189,20 +219,20 @@
     filter: invert(1) brightness(1);
 }
 
-/* Scrollbar customization for dark mode */
-.dark-mode .listproduct-allproducts::-webkit-scrollbar {
+/* Scrollbar customization for dark mode - now applied to the body */
+.dark-mode::-webkit-scrollbar {
     width: 8px;
 }
 
-.dark-mode .listproduct-allproducts::-webkit-scrollbar-track {
+.dark-mode::-webkit-scrollbar-track {
     background: #000000;
 }
 
-.dark-mode .listproduct-allproducts::-webkit-scrollbar-thumb {
+.dark-mode::-webkit-scrollbar-thumb {
     background: #333;
     border-radius: 4px;
 }
 
-.dark-mode .listproduct-allproducts::-webkit-scrollbar-thumb:hover {
+.dark-mode::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
