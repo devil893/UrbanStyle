@@ -10,12 +10,12 @@ Developed by:
 UrbanStyle offers a seamless and engaging shopping experience tailored exclusively for **men’s fashion**, focusing on premium shirt categories like **Polo Shirts**, **T-Shirts**, and **Formal Shirts**.
 
 ## 🔑 Key Highlights
-- 🎯 Role-based access for **Customers** and **Sellers**
+- 🎯 Role-based access for **Customers** and **Admin**
 - 🧭 Intuitive and responsive **user interface** for smooth navigation
 - 🔍 Advanced **search and filtering** features for quick product discovery
 - 🛒 Interactive **product display** with reviews, ratings, and high-resolution images
 - 📦 Complete **cart and checkout system** with **Stripe** integration for secure payments
-- 🚚 **Order tracking** and **real-time notifications**
+- 🚚 **Order tracking** and **notifications**
 - 💸 **Coupons & discount codes** for promotional offers
 - 🏬 **Local store info** and **social media links** for extended reach
 - ❓ **FAQ section** to assist users with common queries
