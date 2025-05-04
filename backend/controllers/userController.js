@@ -17,9 +17,10 @@ exports.signupUser = async (req, res,next) => {
     if (!validator.isEmail(email)) {
       return next(errorHandler(400, "Email is not valid!"));
     }
-    if (!validator.isStrongPassword(password)) {
-      return next(errorHandler(400, "Please use a strong password!"));
-    }
+    // Remove the strong password validation
+    // if (!validator.isStrongPassword(password)) {
+    //   return next(errorHandler(400, "Please use a strong password!"));
+    // }
 
     let existingUser = await User.findOne({ email });
     if (existingUser) {
