@@ -120,22 +120,13 @@
     gap: 5px;
 }
 
-.order-id {
-    font-weight: 600;
-    font-size: 16px;
-    color: #333;
+.order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.order-date {
-    color: #777;
-    font-size: 14px;
-}
-
-.order-amount {
-    font-size: 22px;
-    font-weight: 700;
-    color: #333;
-}
+/* Removed order-date styles */
 
 /* Customer Info */
 .order-customer {
