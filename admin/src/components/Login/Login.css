@@ -1,108 +1,155 @@
-.login-popup{
-    width: 70%;
-    margin-left: max(5vw,25px);
-    margin-top: 50px;
-    display: grid; 
+/* Global box sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
 }
-.login-popup-container{
-    place-self: start center;
-    width:max(23vw,330px);
-    color: #808080;
-    background-color: white;
+
+/* Main container */
+.login-popup {
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    gap: 25px;
-    padding: 25px 30px;
-    border-radius: 8px;
-    font-size: 14px;
-    animation: fadeIn 0.5s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    padding: 20px;
 }
-.login-popup-title{
-    color: black;
+
+/* Login container */
+.login-popup-container {
+    width: 100%;
+    max-width: 400px; /* Increased width */
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05), 
+                0 12px 20px rgba(0, 0, 0, 0.08);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Gradient border */
+.login-popup-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #ff6b6b, #ff8c8c);
+}
+
+/* Title styling */
+.login-popup-title {
+    color: #2d3436;
+    font-size: 26px;
+    font-weight: 700;
     text-align: center;
+    margin-bottom: 24px;
 }
-.login-popup-inputs{
+
+/* Input container */
+.login-popup-inputs {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+    margin-bottom: 24px;
 }
-.login-popup-inputs input{
+
+/* Input styling */
+.login-popup-inputs input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    background: #f8f9fa;
     outline: none;
-    border: 1px solid #c9c9c9;
-    padding: 10px;
-    border-radius: 4px;
+    transition: all 0.2s ease;
 }
-.login-popup-container button{
+
+.login-popup-inputs input:focus {
+    border-color: #ff6b6b;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+}
+
+/* Button styling */
+.login-popup-container button {
+    width: 100%;
+    padding: 16px;
     border: none;
-    padding: 10px;
-    border-radius: 4px;
+    border-radius: 12px;
+    background: #ff6b6b;
     color: white;
-    background-color: tomato;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.2s ease;
 }
 
 .login-popup-container button:hover {
-    background-color: #ff3814;
+    background: #ff5252;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(255, 107, 107, 0.2);
+}
+
+.login-popup-container button:active {
+    transform: translateY(1px);
 }
 
 .login-popup-container button:disabled {
-    background-color: #ffaa9a;
+    background: #ffcdd2;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
+/* Loading button state */
 .login-popup-container button.loading {
     position: relative;
-    padding-left: 40px;
+    color: transparent;
 }
 
-.login-popup-container button.loading::before {
-    content: "";
+.login-popup-container button.loading::after {
+    content: '';
     position: absolute;
-    left: 15px;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
-    width: 15px;
-    height: 15px;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
     border: 2px solid white;
     border-radius: 50%;
     border-top-color: transparent;
-    animation: spin 1s linear infinite;
+    animation: spin 0.8s linear infinite;
 }
 
-.login-info {
-    text-align: center;
-    font-size: 12px;
-    color: #888;
-    margin-top: -10px;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes spin {
-    0% { transform: translateY(-50%) rotate(0deg); }
-    100% { transform: translateY(-50%) rotate(360deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-@media (max-width:650px) {
-    .login-popup{
-        height: 100%;
-        margin: 50px auto;
-    }
-    .login-popup-container{
-        width: 100%;
-        padding: 25px 10px;
-    }
-    .login-popup-title{
-        justify-content: center;
+/* Mobile view */
+@media (max-width: 400px) {
+    .login-popup-container {
+        padding: 24px;
     }
 }
 
-/* Dark Mode Styles */
+/* Dark mode */
+.dark-mode .login-popup {
+    background-color: #000000;
+}
+
 .dark-mode .login-popup-container {
-    background-color: #1e1e1e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    color: #b0b0b0;
+    background-color: #111111;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
+                0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 .dark-mode .login-popup-title {
@@ -110,39 +157,17 @@
 }
 
 .dark-mode .login-popup-inputs input {
-    background-color: #2d2d2d;
-    border: 1px solid #404040;
-    color: #e0e0e0;
-}
-
-.dark-mode .login-popup-inputs input:focus {
-    border-color: tomato;
-    background-color: #333333;
-}
-
-.dark-mode .login-popup-inputs input::placeholder {
-    color: #808080;
-}
-
-.dark-mode .login-popup-container button {
-    background-color: tomato;
+    background-color: #1a1a1a;
+    border-color: #333;
     color: #ffffff;
 }
 
-.dark-mode .login-popup-container button:hover {
-    background-color: #ff3814;
+.dark-mode .login-popup-inputs input:focus {
+    border-color: #ff6b6b;
+    background-color: #1a1a1a;
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
 }
 
-.dark-mode .login-popup-container button:disabled {
-    background-color: #ffaa9a;
-}
-
-.dark-mode .login-info {
-    color: #808080;
-}
-
-/* Dark mode loading animation */
-.dark-mode .login-popup-container button.loading::before {
-    border: 2px solid #ffffff;
-    border-top-color: transparent;
+.dark-mode .login-popup-inputs input::placeholder {
+    color: #888;
 }

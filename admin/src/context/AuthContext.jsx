@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+import customToast from '../utils/toastUtils';
 
 // Create the authentication context
 export const AuthContext = createContext();
@@ -59,19 +59,19 @@ export const AuthProvider = ({ children }) => {
           setIsAdmin(true);
           setIsAuthenticated(true);
           
-          toast.success("You're logged in as admin");
+          customToast.success("You're logged in as admin");
           return true;
         } else {
-          toast.error("You don't have admin privileges");
+          customToast.error("You don't have admin privileges");
           return false;
         }
       } else {
-        toast.error(data.error || "Login failed");
+        customToast.error(data.error || "Login failed");
         return false;
       }
     } catch (error) {
       console.error("Login error:", error);
-      toast.error("An error occurred during login");
+      customToast.error("An error occurred during login");
       return false;
     }
   };
@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }) => {
     setIsAdmin(false);
     setIsAuthenticated(false);
     
-    toast.info("You've been logged out");
+    customToast.info("You've been logged out");
   };
 
   // Create the value object that will be passed to consumers

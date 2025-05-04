@@ -199,11 +199,6 @@
     stroke: white !important;
 }
 
-/* Fix for images in dark mode */
-.dark-mode .nav-profile {
-    filter: brightness(0) invert(1);
-}
-
 .loading-dot {
     width: 20px;
     height: 20px;

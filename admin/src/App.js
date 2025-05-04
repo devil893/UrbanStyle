@@ -11,12 +11,29 @@ import ReviewManagement from "./components/ReviewManagement/ReviewManagement";
 import AdminMessages from "./components/AdminMessages/AdminMessages";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
+import { useContext } from 'react';
+import { DarkModeContext } from './context/DarkModeContext';
 
 function App() {
+  // Get the dark mode state from context
+  const { darkMode } = useContext(DarkModeContext);
+  
   return (
-    <AuthProvider>
-      <div className="app">
-        <ToastContainer />
+    <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={darkMode ? "dark" : "light"}
+          toastClassName={darkMode ? 'Toastify__toast--dark' : 'Toastify__toast--light'}
+          limit={3}
+        />
         <Navbar />
         <Routes>
           {/* Public route - Login */}
@@ -36,8 +53,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-    </AuthProvider>
-  );
+    );
 }
 
 export default App;

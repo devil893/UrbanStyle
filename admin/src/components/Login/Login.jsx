@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { DarkModeContext } from "../../context/DarkModeContext";
 
-
 const Login = () => {
     const navigate = useNavigate();
     const { isAuthenticated, isAdmin, login } = useAuth();
@@ -15,20 +14,18 @@ const Login = () => {
         email: "",
         password: "",
     });
-    
+
     const onChangeHandler = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    
+
     const onLogin = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        
+
         try {
             const success = await login(formData.email, formData.password);
-            
             if (success) {
-                // Login successful - navigation will happen in useEffect
                 setFormData({ email: "", password: "" });
             }
         } catch (error) {
@@ -38,17 +35,17 @@ const Login = () => {
             setIsLoading(false);
         }
     };
-    
-    // Redirect to admin dashboard if already authenticated
+
     useEffect(() => {
         if (isAuthenticated && isAdmin) {
             navigate("/addproduct");
         }
     }, [isAuthenticated, isAdmin, navigate]);
+
     return (
-        <div className={`login-container ${darkMode ? 'dark-mode' : ''}`}>
-            <form onSubmit={onLogin} className="login-card">
-                <h2 className="login-title">Admin Login</h2>
+        <div className={`login-popup ${darkMode ? 'dark-mode' : ''}`}>
+            <form onSubmit={onLogin} className="login-popup-container">
+                <h2 className="login-popup-title">Admin Login</h2>
                 <div className="login-popup-inputs">
                     <input
                         name="email"
@@ -76,9 +73,6 @@ const Login = () => {
                 >
                     {isLoading ? "Logging in..." : "Login"}
                 </button>
-                <div className="login-info">
-                    <p>Only admin users can access this panel</p>
-                </div>
             </form>
         </div>
     );
