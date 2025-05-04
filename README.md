@@ -1,7 +1,26 @@
 
 # 🛍️ UrbanStyle – E-Commerce Web Application
 
-UrbanStyle is a full-featured E-Commerce web application built with the **MERN stack** (MongoDB, Express.js, React, Node.js). It provides a modern, responsive shopping experience focused on shirts, including categories like **Polo**, **T-Shirts**, and **Formal Shirts**.
+**UrbanStyle** is a full-featured e-commerce web application built using the **MERN stack** (MongoDB, Express.js, React, Node.js).
+
+Developed by:
+- **Muhammad Hassan Khalid (21L-5692)**
+- **Muhammad Hamza (21L-5636)**
+
+UrbanStyle offers a seamless and engaging shopping experience tailored exclusively for **men’s fashion**, focusing on premium shirt categories like **Polo Shirts**, **T-Shirts**, and **Formal Shirts**.
+
+## 🔑 Key Highlights
+- 🎯 Role-based access for **Customers** and **Sellers**
+- 🧭 Intuitive and responsive **user interface** for smooth navigation
+- 🔍 Advanced **search and filtering** features for quick product discovery
+- 🛒 Interactive **product display** with reviews, ratings, and high-resolution images
+- 📦 Complete **cart and checkout system** with **Stripe** integration for secure payments
+- 🚚 **Order tracking** and **real-time notifications**
+- 💸 **Coupons & discount codes** for promotional offers
+- 🏬 **Local store info** and **social media links** for extended reach
+- ❓ **FAQ section** to assist users with common queries
+
+UrbanStyle combines clean design with robust functionality to provide a modern and scalable online shopping solution.
 
 ---
 
@@ -178,11 +197,5 @@ Use the following test card numbers with any future expiry date and any 3-digit 
 2. As an admin, log in to the admin panel.
 3. Add products, view/manage orders, and track performance.
 4. Shop from the customer website and place test orders using Stripe.
-
----
-
-## 🛠️ Support
-
-Have an issue or suggestion? [Open an issue](https://github.com/devil893/UrbanStyle/issues) in the repository.
 
 ---
