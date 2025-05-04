@@ -1,77 +1,190 @@
-## UrbanStyle
 
-## Overview 
-UrbanStyle is an E-Commerce web application developed using MERN stack. It designed to provide a seamless and intuitive online shopping experience for shirts, featuring categories like Polo, T-Shirts, and Formal Shirts.
+# 🛍️ UrbanStyle – E-Commerce Web Application
 
-## Features ⚙️
-- <b>User Authentication:</b> Secure user registration and login using JWT authentication.
-- <b>Admin Panel:</b> The platform includes comprehensive features for both users and administrators, ensuring efficient ordering and management processes.
-- <b>Secure Payment:</b>  Integrated with Stripe, the platform ensures secure and swift payment processing. 
-- <b>Responsive Design:</b> The application is designed to be fully responsive, ensuring a seamless experience across all devices. 
+UrbanStyle is a full-featured E-Commerce web application built with the **MERN stack** (MongoDB, Express.js, React, Node.js). It provides a modern, responsive shopping experience focused on shirts, including categories like **Polo**, **T-Shirts**, and **Formal Shirts**.
 
-## Tech Stack 🛠️
-- MongoDB Atlas
-- ExpressJS
-- React
-- NodeJS
-- Mongoose
+---
 
-## How to run the project 🎮
+## 🚀 Overview
 
-Before running the project, ensure you have the following installed:
-- Node.js (https://nodejs.org/)
-- You can either install MongoDB locally in your system (https://www.mongodb.com/) or you can use cloud based MongoDB Atlas Database (https://www.mongodb.com/products/platform/atlas-database).
+UrbanStyle includes three main components:
+1. **Frontend (Customer Website)** – for browsing and shopping
+2. **Admin Panel** – for managing products, orders, and users
+3. **Backend Server** – handles authentication, APIs, payment, and database interactions
 
-### 1. Clone the repository
+---
 
-    git clone https://github.com/devil893/UrbanStyle
-    
-### 2. Install all dependencies
+## ⚙️ Features
 
-    cd e-commerce-website
-    cd backend
-    npm install
-    cd ../frontend
-    npm install
-    cd ../admin
-    npm install
-    
-### 3. Configure evironment variables:
-  1. Backend:
-    create a .env file and add the following:
+### Customer Website
+- 🔐 User Authentication (JWT)
+- 🛒 Product browsing, search, cart, and order placement
+- 💳 Secure Stripe Payment Integration
+- 📦 Order tracking and management
+- 📱 Fully Responsive Design
 
-    PORT = 4000
-    MONGODB_URI = <your-mongodb-connection-string>
-    SECRET_KEY = <your-jwt-secret-key>
-    STRIPE_SECRET_KEY = <your-stripe-secret-key>
-    FRONTEND_URL = http://localhost:3000
-    BACKEND_URL = http://localhost:4000
+### Admin Panel
+- 🛍️ Product Management (Add/Edit/Delete)
+- 📦 Order Management
+- ⭐ Review Moderation
+- 🎟️ Coupon Management
+- 📊 Sales Analytics
 
-  3. Frontend:
-    create a .env file and add the following:
+---
 
-    REACT_APP_API_URL = http://localhost:4000
+## 🛠️ Tech Stack
 
-  3. Admin:
-    create a .env file and add the following:
+- **Frontend**: React, Tailwind CSS
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB Atlas, Mongoose
+- **Authentication**: JWT
+- **Image Uploads**: Cloudinary
+- **Payments**: Stripe API
 
-    REACT_APP_API_URL = http://localhost:4000
-    
-### 3. Run the application locally
-First run the server on a terminal (make sure you are in backend folder)
-    
-    npm run dev
-    
-Open new terminal and run the frontend
+---
 
-    cd frontend
-    npm start
-    
-Open new terminal and run admin panel
+## 📦 Prerequisites
 
-    cd admin
-    npm start
-    
-## Usage
-- Create a new user account and log in.
-- Add products through admin panel.
+- Node.js (v14 or higher) – [Download](https://nodejs.org/)
+- MongoDB (local or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+- Git
+- npm or yarn
+
+---
+
+## 📁 Directory Structure
+
+```
+urbanstyle/
+├── backend/   # Express.js backend server
+├── frontend/  # Customer-facing React website
+└── admin/     # Admin dashboard
+```
+
+---
+
+## 🔧 Project Setup
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/devil893/UrbanStyle
+cd UrbanStyle
+```
+
+### 2️⃣ Install Dependencies
+
+**Backend:**
+```bash
+cd backend
+npm install
+```
+
+**Frontend:**
+```bash
+cd ../frontend
+npm install
+```
+
+**Admin:**
+```bash
+cd ../admin
+npm install
+```
+
+---
+
+## 🔐 Environment Variables Setup
+
+### 🔙 Backend (`backend/.env`)
+```env
+PORT=4000
+MONGODB_URI=your_mongodb_connection_string
+SECRET_KEY=your_jwt_secret_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:4000
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_SECRET_KEY=your_cloudinary_secret_key
+```
+
+### 🌐 Frontend (`frontend/.env`)
+```env
+REACT_APP_API_URL=http://localhost:4000
+```
+
+### 🛠️ Admin Panel (`admin/.env`)
+```env
+PORT=3001
+REACT_APP_API_URL=http://localhost:4000
+```
+
+---
+
+## ▶️ Run the Application Locally
+
+### Step 1: Start Backend Server
+```bash
+cd backend
+npm run dev
+```
+
+### Step 2: Start Frontend Website
+Open a new terminal:
+```bash
+cd frontend
+npm start
+```
+
+### Step 3: Start Admin Panel
+Open another terminal:
+```bash
+cd admin
+npm start
+```
+
+---
+
+## 🧪 Test Accounts
+
+- **Admin Login**
+  - Email: `admin@gmail.com`
+  - Password: `admin123`
+
+---
+
+## 💳 Payment Testing (Stripe)
+
+Use the following test card numbers with any future expiry date and any 3-digit CVC:
+
+- ✅ **Successful Payment**: `4242 4242 4242 4242`
+- ❌ **Declined Card**: `4000 0000 0000 0002`
+- ❌ **Insufficient Funds**: `4000 0000 0000 9995`
+- ❌ **Expired Card**: `4000 0000 0000 0069`
+- ❌ **Processing Error**: `4000 0000 0000 0119`
+
+---
+
+## 📌 Important Notes
+
+1. Ensure MongoDB is running or MongoDB Atlas is correctly configured.
+2. The backend server **must be running** for frontend and admin to work.
+3. Create a **Cloudinary** account and use your credentials in `.env`.
+4. Set up a **Stripe** account and use the secret key in the backend `.env`.
+
+---
+
+## 👨‍💻 Usage Guide
+
+1. Register a new user and log in via the frontend.
+2. As an admin, log in to the admin panel.
+3. Add products, view/manage orders, and track performance.
+4. Shop from the customer website and place test orders using Stripe.
+
+---
+
+## 🛠️ Support
+
+Have an issue or suggestion? [Open an issue](https://github.com/devil893/UrbanStyle/issues) in the repository.
+
+---
