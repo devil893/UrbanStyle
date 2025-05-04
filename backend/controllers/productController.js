@@ -322,7 +322,7 @@ exports.deleteReview = async (req, res, next) => {
   try {
     const { productId, reviewId } = req.params;
     
-    console.log(`Admin attempting to delete review ${reviewId} from product ${productId}`);
+    console.log(`Deleting review ${reviewId} from product ${productId}`);
     
     // Convert product ID to number for consistency
     const numericProductId = Number(productId);
@@ -336,6 +336,10 @@ exports.deleteReview = async (req, res, next) => {
         message: `No product found with ID ${productId}`
       });
     }
+    
+    console.log('Current product state:');
+    console.log('Average rating:', product.averageRating);
+    console.log('Number of reviews:', product.numReviews);
     
     // Check if the review exists
     const reviewIndex = product.reviews.findIndex(
@@ -358,23 +362,33 @@ exports.deleteReview = async (req, res, next) => {
       createdAt: product.reviews[reviewIndex].createdAt
     };
     
+    console.log('Removing review:', deletedReview);
+    
     // Remove the review
     product.reviews.splice(reviewIndex, 1);
     
-    // Save the product (pre-save hook will handle ratings recalculation)
+    // Save the product and wait for the operation to complete
+    console.log('Saving product...');
     await product.save();
+    
+    // Verify the update by fetching the fresh product from database
+    const updatedProduct = await Product.findOne({ id: numericProductId });
+    console.log('Updated product state:');
+    console.log('New average rating:', updatedProduct.averageRating);
+    console.log('New number of reviews:', updatedProduct.numReviews);
     
     res.status(200).json({
       message: "Review deleted successfully",
       deletedReview,
       product: {
-        id: product.id,
-        name: product.name,
-        averageRating: product.averageRating,
-        numReviews: product.numReviews
+        id: updatedProduct.id,
+        name: updatedProduct.name,
+        averageRating: updatedProduct.averageRating,
+        numReviews: updatedProduct.numReviews
       }
     });
   } catch (err) {
+    console.error('Error in deleteReview:', err);
     next(err);
   }
 };
