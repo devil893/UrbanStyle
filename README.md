@@ -21,14 +21,12 @@ UrbanStyle includes three main components:
 - 🛒 Product browsing, search, cart, and order placement
 - 💳 Secure Stripe Payment Integration
 - 📦 Order tracking and management
-- 📱 Fully Responsive Design
 
 ### Admin Panel
 - 🛍️ Product Management (Add/Edit/Delete)
 - 📦 Order Management
 - ⭐ Review Moderation
 - 🎟️ Coupon Management
-- 📊 Sales Analytics
 
 ---
 
