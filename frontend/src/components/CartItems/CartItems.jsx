@@ -4,6 +4,7 @@ import './CartItems.css';
 import { StoreContext } from "../../context/StoreContext";
 import { DarkModeContext } from "../../context/DarkModeContext";
 import bin from './../../assets/recycle-bin.png';
+import { toast } from "react-toastify";
 
 const CartItems = () => {
     const {
@@ -149,7 +150,12 @@ const CartItems = () => {
                     
                     <button onClick={() => {
                         window.scrollTo({ top: 0, behavior: 'smooth' });
-                        navigate('/order');
+                        const token = localStorage.getItem('token');
+                        if (token) {
+                            navigate('/order');
+                        } else {
+                            toast.warning("Please login first to proceed to checkout");
+                        }
                     }}>PROCEED TO CHECKOUT</button>
                 </div>
             </div>
